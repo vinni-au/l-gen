@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>622</width>
+    <height>475</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>L-Gen 2.0</string>
+  </property>
+  <property name="locale">
+   <locale language="Russian" country="RussianFederation"/>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QHBoxLayout" name="horizontalLayout_3">
+    <item>
+     <widget class="QMdiArea" name="mdiArea">
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAsNeeded</enum>
+      </property>
+      <property name="horizontalScrollBarPolicy">
+       <enum>Qt::ScrollBarAsNeeded</enum>
+      </property>
+      <property name="background">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>118</red>
+         <green>116</green>
+         <blue>115</blue>
+        </color>
+       </brush>
+      </property>
+      <property name="viewMode">
+       <enum>QMdiArea::SubWindowView</enum>
+      </property>
+      <property name="documentMode">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="m_menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>622</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_File">
+    <property name="title">
+     <string>&amp;Файл</string>
+    </property>
+    <addaction name="act_Exit"/>
+   </widget>
+   <widget class="QMenu" name="menu_Help">
+    <property name="title">
+     <string>&amp;Справка</string>
+    </property>
+    <addaction name="act_Help"/>
+    <addaction name="separator"/>
+    <addaction name="act_AboutQt"/>
+    <addaction name="act_About"/>
+   </widget>
+   <widget class="QMenu" name="menu_Project">
+    <property name="title">
+     <string>&amp;Проект</string>
+    </property>
+    <addaction name="act_ProjectNew"/>
+    <addaction name="act_ProjectOpen"/>
+    <addaction name="act_ProjectSave"/>
+    <addaction name="act_ProjectSaveAs"/>
+    <addaction name="separator"/>
+    <addaction name="act_ProjectClose"/>
+   </widget>
+   <addaction name="menu_File"/>
+   <addaction name="menu_Project"/>
+   <addaction name="menu_Help"/>
+  </widget>
+  <widget class="QStatusBar" name="m_statusBar"/>
+  <widget class="QDockWidget" name="m_projectDockWidget">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>150</width>
+     <height>112</height>
+    </size>
+   </property>
+   <property name="floating">
+    <bool>false</bool>
+   </property>
+   <property name="features">
+    <set>QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable</set>
+   </property>
+   <property name="allowedAreas">
+    <set>Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea</set>
+   </property>
+   <property name="windowTitle">
+    <string>Проект</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <property name="margin">
+      <number>0</number>
+     </property>
+     <item>
+      <widget class="QTreeView" name="treeView"/>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <action name="act_About">
+   <property name="text">
+    <string>&amp;О программе...</string>
+   </property>
+   <property name="statusTip">
+    <string>Информация о текущей версии и авторах программы</string>
+   </property>
+  </action>
+  <action name="act_Exit">
+   <property name="text">
+    <string>Выход</string>
+   </property>
+   <property name="statusTip">
+    <string>Завершение работы программы</string>
+   </property>
+  </action>
+  <action name="act_AboutQt">
+   <property name="text">
+    <string>О Qt...</string>
+   </property>
+   <property name="statusTip">
+    <string>Показать информацию о версии Qt, с помощью которой была собрана программа</string>
+   </property>
+  </action>
+  <action name="act_Help">
+   <property name="text">
+    <string>Помощь</string>
+   </property>
+   <property name="statusTip">
+    <string>Открыть помощь</string>
+   </property>
+  </action>
+  <action name="act_ProjectNew">
+   <property name="text">
+    <string>&amp;Новый...</string>
+   </property>
+   <property name="statusTip">
+    <string>Создать новый проект</string>
+   </property>
+  </action>
+  <action name="act_ProjectSave">
+   <property name="text">
+    <string>&amp;Сохранить</string>
+   </property>
+   <property name="statusTip">
+    <string>Сохранить проект</string>
+   </property>
+  </action>
+  <action name="act_ProjectSaveAs">
+   <property name="text">
+    <string>Сохранить &amp;как...</string>
+   </property>
+   <property name="statusTip">
+    <string>Сохранить проект под новым именем</string>
+   </property>
+  </action>
+  <action name="act_ProjectOpen">
+   <property name="text">
+    <string>&amp;Открыть...</string>
+   </property>
+   <property name="statusTip">
+    <string>Открыть проект</string>
+   </property>
+  </action>
+  <action name="act_ProjectClose">
+   <property name="text">
+    <string>&amp;Закрыть</string>
+   </property>
+   <property name="statusTip">
+    <string>Закрыть проект</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>
