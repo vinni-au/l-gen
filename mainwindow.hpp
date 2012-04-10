@@ -8,6 +8,7 @@
 #include "LGen2UI/ontologywidget.hpp"
 #include "LGen2UI/newprojectdialog.hpp"
 #include "LGen2UI/resultwidget.hpp"
+#include "LGen2UI/ontologyeditorwindow.hpp"
 #include "LGen2Core/lgen2project.hpp"
 #include "LGen2MVC/lontologymodel.hpp"
 
@@ -36,12 +37,18 @@ private slots:
     void on_act_AboutQt_triggered();
     void on_act_ProjectNew_triggered();
 
+    void on_act_ShowProjectTree_triggered(bool checked);
+
+    void on_act_ShowOntoEditor_triggered(bool checked);
+
 private:
     Ui::MainWindow *ui;
 
     OntologyWidget* m_domainOntologyWidget;
     OntologyWidget* m_temlateOntologyWidget;
     ResultWidget* m_resultWidget;
+
+    OntologyEditorWindow* m_ontologyWindow;
 
     LOntologyModel* m_templateModel;
     LOntologyModel* m_domainModel;

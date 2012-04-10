@@ -83,8 +83,17 @@
     <addaction name="separator"/>
     <addaction name="act_ProjectClose"/>
    </widget>
+   <widget class="QMenu" name="menu_View">
+    <property name="title">
+     <string>Вид</string>
+    </property>
+    <addaction name="act_ShowProjectTree"/>
+    <addaction name="act_ShowOntoEditor"/>
+    <addaction name="act_ShowGenerator"/>
+   </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_Project"/>
+   <addaction name="menu_View"/>
    <addaction name="menu_Help"/>
   </widget>
   <widget class="QStatusBar" name="m_statusBar"/>
@@ -194,6 +203,30 @@
    </property>
    <property name="statusTip">
     <string>Закрыть проект</string>
+   </property>
+  </action>
+  <action name="act_ShowOntoEditor">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Редактор онтологий</string>
+   </property>
+  </action>
+  <action name="act_ShowProjectTree">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Дерево проекта</string>
+   </property>
+  </action>
+  <action name="act_ShowGenerator">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Мастер генерации</string>
    </property>
   </action>
  </widget>

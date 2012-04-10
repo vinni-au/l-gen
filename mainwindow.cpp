@@ -13,6 +13,8 @@ MainWindow::MainWindow(QWidget *parent) :
     m_temlateOntologyWidget = new OntologyWidget;
     m_resultWidget = new ResultWidget(this);
 
+    m_ontologyWindow = new OntologyEditorWindow;
+
     m_domainModel = new LOntologyModel;
     m_templateModel = new LOntologyModel;
 
@@ -74,6 +76,16 @@ void MainWindow::on_act_ProjectNew_triggered()
         for (int i = 0; i < subWindows.count(); ++i)
             subWindows.at(i)->show();
     }
+}
+
+void MainWindow::on_act_ShowProjectTree_triggered(bool checked)
+{
+    ui->m_projectDockWidget->setVisible(checked);
+}
+
+void MainWindow::on_act_ShowOntoEditor_triggered(bool checked)
+{
+    m_ontologyWindow->setVisible(checked);
 }
 
 /* End of file: lontology.cpp */
