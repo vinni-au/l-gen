@@ -10,7 +10,7 @@
 
 class DiagramItem : public QGraphicsPolygonItem
 {
-    //TODO надпись на ноде
+    //TODO позиционирование надписи на ноде
 public:
     enum { Type = UserType + 1 };
     enum DiagramType { Node };
@@ -40,6 +40,7 @@ public:
 protected:
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
     QVariant itemChange(GraphicsItemChange change, const QVariant &value);
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
 private:
     DiagramType m_type;
