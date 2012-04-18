@@ -44,7 +44,13 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="act_AddEntity"/>
   </widget>
+  <action name="act_AddEntity">
+   <property name="text">
+    <string>Добавить понятие</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
