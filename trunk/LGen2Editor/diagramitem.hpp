@@ -1,3 +1,4 @@
+/* Begin of file diagramitem.hpp */
 #ifndef DIAGRAMITEM_HPP
 #define DIAGRAMITEM_HPP
 
@@ -61,3 +62,5 @@ private:
 };
 
 #endif // DIAGRAMITEM_HPP
+
+/* End of file diagramitem.hpp */

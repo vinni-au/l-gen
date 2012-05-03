@@ -1,3 +1,4 @@
+/* Begin of file lgen2diagrameditor.cpp */
 #include "lgen2diagrameditor.hpp"
 
 LGen2DiagramEditor::LGen2DiagramEditor(QWidget *parent) :
@@ -24,3 +25,5 @@ void LGen2DiagramEditor::addLink(unsigned sid, unsigned did, QString title)
     i2->addArrow(a);
     m_scene->addItem(a);
 }
+
+/* End of file lgen2diagrameditor.cpp */

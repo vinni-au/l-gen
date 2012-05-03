@@ -1,3 +1,4 @@
+/* Begin of file diagramitem.cpp */
 #include "diagramitem.hpp"
 #include "diagramscene.hpp"
 
@@ -120,3 +121,5 @@ void DiagramItem::imitateMousePress()
     mousePressEvent(new QGraphicsSceneMouseEvent(QEvent::MouseButtonPress));
     mouseReleaseEvent(new QGraphicsSceneMouseEvent(QEvent::MouseButtonRelease));
 }
+
+/* End of file diagramitem.cpp */

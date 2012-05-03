@@ -1,3 +1,4 @@
+/* Begin of file arrow.hpp */
 #ifndef ARROW_HPP
 #define ARROW_HPP
 
@@ -56,3 +57,5 @@ protected:
 #include "diagramitem.hpp"
 
 #endif // ARROW_HPP
+
+/* End of file arrow.hpp */

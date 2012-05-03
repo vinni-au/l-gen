@@ -1,3 +1,4 @@
+/* Begin of file lgen2diagrameditor.hpp */
 #ifndef LGEN2DIAGRAMEDITOR_HPP
 #define LGEN2DIAGRAMEDITOR_HPP
 
@@ -28,3 +29,5 @@ public slots:
 };
 
 #endif // LGEN2DIAGRAMEDITOR_HPP
+
+/* End of file lgen2diagrameditor.hpp */

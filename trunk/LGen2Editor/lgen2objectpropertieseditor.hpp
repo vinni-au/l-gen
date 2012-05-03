@@ -1,3 +1,4 @@
+/* Begin of file lgen2objectpropertieseditor.hpp */
 #ifndef LGEN2OBJECTPROPERTIESEDITOR_HPP
 #define LGEN2OBJECTPROPERTIESEDITOR_HPP
 
@@ -16,3 +17,5 @@ public slots:
 };
 
 #endif // LGEN2OBJECTPROPERTIESEDITOR_HPP
+
+/* End of file lgen2objectpropertieseditor.hpp */

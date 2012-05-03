@@ -1,3 +1,4 @@
+/* Begin of file arrow.cpp */
 #include "arrow.hpp"
 #include <math.h>
 
@@ -37,8 +38,8 @@ void Arrow::updatePosition()
     setLine(line);
 }
 
-void Arrow::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
-           QWidget *widget)
+void Arrow::paint(QPainter *painter, const QStyleOptionGraphicsItem *,
+           QWidget *)
 {
     if (m_startItem->collidesWithItem(m_endItem))
         return;
@@ -100,3 +101,5 @@ void Arrow::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
         m_contextMenu->exec(event->screenPos());
     else QGraphicsLineItem::contextMenuEvent(event);
 }
+
+/* End of file arrow.cpp */
