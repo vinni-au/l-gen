@@ -46,7 +46,7 @@ QString LInference::generate(LNode *selectedTemplate, QList<LNode *> selectedEnt
     return result;
 }
 
-LNode* LInference::situation(LNode *node)
+LNode* LInference::situation(LNode *)
 {
     return 0;
 }

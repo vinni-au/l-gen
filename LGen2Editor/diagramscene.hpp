@@ -1,3 +1,4 @@
+/* Begin of file diagramscene.hpp */
 #ifndef DIAGRAMSCENE_HPP
 #define DIAGRAMSCENE_HPP
 
@@ -51,12 +52,8 @@ private:
     Mode m_mode;
 
     DiagramItem::DiagramType m_itemType;
-
-signals:
-
-public slots:
-
 };
 
-
 #endif // DIAGRAMSCENE_HPP
+
+/* End of file diagramscene.hpp */

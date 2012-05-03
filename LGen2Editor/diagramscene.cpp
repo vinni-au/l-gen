@@ -1,3 +1,4 @@
+/* Begin of file diagramscene.cpp */
 #include "diagramscene.hpp"
 
 DiagramScene::DiagramScene(QMenu *itemMenu, QObject *parent) :
@@ -24,3 +25,5 @@ void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
 
 }
+
+/* End of file diagramscene.cpp */
