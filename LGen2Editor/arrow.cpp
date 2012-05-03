@@ -93,3 +93,10 @@ void Arrow::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     int y = (m_startItem->pos().y() + m_endItem->pos().y()) / 2;
     painter->drawText(x, y, m_text);
 }
+
+void Arrow::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
+{
+    if (m_contextMenu)
+        m_contextMenu->exec(event->screenPos());
+    else QGraphicsLineItem::contextMenuEvent(event);
+}

@@ -21,6 +21,9 @@ public:
     void removeArrow(Arrow *arrow);
     void removeArrows();
 
+    void removeArrowTo(DiagramItem* item);
+    void removeArrowFrom(DiagramItem* item);
+
     DiagramType diagramType() const
     {   return m_type;  }
 
@@ -37,10 +40,16 @@ public:
     unsigned id() const
     {   return m_id;    }
 
+    QString title() const
+    {   return m_title; }
+
 protected:
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
     QVariant itemChange(GraphicsItemChange change, const QVariant &value);
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+
+public slots:
+    void imitateMousePress();
 
 private:
     DiagramType m_type;

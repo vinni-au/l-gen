@@ -1,4 +1,5 @@
 #include "diagramitem.hpp"
+#include "diagramscene.hpp"
 
 DiagramItem::DiagramItem(unsigned id, DiagramType type, QString title, QMenu *contextMenu,
                          QGraphicsItem *parent, QGraphicsScene *scene) :
@@ -29,11 +30,42 @@ void DiagramItem::removeArrow(Arrow *arrow)
 
 void DiagramItem::removeArrows()
 {
-    foreach (Arrow *arrow, m_arrows) {
-        arrow->startItem()->removeArrow(arrow);
-        arrow->endItem()->removeArrow(arrow);
-        scene()->removeItem(arrow);
-        delete arrow;
+    Arrow *arrow = 0;
+    for (int i = 0; i < m_arrows.count(); ++i) {
+        arrow = m_arrows[i];
+        if (arrow) {
+            arrow->startItem()->removeArrow(arrow);
+            arrow->endItem()->removeArrow(arrow);
+            scene()->removeItem(arrow);
+            delete arrow;
+        }
+        arrow = 0;
+    }
+}
+
+void DiagramItem::removeArrowTo(DiagramItem *item)
+{
+    foreach (Arrow* arrow, m_arrows) {
+        if (arrow->endItem() == item) {
+            scene()->removeItem(arrow);
+            m_arrows.removeAll(arrow);
+            delete arrow;
+        }
+    }
+}
+
+void DiagramItem::removeArrowFrom(DiagramItem *item)
+{
+    foreach (Arrow* arrow, m_arrows) {
+        if (arrow->startItem() == item) {
+            //TODO жёсткий костыль, метод по сути не работает теперь!!!
+            /*DiagramScene* s = static_cast<DiagramScene*>(scene());
+            if (s) {
+                s->removeItem(arrow);
+                m_arrows.removeAll(arrow);
+                delete arrow;
+            }*/
+        }
     }
 }
 
@@ -76,5 +108,15 @@ QVariant DiagramItem::itemChange(GraphicsItemChange change, const QVariant &valu
 void DiagramItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     QGraphicsPolygonItem::paint(painter, option, widget);
-    painter->drawText(0, 0, m_title);
+    painter->drawText(-47, 0, m_title);
+    if (isSelected()) {
+        painter->setBrush(QBrush(QColor(0, 0, 255, 40)));
+        painter->drawPolygon(polygon());
+    }
+}
+
+void DiagramItem::imitateMousePress()
+{
+    mousePressEvent(new QGraphicsSceneMouseEvent(QEvent::MouseButtonPress));
+    mouseReleaseEvent(new QGraphicsSceneMouseEvent(QEvent::MouseButtonRelease));
 }
