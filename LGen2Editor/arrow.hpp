@@ -45,6 +45,9 @@ public:
     DiagramItem *endItem() const
     {   return m_endItem;   }
 
+    QMenu* contextMenu() const
+    {   return m_contextMenu;   }
+
     void updatePosition();
 
 protected:

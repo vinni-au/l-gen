@@ -5,14 +5,19 @@
 #include <QMenu>
 #include <QGraphicsScene>
 #include "diagramitem.hpp"
+#include "arrow.hpp"
+#include <QGraphicsObject>
 
 class DiagramScene : public QGraphicsScene
 {
     Q_OBJECT
 
-public:    
+public:
     enum Mode { InsertItem, InsertLine, MoveItem};
     explicit DiagramScene(QMenu* itemMenu = 0, QObject *parent = 0);
+
+    void setMode(Mode mode)
+    {   m_mode = mode;  }
 
     QColor textColor() const
     {   return m_textColor; }
@@ -52,6 +57,14 @@ private:
     Mode m_mode;
 
     DiagramItem::DiagramType m_itemType;
+
+    QGraphicsLineItem* m_line;
+
+signals:
+    void arrowAdded(Arrow* arrow);
+
+public slots:
+
 };
 
 #endif // DIAGRAMSCENE_HPP
