@@ -1,6 +1,7 @@
 /* Begin of file arrow.cpp */
 #include "arrow.hpp"
 #include <math.h>
+#include <QGraphicsSceneContextMenuEvent>
 
 const qreal Pi = 3.1415926535;
 
@@ -8,11 +9,11 @@ Arrow::Arrow(DiagramItem *startItem, DiagramItem *endItem,
              QString text, QGraphicsItem *parent,
              QGraphicsScene *scene)
     : QGraphicsLineItem(parent, scene), m_startItem(startItem),
-      m_endItem(endItem), m_text(text)
+      m_endItem(endItem), m_text(text), m_contextMenu(0)
 {
     setFlag(QGraphicsItem::ItemIsSelectable, true);
     m_color = Qt::black;
-    setPen(QPen(m_color, 2, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
+    setPen(QPen(m_color, 4, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
 }
 
 QRectF Arrow::boundingRect() const
@@ -27,6 +28,7 @@ QRectF Arrow::boundingRect() const
 
 QPainterPath Arrow::shape() const
 {
+    //TODO добавить шейп вокрук текста
     QPainterPath path = QGraphicsLineItem::shape();
     path.addPolygon(m_arrowHead);
     return path;
@@ -38,8 +40,16 @@ void Arrow::updatePosition()
     setLine(line);
 }
 
-void Arrow::paint(QPainter *painter, const QStyleOptionGraphicsItem *,
-           QWidget *)
+void Arrow::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
+{
+    scene()->clearSelection();
+    setSelected(true);
+    if (m_contextMenu)
+        m_contextMenu->exec(event->screenPos());
+}
+
+void Arrow::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
+           QWidget *widget)
 {
     if (m_startItem->collidesWithItem(m_endItem))
         return;
@@ -50,6 +60,7 @@ void Arrow::paint(QPainter *painter, const QStyleOptionGraphicsItem *,
     painter->setPen(myPen);
     painter->setBrush(m_color);
     QLineF centerLine(m_startItem->pos(), m_endItem->pos());
+
     QPolygonF endPolygon = m_endItem->polygon();
     QPointF p1 = endPolygon.first() + m_endItem->pos();
     QPointF p2;
@@ -66,7 +77,20 @@ void Arrow::paint(QPainter *painter, const QStyleOptionGraphicsItem *,
         p1 = p2;
     }
 
-    setLine(QLineF(intersectPoint, m_startItem->pos()));
+    QPolygonF startPolygon = m_startItem->polygon();
+    p1 = startPolygon.first() + m_startItem->pos();
+    QPointF intersectPoint1;
+    for (int i = 1; i < startPolygon.count(); ++i) {
+        p2 = endPolygon.at(i) + m_startItem->pos();
+        polyLine = QLineF(p1, p2);
+        QLineF::IntersectType intersectType =
+                polyLine.intersect(centerLine, &intersectPoint1);
+
+        if (intersectType == QLineF::BoundedIntersection)
+            break;
+        p1 = p2;
+    }
+    setLine(QLineF(intersectPoint, intersectPoint1));
     double angle = ::acos(line().dx() / line().length());
     if (line().dy() >= 0)
         angle = (Pi * 2) - angle;
@@ -78,28 +102,17 @@ void Arrow::paint(QPainter *painter, const QStyleOptionGraphicsItem *,
 
     m_arrowHead.clear();
     m_arrowHead << line().p1() << arrowP1 << arrowP2;
+
+    if (isSelected())
+        painter->setPen(QPen(m_color, 2, Qt::DotLine));
+
     painter->drawLine(line());
     painter->drawPolygon(m_arrowHead);
 
-    if (isSelected()) {
-        painter->setPen(QPen(m_color, 1, Qt::DashLine));
-        QLineF myLine = line();
-        myLine.translate(0, 4.0);
-        painter->drawLine(myLine);
-        myLine.translate(0,-8.0);
-        painter->drawLine(myLine);
-    }
-
     int x = (m_startItem->pos().x() + m_endItem->pos().x()) / 2;
     int y = (m_startItem->pos().y() + m_endItem->pos().y()) / 2;
+    painter->setPen(QPen(Qt::black, 3));
     painter->drawText(x, y, m_text);
-}
-
-void Arrow::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
-{
-    if (m_contextMenu)
-        m_contextMenu->exec(event->screenPos());
-    else QGraphicsLineItem::contextMenuEvent(event);
 }
 
 /* End of file arrow.cpp */
