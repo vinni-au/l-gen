@@ -1,4 +1,23 @@
 /* Begin of file lgen2diagrameditor.cpp */
+
+/*
+ * Copyright (C) 2011-2012  Anton Storozhev, antonstorozhev@gmail.com
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 3
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+
 #include "lgen2diagrameditor.hpp"
 #include <QContextMenuEvent>
 
@@ -26,7 +45,7 @@ void LGen2DiagramEditor::addNode(unsigned id, QString title)
 {
     static QMenu* menu = new QMenu;
     static QAction* act = menu->addAction("Удалить фрейм", this, SLOT(deleteSelectedItem()));
-    DiagramItem* node = new DiagramItem(id, DiagramItem::Node, title, menu);
+    DiagramItem* node = new DiagramItem(id, DiagramItem::TextRectangle, title, menu);
     node->setPos(mapToScene(QPoint(width() / 2, height() / 2)));
     m_items.insert(id, node);
     m_scene->addItem(node);
@@ -35,7 +54,7 @@ void LGen2DiagramEditor::addNode(unsigned id, QString title)
 void LGen2DiagramEditor::changeNodeTitle(unsigned id, QString newtitle)
 {
     DiagramItem* node = m_items[id];
-    node->setTitle(newtitle);
+    node->setText(newtitle);
     node->update();
 }
 
@@ -131,7 +150,7 @@ void LGen2DiagramEditor::sceneSelectionChanged()
     if (items.count() == 1) {
         DiagramItem* item = qgraphicsitem_cast<DiagramItem*>(items[0]);
         if (item) {
-            if (item->diagramType() == DiagramItem::Node)
+            if (item->diagramItemType() == DiagramItem::TextRectangle)
                 emit frameSelected(item->id());
         } else {
             Arrow* arrow = qgraphicsitem_cast<Arrow*>(items[0]);
@@ -149,7 +168,7 @@ unsigned LGen2DiagramEditor::selectedFrameId()
     if (items.count() == 1) {
         DiagramItem* item = qgraphicsitem_cast<DiagramItem*>(items[0]);
         if (item)
-            if (item->diagramType() == DiagramItem::Node)
+            if (item->diagramItemType() == DiagramItem::TextRectangle)
                 return item->id();
     }
     return -1;
@@ -216,7 +235,7 @@ QDomElement LGen2DiagramEditor::toXML(QDomDocument &doc)
             QDomElement ielem = doc.createElement("item");
             ielem.setAttribute("x", ditem->x());
             ielem.setAttribute("y", ditem->y());
-            ielem.setAttribute("title", ditem->title());
+            ielem.setAttribute("title", ditem->text());
             ielem.setAttribute("id", ditem->id());
             dElem.appendChild(ielem);
         }
@@ -249,7 +268,7 @@ void LGen2DiagramEditor::fromXML(QDomElement &elem)
                 QString title = e.attribute("title");
                 qreal x = e.attribute("x").toDouble();
                 qreal y = e.attribute("y").toDouble();
-                DiagramItem* item = new DiagramItem(id, DiagramItem::Node, title, menu);
+                DiagramItem* item = new DiagramItem(id, DiagramItem::TextRectangle, title, menu);
                 item->setX(x);
                 item->setY(y);
                 m_items.insert(id, item);

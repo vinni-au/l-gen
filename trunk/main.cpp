@@ -22,6 +22,23 @@
 #include <QTextCodec>
 #include "mainwindow.hpp"
 
+#ifdef Q_WS_X11
+#include <signal.h>
+#include <QMessageBox>
+
+void segfault_sigaction(int signal, siginfo_t *si, void *arg)
+{
+    QMessageBox::critical(0, "Критическая ошибка", "В программе произошла критическая ошибка!"
+                                                   "<br>Программа будет завершена");
+    exit(0);
+}
+
+#endif
+
+#ifdef Q_WS_WIN
+//TODO Написать поимку memory access violation для Windows
+#endif
+
 int main(int argc, char *argv[])
 {
     QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
@@ -29,7 +46,18 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.show();
 
-    return a.exec();
+#ifdef Q_WS_X11
+    struct sigaction sa;
+
+    memset(&sa, 0, sizeof(struct sigaction));
+    sigemptyset(&sa.sa_mask);
+    sa.sa_sigaction = segfault_sigaction;
+    sa.sa_flags   = SA_SIGINFO;
+
+    sigaction(SIGSEGV, &sa, NULL);
+#endif
+
+    return a.exec();;
 }
 
 /* End of file: main.cpp */
