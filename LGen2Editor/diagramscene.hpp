@@ -1,4 +1,23 @@
 /* Begin of file diagramscene.hpp */
+
+/*
+ * Copyright (C) 2011-2012  Anton Storozhev, antonstorozhev@gmail.com
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 3
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+
 #ifndef DIAGRAMSCENE_HPP
 #define DIAGRAMSCENE_HPP
 
@@ -37,9 +56,9 @@ public:
     void setItemMenu(QMenu* menu)
     {   m_itemMenu = menu;  }
 
-    DiagramItem::DiagramType itemType() const
+    DiagramItem::DiagramItemType itemType() const
     {   return m_itemType;  }
-    void setItemType(DiagramItem::DiagramType type)
+    void setItemType(DiagramItem::DiagramItemType type)
     {   m_itemType = type;  }
 
 protected:
@@ -56,7 +75,7 @@ private:
 
     Mode m_mode;
 
-    DiagramItem::DiagramType m_itemType;
+    DiagramItem::DiagramItemType m_itemType;
 
     QGraphicsLineItem* m_line;
 

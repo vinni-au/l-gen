@@ -1,14 +1,33 @@
 /* Begin of file diagramitem.cpp */
+
+/*
+ * Copyright (C) 2011-2012  Anton Storozhev, antonstorozhev@gmail.com
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 3
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+
 #include "diagramitem.hpp"
 #include "diagramscene.hpp"
 
-DiagramItem::DiagramItem(unsigned id, DiagramType type, QString title, QMenu *contextMenu,
+DiagramItem::DiagramItem(unsigned id, DiagramItemType type, QString title, QMenu *contextMenu,
                          QGraphicsItem *parent, QGraphicsScene *scene) :
     QGraphicsPolygonItem(parent, scene), m_type(type), m_contextMenu(contextMenu),
-    m_title(title), m_id(id)
+    m_text(title), m_id(id)
 {
     switch (m_type) {
-        case Node:
+        case TextRectangle:
         default:
             m_polygon << QPointF(-50, -25) << QPointF(-50, 25)
                       << QPointF(50, 25) << QPointF(50, -25)
@@ -48,9 +67,12 @@ void DiagramItem::removeArrowTo(DiagramItem *item)
 {
     foreach (Arrow* arrow, m_arrows) {
         if (arrow->endItem() == item) {
-            scene()->removeItem(arrow);
-            m_arrows.removeAll(arrow);
-            delete arrow;
+            DiagramScene* s = static_cast<DiagramScene*>(scene());
+            if (s) {
+                s->removeItem(arrow);
+                m_arrows.removeAll(arrow);
+                delete arrow;
+            }
         }
     }
 }
@@ -59,13 +81,12 @@ void DiagramItem::removeArrowFrom(DiagramItem *item)
 {
     foreach (Arrow* arrow, m_arrows) {
         if (arrow->startItem() == item) {
-            //TODO жёсткий костыль, метод по сути не работает теперь!!!
-            /*DiagramScene* s = static_cast<DiagramScene*>(scene());
+            DiagramScene* s = static_cast<DiagramScene*>(scene());
             if (s) {
                 s->removeItem(arrow);
                 m_arrows.removeAll(arrow);
                 delete arrow;
-            }*/
+            }
         }
     }
 }
@@ -109,7 +130,7 @@ QVariant DiagramItem::itemChange(GraphicsItemChange change, const QVariant &valu
 void DiagramItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     QGraphicsPolygonItem::paint(painter, option, widget);
-    painter->drawText(-47, 0, m_title);
+    painter->drawText(-47, 0, m_text);
     if (isSelected()) {
         painter->setBrush(QBrush(QColor(0, 0, 255, 40)));
         painter->drawPolygon(polygon());
