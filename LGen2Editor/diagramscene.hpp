@@ -27,14 +27,24 @@
 #include "arrow.hpp"
 #include <QGraphicsObject>
 
+//! Сцена - внутренне представление диаграммы
 class DiagramScene : public QGraphicsScene
 {
     Q_OBJECT
 
+    friend class LGen2DiagramEditor;
+
 public:
-    enum Mode { InsertItem, InsertLine, MoveItem};
+    //! Режим работы сцены
+    enum Mode {
+        InsertItem, /*!< Вставка вершины */
+        InsertLine, /*!< Вставка дуги */
+        MoveItem    /*!< Перемещение элементов */
+    };
+
     explicit DiagramScene(QMenu* itemMenu = 0, QObject *parent = 0);
 
+    //! Установить режим работы
     void setMode(Mode mode)
     {   m_mode = mode;  }
 
@@ -53,8 +63,8 @@ public:
     void setLineColor(QColor color)
     {   m_lineColor = color;    }
 
-    void setItemMenu(QMenu* menu)
-    {   m_itemMenu = menu;  }
+    void setContextMenu(QMenu* menu)
+    {   m_contextMenu = menu;  }
 
     DiagramItem::DiagramItemType itemType() const
     {   return m_itemType;  }
@@ -62,27 +72,35 @@ public:
     {   m_itemType = type;  }
 
 protected:
-    void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent);
-    void mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent);
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent);
+    virtual void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent);
+    virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent);
+    virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent);
+    virtual void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
 
 private:
+    //! Цвет текста
     QColor m_textColor;
+
+    //! Цвет вершин
     QColor m_itemColor;
+
+    //! Цвет дуг
     QColor m_lineColor;
 
-    QMenu* m_itemMenu;
+    //! Контекстное меню
+    QMenu* m_contextMenu;
 
+    //! Текущий режим работы
     Mode m_mode;
 
     DiagramItem::DiagramItemType m_itemType;
 
+    //! Временная линия, рисуемая при рисовании стрелки
     QGraphicsLineItem* m_line;
 
 signals:
+    //! Извещает о том, что добавлена дуга
     void arrowAdded(Arrow* arrow);
-
-public slots:
 
 };
 

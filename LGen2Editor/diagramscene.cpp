@@ -21,7 +21,7 @@
 #include "diagramscene.hpp"
 
 DiagramScene::DiagramScene(QMenu *itemMenu, QObject *parent) :
-    QGraphicsScene(parent), m_itemMenu(itemMenu), m_line(0)
+    QGraphicsScene(parent), m_contextMenu(itemMenu), m_line(0)
 {
     m_itemColor = Qt::white;
     m_lineColor = Qt::black;
@@ -91,6 +91,11 @@ void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
     }
     m_line = 0;
     QGraphicsScene::mouseReleaseEvent(mouseEvent);
+}
+
+void DiagramScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
+{
+
 }
 
 /* End of file diagramscene.cpp */

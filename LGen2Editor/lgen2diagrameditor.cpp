@@ -22,7 +22,7 @@
 #include <QContextMenuEvent>
 
 LGen2DiagramEditor::LGen2DiagramEditor(QWidget *parent, QMenu *contextMenu):
-    QGraphicsView(parent), m_contextMenu(contextMenu)
+    QGraphicsView(parent)
 {
     m_scene = new DiagramScene;
 
@@ -294,16 +294,6 @@ void LGen2DiagramEditor::fromXML(QDomElement &elem)
             }
         }
     }
-}
-
-void LGen2DiagramEditor::contextMenuEvent(QContextMenuEvent *event)
-{
-    m_scene->clearSelection();
-    QPointF pos = mapToScene(event->pos());
-    if (!m_scene->itemAt(pos)) {
-        if (m_contextMenu)
-            m_contextMenu->exec(event->globalPos());
-    } else QGraphicsView::contextMenuEvent(event);
 }
 
 /* End of file lgen2diagrameditor.cpp */

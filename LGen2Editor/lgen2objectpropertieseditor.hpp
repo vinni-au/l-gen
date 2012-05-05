@@ -23,6 +23,7 @@
 
 #include <QTreeView>
 
+//! Редактор свойств объектов
 class LGen2ObjectPropertiesEditor : public QTreeView
 {
     Q_OBJECT
