@@ -26,16 +26,11 @@
 #include <QDomElement>
 #include "diagramscene.hpp"
 
+//! Редактор диаграмм
+//TODO перенести часть интерфейса из DiagramScene
 class LGen2DiagramEditor : public QGraphicsView
 {
     Q_OBJECT
-
-    DiagramScene* m_scene;
-
-    QMap<unsigned, DiagramItem*> m_items;
-    QList<Arrow*> m_links;
-
-    QMenu* m_contextMenu;
 
 public:
     explicit LGen2DiagramEditor(QWidget *parent = 0, QMenu* contextMenu = 0);
@@ -49,7 +44,14 @@ public:
     void fromXML(QDomElement &doc);
 
     void setContextMenu(QMenu* menu)
-    {   m_contextMenu = menu;   }
+    {   m_scene->m_contextMenu = menu;   }
+
+private:
+    DiagramScene* m_scene;
+
+    QMap<unsigned, DiagramItem*> m_items;
+    QList<Arrow*> m_links;
+
 
 signals:
     void frameSelected(unsigned id);
@@ -58,9 +60,6 @@ signals:
     void linkSelected(unsigned, unsigned);
     void isaDeleted(unsigned sid, unsigned did);
     void apoDeleted(unsigned sid, unsigned did);
-
-protected:
-    virtual void contextMenuEvent(QContextMenuEvent *event);
 
 protected slots:
     void sceneSelectionChanged();
