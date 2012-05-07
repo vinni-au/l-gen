@@ -119,7 +119,8 @@ void DiagramItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 QVariant DiagramItem::itemChange(GraphicsItemChange change, const QVariant &value)
 {
     if (change == QGraphicsItem::ItemPositionChange) {
-        foreach (Arrow *arrow, m_arrows) {
+        Arrow* arrow;
+        foreach (arrow, m_arrows) {
             arrow->updatePosition();
         }
     }
@@ -130,7 +131,8 @@ QVariant DiagramItem::itemChange(GraphicsItemChange change, const QVariant &valu
 void DiagramItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     QGraphicsPolygonItem::paint(painter, option, widget);
-    painter->drawText(-47, 0, m_text);
+    //TODO написать нормальное построение прямоугольника
+    painter->drawText(QRectF(-50, -25, 100, 50), Qt::AlignCenter, m_text);
     if (isSelected()) {
         painter->setBrush(QBrush(QColor(0, 0, 255, 40)));
         painter->drawPolygon(polygon());
