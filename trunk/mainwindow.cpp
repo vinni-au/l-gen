@@ -21,6 +21,7 @@
 #include "mainwindow.hpp"
 #include "ui_mainwindow.h"
 #include "LGen2UI/ontologyeditorwindow.hpp"
+#include "LGen2UI/lgen2editor.hpp"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -53,10 +54,11 @@ MainWindow::MainWindow(QWidget *parent) :
     win1->hide();
     win2->hide();
     win3->hide();
-
+/*
     QMdiSubWindow* win4 = new QMdiSubWindow(this);
-    win4->setWidget(new OntologyEditorWindow);
-    win4->show();
+    win4->setWidget(new LGen2Editor);
+    win4->show();*/
+    (new LGen2Editor)->show();
 }
 
 MainWindow::~MainWindow()

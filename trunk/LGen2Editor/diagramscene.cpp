@@ -93,9 +93,4 @@ void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
     QGraphicsScene::mouseReleaseEvent(mouseEvent);
 }
 
-void DiagramScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
-{
-
-}
-
 /* End of file diagramscene.cpp */

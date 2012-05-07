@@ -38,20 +38,20 @@ LGen2DiagramEditor::LGen2DiagramEditor(QWidget *parent, QMenu *contextMenu):
     setScene(m_scene);
 
     QObject::connect(m_scene, SIGNAL(selectionChanged()),
-                     SLOT(sceneSelectionChanged()));
+                     SLOT(onSceneSelectionChanged()));
 }
 
 void LGen2DiagramEditor::addNode(unsigned id, QString title)
 {
     static QMenu* menu = new QMenu;
-    static QAction* act = menu->addAction("Удалить фрейм", this, SLOT(deleteSelectedItem()));
+    static QAction* act = menu->addAction("Удалить фрейм", this, SLOT(deleteSelectedNode()));
     DiagramItem* node = new DiagramItem(id, DiagramItem::TextRectangle, title, menu);
     node->setPos(mapToScene(QPoint(width() / 2, height() / 2)));
     m_items.insert(id, node);
     m_scene->addItem(node);
 }
 
-void LGen2DiagramEditor::changeNodeTitle(unsigned id, QString newtitle)
+void LGen2DiagramEditor::changeNodeText(unsigned id, QString newtitle)
 {
     DiagramItem* node = m_items[id];
     node->setText(newtitle);
@@ -144,14 +144,14 @@ void LGen2DiagramEditor::deleteLink(unsigned sid, unsigned did)
     //di->removeArrowFrom(si);
 }
 
-void LGen2DiagramEditor::sceneSelectionChanged()
+void LGen2DiagramEditor::onSceneSelectionChanged()
 {
     QList<QGraphicsItem*> items = m_scene->selectedItems();
     if (items.count() == 1) {
         DiagramItem* item = qgraphicsitem_cast<DiagramItem*>(items[0]);
         if (item) {
             if (item->diagramItemType() == DiagramItem::TextRectangle)
-                emit frameSelected(item->id());
+                emit nodeSelected(item->id());
         } else {
             Arrow* arrow = qgraphicsitem_cast<Arrow*>(items[0]);
             if (arrow)
@@ -187,11 +187,11 @@ void LGen2DiagramEditor::selectNode(unsigned id)
     blockSignals(false);
 }
 
-void LGen2DiagramEditor::deleteSelectedItem()
+void LGen2DiagramEditor::deleteSelectedNode()
 {
     unsigned id = selectedFrameId();
     if (id != -1)
-        emit nodeDeleted(id);
+        emit nodeDeleteRequest(id);
 }
 
 void LGen2DiagramEditor::deleteSelectedLink()
@@ -208,6 +208,11 @@ void LGen2DiagramEditor::deleteSelectedLink()
             //deleteLink(a->startItem()->id(), a->endItem()->id());
         }
     }
+}
+
+void LGen2DiagramEditor::deleteSelectedItems()
+{
+
 }
 
 void LGen2DiagramEditor::selectLink(unsigned sid, unsigned did)
@@ -257,7 +262,7 @@ void LGen2DiagramEditor::fromXML(QDomElement &elem)
     static QMenu* menu = new QMenu;
     static QAction* act = menu->addAction("Удалить фрейм");
     QObject::connect(act, SIGNAL(triggered()),
-                     SLOT(deleteSelectedItem()));
+                     SLOT(deleteSelectedNode()));
     if (elem.tagName() == "diagram") {
         QDomNodeList nodes = elem.childNodes();
         int count = nodes.count();

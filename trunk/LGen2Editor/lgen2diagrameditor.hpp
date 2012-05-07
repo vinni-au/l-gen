@@ -46,41 +46,95 @@ public:
     void setContextMenu(QMenu* menu)
     {   m_scene->m_contextMenu = menu;   }
 
+    QColor textColor() const
+    {   return m_scene->m_textColor; }
+    void setTextColor(QColor color)
+    {   m_scene->m_textColor = color;    }
+
+    QColor itemColor() const
+    {   return m_scene->m_itemColor; }
+    void setItemColor(QColor color)
+    {   m_scene->m_itemColor = color;    }
+
+    QColor lineColor() const
+    {   return m_scene->m_lineColor; }
+    void setLineColor(QColor color)
+    {   m_scene->m_lineColor = color;    }
+
+    DiagramItem::DiagramItemType itemType() const
+    {   return m_scene->m_itemType;  }
+    void setItemType(DiagramItem::DiagramItemType type)
+    {   m_scene->m_itemType = type;  }
+
 private:
+    //! Сцена
     DiagramScene* m_scene;
 
-    QMap<unsigned, DiagramItem*> m_items;
+    //! Хэш-таблица вершин
+    QHash<unsigned, DiagramItem*> m_items;
+
+    //! Список дуг
     QList<Arrow*> m_links;
 
+    //! Контекстное меню
+    QMenu* m_contextMenu;
 
 signals:
-    void frameSelected(unsigned id);
-    void nodeDeleted(unsigned id);
+    //! Выделена вершина
+    void nodeSelected(unsigned id);
+
+    //! Запрос на удаление вершины
+    void nodeDeleteRequest(unsigned id);
+
+    //! Выделение снято
     void selectionCleared();
+
+    //! Выделена дуга
+    //TODO переделать на внутренний идентификатор дуги???
     void linkSelected(unsigned, unsigned);
+
+    //TODO удалить эти сигналы
     void isaDeleted(unsigned sid, unsigned did);
     void apoDeleted(unsigned sid, unsigned did);
 
 protected slots:
-    void sceneSelectionChanged();
-    void deleteSelectedItem();
+    //! Обработать изменение выделения
+    void onSceneSelectionChanged();
+
+    //! Удалить выделенную вершину
+    void deleteSelectedNode();
+
+    //! Удалить выделенную дугу
     void deleteSelectedLink();
 
+    //! Удалить выделенные элементы
+    void deleteSelectedItems();
+
 public slots:
+    //! Увеличить масштаб
     void zoomIn();
+
+    //! Уменьшить масштаб
     void zoonOut();
-    //Добавить вершину с внутренним идентификатором id, надписью title, и типом type
+
+    //! Добавить вершину
     void addNode(unsigned id, QString title);
-    void changeNodeTitle(unsigned id, QString newtitle);
-    //Удалить вершин с внутренним идентификатором id
+
+    //! Изменить текст вершины
+    void changeNodeText(unsigned id, QString newtitle);
+
+    //! Удалить вершину
     void deleteNode(unsigned id);
+
     //Добавить связь между от вершины с идентификатором sid до вершины с идентификатором did
     //и надписью title
+    //TODO
     void addLink(unsigned sid, unsigned did, QString title);
     void addArrow(Arrow* arrow);
     //Удалить связь
     void deleteLink(unsigned sid, unsigned did);
 
+    //! Выделить вершину
     void selectNode(unsigned id);
     void selectLink(unsigned sid, unsigned did);
 
