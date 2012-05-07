@@ -48,34 +48,10 @@ public:
     void setMode(Mode mode)
     {   m_mode = mode;  }
 
-    QColor textColor() const
-    {   return m_textColor; }
-    void setTextColor(QColor color)
-    {   m_textColor = color;    }
-
-    QColor itemColor() const
-    {   return m_itemColor; }
-    void setItemColor(QColor color)
-    {   m_itemColor = color;    }
-
-    QColor lineColor() const
-    {   return m_lineColor; }
-    void setLineColor(QColor color)
-    {   m_lineColor = color;    }
-
-    void setContextMenu(QMenu* menu)
-    {   m_contextMenu = menu;  }
-
-    DiagramItem::DiagramItemType itemType() const
-    {   return m_itemType;  }
-    void setItemType(DiagramItem::DiagramItemType type)
-    {   m_itemType = type;  }
-
 protected:
     virtual void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent);
     virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent);
     virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent);
-    virtual void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
 
 private:
     //! Цвет текста
@@ -93,6 +69,7 @@ private:
     //! Текущий режим работы
     Mode m_mode;
 
+    //! Тип создаваемых вершин
     DiagramItem::DiagramItemType m_itemType;
 
     //! Временная линия, рисуемая при рисовании стрелки

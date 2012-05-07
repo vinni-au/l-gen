@@ -5,7 +5,7 @@
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 3
+ * as published by the Free Software Foundation, either version 3
  * of the License, or (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -14,8 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <QtGui/QApplication>
@@ -29,15 +28,17 @@
 void segfault_sigaction(int signal, siginfo_t *si, void *arg)
 {
     QMessageBox::critical(0, "Критическая ошибка", "В программе произошла критическая ошибка!"
-                                                   "<br>Программа будет завершена");
+                                                   "<br>Программа будет перезапущена");
+    //TODO перезапустить программу
     exit(0);
 }
 
-#endif
-
+#else
 #ifdef Q_WS_WIN
 //TODO Написать поимку memory access violation для Windows
 #endif
+#endif
+
 
 int main(int argc, char *argv[])
 {
@@ -55,6 +56,9 @@ int main(int argc, char *argv[])
     sa.sa_flags   = SA_SIGINFO;
 
     sigaction(SIGSEGV, &sa, NULL);
+#else
+#ifdef Q_WS_WIN
+#endif
 #endif
 
     return a.exec();;

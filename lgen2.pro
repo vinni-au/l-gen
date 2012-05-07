@@ -30,7 +30,8 @@ SOURCES += main.cpp\
     LGen2UI/ontologyeditorwindow.cpp \
     LGen2Editor/diagramscene.cpp \
     LGen2Editor/diagramitem.cpp \
-    LGen2Editor/arrow.cpp
+    LGen2Editor/arrow.cpp \
+    3rdparty/QSugar/QSugar.cpp
 
 HEADERS  += mainwindow.hpp \
     LGen2UI/ontologywidget.hpp \
@@ -51,7 +52,8 @@ HEADERS  += mainwindow.hpp \
     LGen2UI/ontologyeditorwindow.hpp \
     LGen2Editor/diagramscene.hpp \
     LGen2Editor/diagramitem.hpp \
-    LGen2Editor/arrow.hpp
+    LGen2Editor/arrow.hpp \
+    3rdparty/QSugar/QSugar.hpp
 
 FORMS    += mainwindow.ui \
     LGen2UI/lgen2editor.ui \
@@ -59,3 +61,9 @@ FORMS    += mainwindow.ui \
     LGen2UI/newprojectdialog.ui \
     LGen2UI/resultwidget.ui \
     LGen2UI/ontologyeditorwindow.ui
+
+
+
+
+
+
