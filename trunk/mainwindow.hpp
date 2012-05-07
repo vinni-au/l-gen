@@ -28,6 +28,7 @@
 #include "LGen2UI/newprojectdialog.hpp"
 #include "LGen2UI/resultwidget.hpp"
 #include "LGen2UI/ontologyeditorwindow.hpp"
+#include "LGen2UI/lgen2editor.hpp"
 #include "LGen2Core/lgen2project.hpp"
 #include "LGen2MVC/lontologymodel.hpp"
 
@@ -46,6 +47,7 @@ public:
 
     LOntologyModel* templateModel() const
     {   return m_templateModel; }
+
     LOntologyModel* domainModel() const
     {   return m_domainModel;   }
 
@@ -54,9 +56,7 @@ private slots:
     void on_act_About_triggered();
     void on_act_AboutQt_triggered();
     void on_act_ProjectNew_triggered();
-
     void on_act_ShowProjectTree_triggered(bool checked);
-
     void on_act_ShowOntoEditor_triggered(bool checked);
 
 private:
@@ -71,7 +71,7 @@ private:
     ResultWidget* m_resultWidget;
 
     //! Окно редактора онтологии
-    OntologyEditorWindow* m_ontologyWindow;
+    LGen2Editor* m_ontologyWindow;
     //! Модель шаблонов задач
     LOntologyModel* m_templateModel;
     //! Модель понятий предметной области

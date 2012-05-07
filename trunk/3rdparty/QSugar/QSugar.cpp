@@ -21,7 +21,6 @@
 
 const QDomDocument _QXML;
 
-
 void buildDom(QDomElement element, const QVariant & value)
 {
     switch ( value.type() )

@@ -44,7 +44,7 @@ LGen2DiagramEditor::LGen2DiagramEditor(QWidget *parent, QMenu *contextMenu):
 void LGen2DiagramEditor::addNode(unsigned id, QString title)
 {
     static QMenu* menu = new QMenu;
-    static QAction* act = menu->addAction("Удалить фрейм", this, SLOT(deleteSelectedNode()));
+    static QAction* act = menu->addAction("Удалить вершину", this, SLOT(deleteSelectedNode()));
     DiagramItem* node = new DiagramItem(id, DiagramItem::TextRectangle, title, menu);
     node->setPos(mapToScene(QPoint(width() / 2, height() / 2)));
     m_items.insert(id, node);
@@ -108,6 +108,7 @@ void LGen2DiagramEditor::deleteLink(unsigned sid, unsigned did)
     Arrow* a = 0;
     for (int i = 0; i < m_links.count(); ++i) {
         a = m_links[i];
+        //TODO Убрать этот быдлокод!!!
         if (a && (unsigned long long)a->endItem() != 0xfeeefeee  && (unsigned long long)a->startItem() != 3722304989)
             if (a->startItem()->id() == sid &&
                     a->endItem()->id() == did) {

@@ -34,7 +34,7 @@ MainWindow::MainWindow(QWidget *parent) :
     m_temlateOntologyWidget = new OntologyWidget;
     m_resultWidget = new ResultWidget(this);
 
-    m_ontologyWindow = new OntologyEditorWindow;
+    m_ontologyWindow = new LGen2Editor;
 
     m_domainModel = new LOntologyModel;
     m_templateModel = new LOntologyModel;
@@ -57,8 +57,9 @@ MainWindow::MainWindow(QWidget *parent) :
 /*
     QMdiSubWindow* win4 = new QMdiSubWindow(this);
     win4->setWidget(new LGen2Editor);
-    win4->show();*/
-    (new LGen2Editor)->show();
+    win4->show();
+    (new LGen2Editor)->show();*/
+
 }
 
 MainWindow::~MainWindow()
@@ -111,6 +112,7 @@ void MainWindow::on_act_ShowProjectTree_triggered(bool checked)
 
 void MainWindow::on_act_ShowOntoEditor_triggered(bool checked)
 {
+    m_ontologyWindow->setWindowModality(Qt::WindowModal);
     m_ontologyWindow->setVisible(checked);
 }
 
