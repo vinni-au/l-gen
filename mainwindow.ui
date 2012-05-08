@@ -148,6 +148,9 @@
    <property name="statusTip">
     <string>Завершение работы программы</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
   </action>
   <action name="act_AboutQt">
    <property name="text">
@@ -164,6 +167,9 @@
    <property name="statusTip">
     <string>Открыть помощь</string>
    </property>
+   <property name="shortcut">
+    <string>F1</string>
+   </property>
   </action>
   <action name="act_ProjectNew">
    <property name="text">
@@ -171,6 +177,9 @@
    </property>
    <property name="statusTip">
     <string>Создать новый проект</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
    </property>
   </action>
   <action name="act_ProjectSave">
@@ -180,6 +189,9 @@
    <property name="statusTip">
     <string>Сохранить проект</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
   </action>
   <action name="act_ProjectSaveAs">
    <property name="text">
@@ -187,6 +199,9 @@
    </property>
    <property name="statusTip">
     <string>Сохранить проект под новым именем</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+S</string>
    </property>
   </action>
   <action name="act_ProjectOpen">
@@ -196,6 +211,9 @@
    <property name="statusTip">
     <string>Открыть проект</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
   </action>
   <action name="act_ProjectClose">
    <property name="text">
@@ -203,6 +221,9 @@
    </property>
    <property name="statusTip">
     <string>Закрыть проект</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+W</string>
    </property>
   </action>
   <action name="act_ShowOntoEditor">
@@ -212,6 +233,9 @@
    <property name="text">
     <string>Редактор онтологий</string>
    </property>
+   <property name="shortcut">
+    <string>F3</string>
+   </property>
   </action>
   <action name="act_ShowProjectTree">
    <property name="checkable">
@@ -220,6 +244,9 @@
    <property name="text">
     <string>Дерево проекта</string>
    </property>
+   <property name="shortcut">
+    <string>F4</string>
+   </property>
   </action>
   <action name="act_ShowGenerator">
    <property name="checkable">
@@ -227,6 +254,9 @@
    </property>
    <property name="text">
     <string>Мастер генерации</string>
+   </property>
+   <property name="shortcut">
+    <string>F5</string>
    </property>
   </action>
  </widget>

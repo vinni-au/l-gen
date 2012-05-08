@@ -18,6 +18,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+#include "global.h"
 #include "mainwindow.hpp"
 #include "ui_mainwindow.h"
 #include "LGen2UI/lgen2editor.hpp"
@@ -26,6 +27,10 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+#ifdef DEBUG_CTOR
+    qDebug() << NOW << "MainWindow сtor";
+#endif
+
     ui->setupUi(this);
     ui->m_projectDockWidget->setVisible(false);
 
@@ -37,52 +42,47 @@ MainWindow::MainWindow(QWidget *parent) :
 
     m_domainModel = new LOntologyModel;
     m_templateModel = new LOntologyModel;
-
-    QMdiSubWindow* win1 = new QMdiSubWindow(this);
-    QMdiSubWindow* win2 = new QMdiSubWindow(this);
-    QMdiSubWindow* win3 = new QMdiSubWindow(this);
-
-    win1->setWidget(m_domainOntologyWidget);
-    win2->setWidget(m_temlateOntologyWidget);
-    win3->setWidget(m_resultWidget);
-
-    ui->mdiArea->addSubWindow(win1);
-    ui->mdiArea->addSubWindow(win2);
-    ui->mdiArea->addSubWindow(win3);
-
-    win1->hide();
-    win2->hide();
-    win3->hide();
-/*
-    QMdiSubWindow* win4 = new QMdiSubWindow(this);
-    win4->setWidget(new LGen2Editor);
-    win4->show();
-    (new LGen2Editor)->show();*/
-
 }
 
 MainWindow::~MainWindow()
 {
+#ifdef DEBUG_DTOR
+    qDebug() << NOW << "MainWindow dtor";
+#endif
+
     delete ui;
 }
 
 void MainWindow::on_act_Exit_triggered()
 {
+#ifdef DEBUG_SLOT
+    qDebug() << NOW << "MainWindow::on_act_Exit_triggered() slot activated";
+#endif
+
     close();
 }
 
 void MainWindow::on_act_About_triggered()
 {
+#ifdef DEBUG_SLOT
+#endif
+
     QMessageBox::about(this, "О программe", "      L-Gen 2.0         ");
 }
 
 void MainWindow::on_act_AboutQt_triggered()
 {
+#ifdef DEBUG_SLOT
+#endif
+
     QMessageBox::aboutQt(this, "O Qt");
 }
 
 void MainWindow::on_act_ProjectNew_triggered()
 {
+#ifdef DEBUG_SLOT
+#endif
+
     NewProjectDialog pd;
     if (pd.exec()) {
         m_project = new LGen2Project(pd.name(), new QFile(pd.filename()));
@@ -106,13 +106,26 @@ void MainWindow::on_act_ProjectNew_triggered()
 
 void MainWindow::on_act_ShowProjectTree_triggered(bool checked)
 {
+#ifdef DEBUG_SLOT
+#endif
+
     ui->m_projectDockWidget->setVisible(checked);
 }
 
 void MainWindow::on_act_ShowOntoEditor_triggered(bool checked)
 {
-    m_ontologyWindow->setWindowModality(Qt::WindowModal);
+#ifdef DEBUG_SLOT
+#endif
+
     m_ontologyWindow->setVisible(checked);
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+#ifdef DEBUG_EVENT
+#endif
+
+    QMainWindow::closeEvent(event);
 }
 
 /* End of file: lontology.cpp */

@@ -1,3 +1,4 @@
+#include "global.h"
 #include "lgen2editor.hpp"
 #include "ui_lgen2editor.h"
 

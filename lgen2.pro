@@ -9,6 +9,20 @@ QT       += core gui xml
 TARGET = lgen2
 TEMPLATE = app
 
+DEFINES += DIAGNOSTIC          # диагностические сообщения
+
+CONFIG(debug) {
+    DEFINES += DEBUG           # отладка
+    DEFINES += DEBUG_CTOR      # отладка конструкторов
+    DEFINES += DEBUG_DTOR      # отладка деструкторов
+    DEFINES += DEBUG_SLOT      # отладка слотов
+    DEFINES += DEBUG_SIGNAL    # отладка сигналов
+    DEFINES += DEBUG_EVENT     # отладка событий
+} else {
+}
+
+INCLUDEPATH += .
+
 
 SOURCES += main.cpp\
         mainwindow.cpp \
@@ -51,19 +65,11 @@ HEADERS  += mainwindow.hpp \
     LGen2Editor/diagramscene.hpp \
     LGen2Editor/diagramitem.hpp \
     LGen2Editor/arrow.hpp \
-    3rdparty/QSugar/QSugar.hpp
+    3rdparty/QSugar/QSugar.hpp \
+    global.h
 
 FORMS    += mainwindow.ui \
     LGen2UI/lgen2editor.ui \
     LGen2UI/ontologywidget.ui \
     LGen2UI/newprojectdialog.ui \
     LGen2UI/resultwidget.ui
-
-
-
-
-
-
-
-
-

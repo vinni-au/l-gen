@@ -50,6 +50,9 @@ public:
     LOntologyModel* domainModel() const
     {   return m_domainModel;   }
 
+protected:
+    virtual void closeEvent(QCloseEvent *event);
+
 private slots:
     void on_act_Exit_triggered();
     void on_act_About_triggered();
@@ -60,24 +63,28 @@ private slots:
 
 private:
     //! Интерфейс пользователя
-    Ui::MainWindow *ui;
+    Ui::MainWindow* ui;
 
     //! Окно онтологии предметной области
-    OntologyWidget* m_domainOntologyWidget;
+    OntologyWidget*     m_domainOntologyWidget;
+
     //! Окно онтологии шаблонов задач
-    OntologyWidget* m_temlateOntologyWidget;
+    OntologyWidget*     m_temlateOntologyWidget;
+
     //! Окно результата генерации
-    ResultWidget* m_resultWidget;
+    ResultWidget*       m_resultWidget;
 
     //! Окно редактора онтологии
-    LGen2Editor* m_ontologyWindow;
+    LGen2Editor*        m_ontologyWindow;
+
     //! Модель шаблонов задач
-    LOntologyModel* m_templateModel;
+    LOntologyModel*     m_templateModel;
+
     //! Модель понятий предметной области
-    LOntologyModel* m_domainModel;
+    LOntologyModel*     m_domainModel;
 
     //! Текущий проект, с которым идёт работа
-    LGen2Project* m_project;
+    LGen2Project*       m_project;
 
 };
 

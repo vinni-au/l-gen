@@ -17,6 +17,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "global.h"
 #include <QtGui/QApplication>
 #include <QTextCodec>
 #include "mainwindow.hpp"
@@ -42,6 +43,10 @@ void segfault_sigaction(int signal, siginfo_t *si, void *arg)
 
 int main(int argc, char *argv[])
 {
+#ifdef DIAGNOSTIC
+    qDebug() << NOW << "Application started";
+#endif
+
     QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
     QApplication a(argc, argv);
     MainWindow w;
@@ -61,7 +66,7 @@ int main(int argc, char *argv[])
 #endif
 #endif
 
-    return a.exec();;
+    return a.exec();
 }
 
 /* End of file: main.cpp */
