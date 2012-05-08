@@ -27,7 +27,6 @@
 #include "LGen2UI/ontologywidget.hpp"
 #include "LGen2UI/newprojectdialog.hpp"
 #include "LGen2UI/resultwidget.hpp"
-#include "LGen2UI/ontologyeditorwindow.hpp"
 #include "LGen2UI/lgen2editor.hpp"
 #include "LGen2Core/lgen2project.hpp"
 #include "LGen2MVC/lontologymodel.hpp"
