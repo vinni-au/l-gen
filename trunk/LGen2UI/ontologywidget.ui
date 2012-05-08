@@ -20,6 +20,15 @@
    <locale language="Russian" country="RussianFederation"/>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>5</number>
+   </property>
+   <property name="sizeConstraint">
+    <enum>QLayout::SetDefaultConstraint</enum>
+   </property>
+   <property name="margin">
+    <number>0</number>
+   </property>
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="sizePolicy">
@@ -29,22 +38,21 @@
       </sizepolicy>
      </property>
      <property name="styleSheet">
-      <string notr="true">/*QWidget {
-	background-color: #d0d9f0;
-}*/
+      <string notr="true">QWidget {
+/*	background-color: #d0d9f0;*/
+}
 
 QTabWidget::pane {
-	border: 1px solid qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #90a0e0, stop:1.0 #303070);
+	border: 2px solid qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #90a0e0, stop:1.0 #d0d9f0);
 }
 
 QTabWidget::tab-bar {
 	left: 30px;
-	height:60px;
 }
 
 QTabBar::tab {
 	padding: 5px 15px 3px 15px;
-	margin-top: 10px;
+	margin-top: 3px;
 	color: #303070;
 	border-top-left-radius: 4px;
 	border-top-right-radius: 4px;
@@ -66,7 +74,7 @@ QTabBar::tab:selected {
 		stop: 0 #f0f0ff, stop: 0.4 #f4f4ff,
 		stop: 0.5 #e7e7ff, stop: 1.0 #d0d9f0);
 	border: 1px solid #808090;
-	border-bottom: solid 0px;
+	border-bottom:0px solid;
 }
 
 QPushButton {
@@ -74,10 +82,14 @@ QPushButton {
 		qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #f6fcff, stop: 1.0 #a0b0d0);
 	border: 1px solid #a0a0b0;
 	border-radius: 3px;
+	min-width: 24px;
+	min-height: 24px;
+	padding-left: 2px;
+	padding-right: 2px;
 }
 
 QPushButton:checked {
-background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #f0eeaa, stop: 1 #eeaa88);
+	background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #f0eeaa, stop: 1 #eeaa88);
 }
 
 QPushButton:flat {
@@ -89,12 +101,12 @@ QPushButton:pressed {
 	background-color: #e0e3ff;
 }
 
-/*QFrame {
+QFrame {
 	background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #f6fcff, stop: 1.0 #a0b0d0);
-	border: 1px solid #8080a0;
+	border: 0px solid #8080a0;
 	border-top-left-radius: 4px;
 	border-top-right-radius: 4px;
-}*/
+}
 
 QLabel {
 	color: #303070;
@@ -104,6 +116,8 @@ QLabel {
 	border-bottom-left-radius: 4px;
 	border-bottom-right-radius: 4px;
 	border-top: 0px;
+	padding-left: 2px;
+	padding-right: 2px;
 }</string>
      </property>
      <property name="currentIndex">
@@ -111,13 +125,114 @@ QLabel {
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
-       <string>Tab 1</string>
+       <string>Стандартные</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout">
-       <item row="0" column="1">
+       <property name="verticalSpacing">
+        <number>0</number>
+       </property>
+       <property name="margin">
+        <number>5</number>
+       </property>
+       <item row="0" column="0" rowspan="2">
+        <widget class="QFrame" name="frame">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="QPushButton" name="pushButton">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Вершина</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="0" column="3" rowspan="2">
+        <widget class="QFrame" name="frame_3">
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <item>
+           <widget class="QPushButton" name="pushButton_4">
+            <property name="text">
+             <string>агент</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_5">
+            <property name="text">
+             <string>реципиент</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_6">
+            <property name="text">
+             <string>действие</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Вершины</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="6">
         <spacer name="horizontalSpacer">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Expanding</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
@@ -127,19 +242,65 @@ QLabel {
          </property>
         </spacer>
        </item>
-       <item row="0" column="0">
-        <widget class="QPushButton" name="pushButton">
+       <item row="0" column="1" rowspan="2">
+        <widget class="QFrame" name="frame_2">
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QPushButton" name="pushButton_2">
+            <property name="text">
+             <string>is-a</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <property name="autoDefault">
+             <bool>false</bool>
+            </property>
+            <property name="flat">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_3">
+            <property name="text">
+             <string>a-part-of</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLabel" name="label_2">
          <property name="text">
-          <string>PushButton</string>
+          <string>Отношения</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="3">
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>Падежные рамки</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
       </layout>
-     </widget>
-     <widget class="QWidget" name="tab_2">
-      <attribute name="title">
-       <string>Tab 2</string>
-      </attribute>
      </widget>
     </widget>
    </item>
@@ -154,12 +315,37 @@ QLabel {
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
-     <widget class="QTreeView" name="treeView"/>
-     <widget class="QGraphicsView" name="graphicsView"/>
+     <property name="childrenCollapsible">
+      <bool>false</bool>
+     </property>
+     <widget class="LGen2ObjectPropertiesEditor" name="treeView">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <attribute name="headerVisible">
+       <bool>false</bool>
+      </attribute>
+     </widget>
+     <widget class="LGen2DiagramEditor" name="graphicsView"/>
     </widget>
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>LGen2ObjectPropertiesEditor</class>
+   <extends>QTreeView</extends>
+   <header>./LGen2Editor/lgen2objectpropertieseditor.hpp</header>
+  </customwidget>
+  <customwidget>
+   <class>LGen2DiagramEditor</class>
+   <extends>QGraphicsView</extends>
+   <header>./LGen2Editor/lgen2diagrameditor.hpp</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
