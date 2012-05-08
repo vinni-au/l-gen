@@ -7,6 +7,8 @@ OntologyWidget::OntologyWidget(QWidget *parent) :
     ui(new Ui::OntologyWidget)
 {
     ui->setupUi(this);
+
+    ui->splitter->setSizes(QList<int>() << 1 << 4);
 }
 
 OntologyWidget::~OntologyWidget()
