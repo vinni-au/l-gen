@@ -20,7 +20,6 @@
 
 #include "mainwindow.hpp"
 #include "ui_mainwindow.h"
-#include "LGen2UI/ontologyeditorwindow.hpp"
 #include "LGen2UI/lgen2editor.hpp"
 
 MainWindow::MainWindow(QWidget *parent) :
