@@ -3,19 +3,20 @@
 /*
  * Copyright (C) 2011-2012  Anton Storozhev, antonstorozhev@gmail.com
  *
- * This program is free software; you can redistribute it and/or
+ * This file is a part of L-Gen 2.0
+ *
+ * L-Gen 2.0 is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 3
+ * as published by the Free Software Foundation, either version 3
  * of the License, or (at your option) any later version.
  *
- * This program is distributed in the hope that it will be useful,
+ * L-Gen 2.0 is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
 #ifndef MAINWINDOW_HPP
@@ -54,12 +55,13 @@ protected:
     virtual void closeEvent(QCloseEvent *event);
 
 private slots:
-    void on_act_Exit_triggered();
     void on_act_About_triggered();
     void on_act_AboutQt_triggered();
     void on_act_ProjectNew_triggered();
-    void on_act_ShowProjectTree_triggered(bool checked);
-    void on_act_ShowOntoEditor_triggered(bool checked);
+    void on_act_ProjectSave_triggered();
+    void on_act_ProjectSaveAs_triggered();
+    void on_act_ProjectOpen_triggered();
+    void on_act_ProjectClose_triggered();
 
 private:
     //! Интерфейс пользователя
@@ -75,7 +77,7 @@ private:
     ResultWidget*       m_resultWidget;
 
     //! Окно редактора онтологии
-    LGen2Editor*        m_ontologyWindow;
+    LGen2Editor*        m_editor;
 
     //! Модель шаблонов задач
     LOntologyModel*     m_templateModel;
@@ -85,6 +87,13 @@ private:
 
     //! Текущий проект, с которым идёт работа
     LGen2Project*       m_project;
+
+    bool userReallyWantsToQuit();
+
+    void closeProject();
+    void loadProject(LGen2Project* project);
+    void setProperWindowCaption();
+    void setProjectRelatedMenusEnabled(bool enabled = true);
 
 };
 

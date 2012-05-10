@@ -167,7 +167,10 @@ QLabel {
              <string>Вершина</string>
             </property>
             <property name="checkable">
-             <bool>true</bool>
+             <bool>false</bool>
+            </property>
+            <property name="flat">
+             <bool>false</bool>
             </property>
            </widget>
           </item>

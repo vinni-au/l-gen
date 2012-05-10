@@ -146,8 +146,8 @@ LOntology* LOntologyManager::loadOWLXML(QFile *file)
 
 bool LOntologyManager::saveOWLXML(QString filename)
 {
-    /* \todo Not implemented yet */
-    Q_UNUSED(filename)
+    //TODO
+
     return false;
 }
 
