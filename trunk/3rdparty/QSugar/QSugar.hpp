@@ -37,8 +37,7 @@ public:
     QSugarVariantMapCarrierConst(const QVariantMap & vmap, const QString & key):
         vmapcopy(vmap),
         pendingKey(key)
-    {
-    }
+    {   }
     
     template <class T>
     QVariantMap operator>> (const T & value)
@@ -63,8 +62,7 @@ public:
     QSugarVariantMapCarrier(QVariantMap & vmap, const QString & key):
         vmap(vmap),
         pendingKey(key)
-    {
-    }
+    {   }
     
     template <class T>
     QVariantMap & operator>> (const T & value)
@@ -96,8 +94,7 @@ public:
     QSugarObjectCarrier(QObject * pobj, const QString & key = QString()):
         pobj(pobj),
         pendingKey(key)
-    {
-    }
+    {   }
     
     QSugarObjectCarrier & operator<< (QString key)
     {
@@ -154,8 +151,7 @@ class QSugarDomDocument:
 public:
     
     QSugarDomDocument()
-    {
-    }
+    {   }
     
     QSugarDomDocument(QDomDocument doc)
     {
@@ -187,9 +183,7 @@ private:
 ///     Otherwise, it is treated as root element name.
 QDomDocument operator* (const QDomDocument &, const QString & code);
 
-
 QSugarDomDocument operator< (QDomDocument doc, const QString & key);
-
 
 QDomDocument operator> (QDomDocument ldoc, const QDomDocument & rdoc);
 
@@ -197,21 +191,17 @@ QDomDocument operator> (QDomDocument ldoc, const QDomDocument & rdoc);
 inline QDomDocument operator<< (QDomDocument ldoc, const QDomDocument & rdoc)
 { return ldoc > rdoc; }
 
-
 QDomDocument operator> (QDomDocument doc, QVariant var);
 
 /// synonym
-QDomDocument operator<< (QDomDocument doc, QVariant var)
+inline QDomDocument operator<< (QDomDocument doc, QVariant var)
 { return doc > var; }
 
-
 void operator>> (QDomDocument doc, QVariant & var);
-
 
 #define QLIST (QVariantList())
 #define QMAP (QVariantMap())
 extern const QDomDocument _QXML;
 #define QXML (_QXML)*
-
 
 #endif // QSugar_QSugar_hpp

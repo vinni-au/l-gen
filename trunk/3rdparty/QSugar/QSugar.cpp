@@ -1,3 +1,20 @@
+/*
+ * This file is a part of L-Gen 2.0 and is a modified part of QSugar
+ *
+ * L-Gen 2.0 is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation, either version 3
+ * of the License, or (at your option) any later version.
+ *
+ * L-Gen 2.0 is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
 // Copyright 2010, Juri Syrowiecki
 // 
 // This file is part of QSugar.
@@ -18,18 +35,15 @@
 
 #include "QSugar.hpp"
 
-
 const QDomDocument _QXML;
 
 void buildDom(QDomElement element, const QVariant & value)
 {
     switch ( value.type() )
     {
-        case QVariant::List:
-        {
+        case QVariant::List: {
             element.setAttribute("valuetype", "list");
-            foreach ( QVariant it, value.toList() )
-            {
+            foreach ( QVariant it, value.toList() )  {
                 QDomElement li = element.ownerDocument().createElement("li");
                 element.appendChild(li);
                 buildDom(li, it);
@@ -37,17 +51,14 @@ void buildDom(QDomElement element, const QVariant & value)
         }
             break;
         
-        case QVariant::Map:
-        {
+        case QVariant::Map: {
             QVariantMap map = value.toMap();
-            foreach ( QString key, map.keys() )
-            {
+            foreach ( QString key, map.keys() ) {
                 if ( key.isEmpty() ) // empty key designates body
                     buildDom(element, map[key]);
                 else if ( key.startsWith("@") )
                     element.setAttribute(key.mid(1), map[key].toString());
-                else
-                {
+                else {
                     QDomElement childElement = element.ownerDocument().createElement(key);
                     element.appendChild(childElement);
                     buildDom(childElement, map[key]);
@@ -56,8 +67,7 @@ void buildDom(QDomElement element, const QVariant & value)
         }
             break;
         
-        default:
-        {
+        default: {
             element.appendChild(
                 element.ownerDocument().createTextNode(
                     value.toString()
@@ -74,8 +84,7 @@ QDomDocument QSugarDomDocument::operator> (const QVariant & value)
         buildDom(documentElement(), value);
     else if ( pendingKey.startsWith("@") ) // attribute
         documentElement().setAttribute(pendingKey.mid(1), value.toString());
-    else
-    {
+    else {
         QDomElement element = createElement(pendingKey);
         documentElement().appendChild(element);
         buildDom(element, value);
@@ -89,8 +98,7 @@ QDomDocument QSugarDomDocument::operator> (QDomDocument doc)
 {
     if ( pendingKey.isEmpty() )
         documentElement().appendChild(doc);
-    else
-    {
+    else {
         QDomElement element = createElement(pendingKey);
         documentElement().appendChild(element);
         element.appendChild(doc);
@@ -138,45 +146,35 @@ QVariant takeApartDom(QDomElement el)
 {
     QString valuetype = el.attribute("valuetype", "map");
     
-    if ( valuetype == "map" )
-    {
+    if ( valuetype == "map" ) {
         QVariantMap varmap;
         QString body;
         
         QDomNamedNodeMap attributes = el.attributes();
-        for ( int i = 0; i < attributes.count(); ++i )
-        {
+        for ( int i = 0; i < attributes.count(); ++i ) {
             QDomAttr attr = attributes.item(i).toAttr();
             varmap << ("@" + attr.name()) >> attr.value();
         }
         
-        for ( QDomNode node = el.firstChild(); ! node.isNull(); node = node.nextSibling() )
-        {
-            if ( node.isElement() )
-            {
+        for ( QDomNode node = el.firstChild(); ! node.isNull(); node = node.nextSibling() ) {
+            if ( node.isElement() ) {
                 QDomElement child = node.toElement();
                 varmap << child.tagName() >> takeApartDom(child);
-            }
-            else if ( node.isText() )
-            {
+            } else if ( node.isText() ) {
                 body = node.toText().data();
             }
         }
         
-        if ( varmap.size() ) // sub-elements exist
-        {
+        if ( varmap.size() ) { // sub-elements exist
             if ( ! body.isEmpty() )
                 varmap << "" >> body;
             return varmap;
         }
         else
             return el.text();
-    }
-    else if ( valuetype == "list" )
-    {
+    } else if ( valuetype == "list" ) {
         QVariantList varlist;
-        for ( QDomNode node = el.firstChild(); ! node.isNull(); node = node.nextSibling() )
-        {
+        for ( QDomNode node = el.firstChild(); ! node.isNull(); node = node.nextSibling() ) {
             if ( node.isElement() )
                 varlist << takeApartDom(node.toElement());
         }

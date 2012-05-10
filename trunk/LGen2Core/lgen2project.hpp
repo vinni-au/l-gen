@@ -32,6 +32,7 @@ class LGen2Project : public QObject
     Q_OBJECT
 public:
     LGen2Project(QString name, QFile* file, QObject *parent = 0);
+    ~LGen2Project();
 
     //! Задаёт файл с онтологией шаблонов задач
     /*!
@@ -54,9 +55,26 @@ public:
     LKB* kb() const
     {   return m_kb;    }
 
+    //! Возвращает имя проекта
+    /*!
+      \sa m_name
+     */
+    QString name() const
+    {   return m_name;    }
+
+    //! Задаёт имя проекта
+    void setName(QString name)
+    {   m_name = name;  }
+
+    void setFilename(QString filename)
+    {   m_file->setFileName(filename);  }
+
+    static LGen2Project* load(QString filename);
+
 signals:
 
 public slots:
+        void save();
 
 private:
     //! Название проекта

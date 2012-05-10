@@ -3,29 +3,32 @@
 /*
  * Copyright (C) 2011-2012  Anton Storozhev, antonstorozhev@gmail.com
  *
- * This program is free software; you can redistribute it and/or
+ * This file is a part of L-Gen 2.0
+ *
+ * L-Gen 2.0 is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 3
+ * as published by the Free Software Foundation, either version 3
  * of the License, or (at your option) any later version.
  *
- * This program is distributed in the hope that it will be useful,
+ * L-Gen 2.0 is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include "global.h"
 #include "mainwindow.hpp"
 #include "ui_mainwindow.h"
 #include "LGen2UI/lgen2editor.hpp"
+#include <QCloseEvent>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow), m_project(0)
 {
 #ifdef DEBUG_CTOR
     qDebug() << NOW << "MainWindow сtor";
@@ -34,14 +37,28 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     ui->m_projectDockWidget->setVisible(false);
 
-    m_domainOntologyWidget = new OntologyWidget;
+    m_domainOntologyWidget  = new OntologyWidget;
     m_temlateOntologyWidget = new OntologyWidget;
-    m_resultWidget = new ResultWidget(this);
+    m_resultWidget          = new ResultWidget(this);
 
-    m_ontologyWindow = new LGen2Editor;
+    m_editor = new LGen2Editor;
 
-    m_domainModel = new LOntologyModel;
+    m_domainModel   = new LOntologyModel;
     m_templateModel = new LOntologyModel;
+
+    if (QApplication::instance()->argc() == 2) {
+        QString path = QApplication::instance()->arguments().at(1);
+        m_project = LGen2Project::load(path);
+        if (m_project)
+            loadProject(m_project);
+    }
+
+    QObject::connect(ui->act_ShowProjectTree, SIGNAL(triggered(bool)),
+                     ui->m_projectDockWidget, SLOT(setVisible(bool)));
+    QObject::connect(ui->act_ShowOntoEditor, SIGNAL(triggered()),
+                     m_editor, SLOT(show()));
+    QObject::connect(ui->act_Exit, SIGNAL(triggered()),
+                     SLOT(close()));
 }
 
 MainWindow::~MainWindow()
@@ -53,28 +70,13 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_act_Exit_triggered()
-{
-#ifdef DEBUG_SLOT
-    qDebug() << NOW << "MainWindow::on_act_Exit_triggered() slot activated";
-#endif
-
-    close();
-}
-
 void MainWindow::on_act_About_triggered()
 {
-#ifdef DEBUG_SLOT
-#endif
-
     QMessageBox::about(this, "О программe", "      L-Gen 2.0         ");
 }
 
 void MainWindow::on_act_AboutQt_triggered()
 {
-#ifdef DEBUG_SLOT
-#endif
-
     QMessageBox::aboutQt(this, "O Qt");
 }
 
@@ -85,39 +87,60 @@ void MainWindow::on_act_ProjectNew_triggered()
 
     NewProjectDialog pd;
     if (pd.exec()) {
-        m_project = new LGen2Project(pd.name(), new QFile(pd.filename()));
-        if (!m_project->setDomainOntologyFromFile(new QFile(pd.domainFilename())))
+        LGen2Project* project = new LGen2Project(pd.name(), new QFile(pd.filename()));
+        if (!project->setDomainOntologyFromFile(new QFile(pd.domainFilename()))) {
             QMessageBox::critical(this, "Ошибка", "Не удалось загрузить онтологию предметной области!");
-        if (!m_project->setTemplateOntologyFromFile(new QFile(pd.templateFilename())))
+            delete project;
+            return;
+        }
+        if (!project->setTemplateOntologyFromFile(new QFile(pd.templateFilename()))) {
             QMessageBox::critical(this, "Ошибка!", "Не удалось загрузить онтологию шаблонов задач!");
-        m_domainModel->setOntology(m_project->kb()->domainOntology());
-        m_domainOntologyWidget->setModel(m_domainModel);
-        m_domainOntologyWidget->setWindowTitle("Предметная онтология");
-        m_templateModel->setOntology(m_project->kb()->templateOntology());
-        m_temlateOntologyWidget->setModel(m_templateModel);
-        m_temlateOntologyWidget->setWindowTitle("Онтология шаблонов задач");
-        m_resultWidget->setWindowTitle("Результат генерации");
+            delete project;
+            return;
+        }
+        closeProject();
+        loadProject(project);
+        setProperWindowCaption();
 
-        QList<QMdiSubWindow*> subWindows = ui->mdiArea->subWindowList();
-        for (int i = 0; i < subWindows.count(); ++i)
-            subWindows.at(i)->show();
+        setProjectRelatedMenusEnabled();
     }
 }
 
-void MainWindow::on_act_ShowProjectTree_triggered(bool checked)
+void MainWindow::on_act_ProjectSave_triggered()
 {
-#ifdef DEBUG_SLOT
-#endif
-
-    ui->m_projectDockWidget->setVisible(checked);
+    if (m_project)
+        m_project->save();
 }
 
-void MainWindow::on_act_ShowOntoEditor_triggered(bool checked)
+void MainWindow::on_act_ProjectSaveAs_triggered()
 {
-#ifdef DEBUG_SLOT
-#endif
+    QFileDialog fd;
+    fd.setAcceptMode(QFileDialog::AcceptSave);
+    fd.setFilter("L-Gen 2.0 project (*.lgen)");
+    if (fd.exec()) {
+        //TODO
+        m_project->setFilename(fd.selectedFiles().at(0));
+        setProperWindowCaption();
+    }
+}
 
-    m_ontologyWindow->setVisible(checked);
+void MainWindow::on_act_ProjectOpen_triggered()
+{
+    QFileDialog fd;
+    fd.setAcceptMode(QFileDialog::AcceptOpen);
+    fd.setFilter("L-Gen 2.0 project (*.lgen)");
+    if (fd.exec()) {
+        LGen2Project* project = LGen2Project::load(fd.selectedFiles().at(0));
+        if (project) {
+            closeProject();
+            loadProject(project);
+        }
+    }
+}
+
+void MainWindow::on_act_ProjectClose_triggered()
+{
+    closeProject();
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -125,7 +148,52 @@ void MainWindow::closeEvent(QCloseEvent *event)
 #ifdef DEBUG_EVENT
 #endif
 
-    QMainWindow::closeEvent(event);
+    if (userReallyWantsToQuit())
+        event->accept();
+    else event->ignore();
 }
 
+bool MainWindow::userReallyWantsToQuit()
+{
+    //TODO проверка на изменения
+    bool quit = true;
+
+    if (QMessageBox::question(this, "", "Вы действительно хотите выйти?", QMessageBox::Yes, QMessageBox::No)
+            != QMessageBox::Yes)
+        quit = false;
+
+    return quit;
+}
+
+void MainWindow::closeProject()
+{
+    if (m_project) {
+        //TODO
+        setProjectRelatedMenusEnabled(false);
+        delete m_project;
+        m_project = 0;
+    }
+}
+
+void MainWindow::loadProject(LGen2Project *project)
+{
+    m_project = project;
+    // TODO
+    setProjectRelatedMenusEnabled();
+}
+
+void MainWindow::setProperWindowCaption()
+{
+    if (m_project)
+        setWindowTitle("L-Gen 2.0 - [" + m_project->name() + "]");
+}
+
+void MainWindow::setProjectRelatedMenusEnabled(bool enabled)
+{
+    ui->act_ProjectSave->setEnabled(enabled);
+    ui->act_ProjectSaveAs->setEnabled(enabled);
+    ui->act_ProjectClose->setEnabled(enabled);
+    ui->act_ShowOntoEditor->setEnabled(enabled);
+    ui->act_ShowGenerator->setEnabled(enabled);
+}
 /* End of file: lontology.cpp */
