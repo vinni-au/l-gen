@@ -48,6 +48,8 @@ private slots:
 
 private:
     Ui::NewProjectDialog *ui;
+
+    void showToolTipAtWidget(QWidget* widget, QString text);
 };
 
 #endif // NEWPROJECTDIALOG_HPP

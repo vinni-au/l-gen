@@ -25,6 +25,7 @@
 #include "LGen2UI/lgen2editor.hpp"
 #include <QCloseEvent>
 #include <QMessageBox>
+#include <QTreeView>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -35,6 +36,10 @@ MainWindow::MainWindow(QWidget *parent) :
 #endif
 
     ui->setupUi(this);
+
+    QTreeView* projectTree = new QTreeView;
+    projectTree->setHeaderHidden(true);
+    ui->m_projectDockWidget->setWidget(projectTree);
     ui->m_projectDockWidget->setVisible(false);
 
     m_domainOntologyWidget  = new OntologyWidget;
@@ -45,6 +50,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     m_domainModel   = new LOntologyModel;
     m_templateModel = new LOntologyModel;
+    m_projectModel  = new LGen2ProjectModel;
+
+    projectTree->setModel(m_projectModel);
 
     if (QApplication::instance()->argc() == 2) {
         QString path = QApplication::instance()->arguments().at(1);
@@ -103,6 +111,7 @@ void MainWindow::on_act_ProjectNew_triggered()
         setProperWindowCaption();
 
         setProjectRelatedMenusEnabled();
+
     }
 }
 
@@ -169,16 +178,25 @@ void MainWindow::closeProject()
 {
     if (m_project) {
         //TODO
-        setProjectRelatedMenusEnabled(false);
+
+        m_projectModel->clear();
+
         delete m_project;
         m_project = 0;
+        setProperWindowCaption();
+        setProjectRelatedMenusEnabled(false);
     }
 }
 
 void MainWindow::loadProject(LGen2Project *project)
 {
     m_project = project;
-    // TODO
+
+    m_projectModel->setProject(m_project);
+    //TODO
+
+    static_cast<QTreeView*>(ui->m_projectDockWidget->widget())->expandAll();
+
     setProjectRelatedMenusEnabled();
 }
 
@@ -186,6 +204,7 @@ void MainWindow::setProperWindowCaption()
 {
     if (m_project)
         setWindowTitle("L-Gen 2.0 - [" + m_project->name() + "]");
+    else setWindowTitle("L-Gen 2.0");
 }
 
 void MainWindow::setProjectRelatedMenusEnabled(bool enabled)

@@ -66,5 +66,7 @@ private:
     bool m_checked;
 };
 
+typedef LOntologyModelTreeNode OMTreeNode;
+
 #endif // LONTOLOGYMODELTREENODE_HPP
 /* Begin of file: lontologymodeltreenode.hpp */

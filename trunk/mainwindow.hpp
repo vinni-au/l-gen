@@ -31,6 +31,7 @@
 #include "LGen2UI/lgen2editor.hpp"
 #include "LGen2Core/lgen2project.hpp"
 #include "LGen2MVC/lontologymodel.hpp"
+#include "LGen2MVC/lgen2projectmodel.hpp"
 
 namespace Ui {
     class MainWindow;
@@ -84,6 +85,8 @@ private:
 
     //! Модель понятий предметной области
     LOntologyModel*     m_domainModel;
+
+    LGen2ProjectModel*  m_projectModel;
 
     //! Текущий проект, с которым идёт работа
     LGen2Project*       m_project;
