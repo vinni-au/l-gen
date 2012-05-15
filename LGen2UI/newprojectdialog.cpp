@@ -1,6 +1,7 @@
 /* Begin of file: newprojectdialog.cpp */
 #include "newprojectdialog.hpp"
 #include "ui_newprojectdialog.h"
+#include <QToolTip>
 
 NewProjectDialog::NewProjectDialog(QWidget *parent) :
     QDialog(parent),
@@ -72,11 +73,25 @@ bool NewProjectDialog::checkData()
     m_filename = ui->le_file->text().simplified();
     m_templateFilename = ui->le_template->text().simplified();
     m_domainFilename = ui->le_domain->text().simplified();
-    if (!QFile::exists(m_templateFilename))
+    if (!QFile::exists(m_templateFilename)) {
+        showToolTipAtWidget(ui->le_template, "Указанный файл не существует");
         return false;
-    if (!QFile::exists(m_domainFilename))
+    }
+    if (!QFile::exists(m_domainFilename)) {
+        showToolTipAtWidget(ui->le_domain, "Указанный файл не существует");
         return false;
+    }
+    if (m_projectname.isEmpty()) {
+        showToolTipAtWidget(ui->le_name, "Имя проекта не может быть пустым");
+        return false;
+    }
     return true;
+}
+
+void NewProjectDialog::showToolTipAtWidget(QWidget *widget, QString text)
+{
+    QToolTip::showText(widget->rect().topLeft() + pos() + widget->pos(),
+                       "<div style=\"background:white; color:red;\">" + text + "</div>", widget);
 }
 
 /* End of file: newprojectdialog.cpp */

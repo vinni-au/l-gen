@@ -27,6 +27,7 @@
 #include "LGen2Core/lontologymanager.hpp"
 
 //! Проект L-Gen 2
+//! TODO добавить поддержку множества онтологий
 class LGen2Project : public QObject
 {
     Q_OBJECT
@@ -68,6 +69,13 @@ public:
 
     void setFilename(QString filename)
     {   m_file->setFileName(filename);  }
+    QString filename() const
+    {   return m_file->fileName();  }
+
+    QString tfilename() const
+    {   return m_templateOntologyFile->fileName();  }
+    QString dfilename() const
+    {   return m_domainOntologyFile->fileName();    }
 
     static LGen2Project* load(QString filename);
 
