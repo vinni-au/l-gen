@@ -146,7 +146,7 @@ LOntology* LOntologyManager::loadOWLXML(QFile *file)
 
 bool LOntologyManager::saveOWLXML(QString filename)
 {
-    //TODO
+    //TODO: write OWL/XML to file
 
     return false;
 }

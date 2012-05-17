@@ -32,7 +32,7 @@ class Arrow : public QGraphicsLineItem
 public:
     enum { Type = UserType + 2 };
 
-    //TODO добавить внутренний идентификатор
+    //TODO: add internal identifier
     Arrow(DiagramItem *startItem, DiagramItem *endItem, QString text = QString(),
       QGraphicsItem *parent = 0, QGraphicsScene *scene = 0);
 

@@ -44,6 +44,7 @@ public:
       \param ontology онтология предметной области
       \sa m_domainOntology, domainOntology()
     */
+    // TODO: check ontology
     void setDomainOntology(LOntology* ontology)
     {   m_domainOntology = ontology;    }
 
@@ -58,6 +59,7 @@ public:
       \param ontology онтология шаблонов задач
       \sa m_templateOntology, templateOntology()
     */
+    //TODO: check ontology
     void setTemplateOntology(LOntology* ontology)
     {   m_templateOntology = ontology;  }
 

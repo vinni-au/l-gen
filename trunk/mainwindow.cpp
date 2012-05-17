@@ -90,21 +90,22 @@ void MainWindow::on_act_AboutQt_triggered()
 
 void MainWindow::on_act_ProjectNew_triggered()
 {
-#ifdef DEBUG_SLOT
-#endif
-
     NewProjectDialog pd;
     if (pd.exec()) {
         LGen2Project* project = new LGen2Project(pd.name(), new QFile(pd.filename()));
-        if (!project->setDomainOntologyFromFile(new QFile(pd.domainFilename()))) {
-            QMessageBox::critical(this, "Ошибка", "Не удалось загрузить онтологию предметной области!");
-            delete project;
-            return;
+        if (pd.domainFileExists()) {
+            if (!project->setDomainOntologyFromFile(new QFile(pd.domainFilename()))) {
+                QMessageBox::critical(this, "Ошибка", "Не удалось загрузить онтологию предметной области!");
+                delete project;
+                return;
+            }
         }
-        if (!project->setTemplateOntologyFromFile(new QFile(pd.templateFilename()))) {
-            QMessageBox::critical(this, "Ошибка!", "Не удалось загрузить онтологию шаблонов задач!");
-            delete project;
-            return;
+        if (pd.templateFileExists()) {
+            if (!project->setTemplateOntologyFromFile(new QFile(pd.templateFilename()))) {
+                QMessageBox::critical(this, "Ошибка", "Не удалось загрузить онтологию шаблонов задач!");
+                delete project;
+                return;
+            }
         }
         closeProject();
         loadProject(project);
@@ -127,7 +128,6 @@ void MainWindow::on_act_ProjectSaveAs_triggered()
     fd.setAcceptMode(QFileDialog::AcceptSave);
     fd.setFilter("L-Gen 2.0 project (*.lgen)");
     if (fd.exec()) {
-        //TODO
         m_project->setFilename(fd.selectedFiles().at(0));
         setProperWindowCaption();
     }
@@ -164,7 +164,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
 bool MainWindow::userReallyWantsToQuit()
 {
-    //TODO проверка на изменения
+    //TODO: check for changes
     bool quit = true;
 
     if (QMessageBox::question(this, "", "Вы действительно хотите выйти?", QMessageBox::Yes, QMessageBox::No)
@@ -177,7 +177,7 @@ bool MainWindow::userReallyWantsToQuit()
 void MainWindow::closeProject()
 {
     if (m_project) {
-        //TODO
+        //TODO: clean diagrams etc.
 
         m_projectModel->clear();
 
@@ -193,7 +193,7 @@ void MainWindow::loadProject(LGen2Project *project)
     m_project = project;
 
     m_projectModel->setProject(m_project);
-    //TODO
+    //TODO: load model etc.
 
     static_cast<QTreeView*>(ui->m_projectDockWidget->widget())->expandAll();
 

@@ -131,7 +131,7 @@ QVariant DiagramItem::itemChange(GraphicsItemChange change, const QVariant &valu
 void DiagramItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     QGraphicsPolygonItem::paint(painter, option, widget);
-    //TODO написать нормальное построение прямоугольника
+    //TODO: write a corrent rectangle creation
     painter->drawText(QRectF(-50, -25, 100, 50), Qt::AlignCenter, m_text);
     if (isSelected()) {
         painter->setBrush(QBrush(QColor(0, 0, 255, 40)));

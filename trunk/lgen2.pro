@@ -77,3 +77,6 @@ FORMS    += mainwindow.ui \
     LGen2UI/ontologywidget.ui \
     LGen2UI/newprojectdialog.ui \
     LGen2UI/resultwidget.ui
+
+RESOURCES += \
+    res.qrc

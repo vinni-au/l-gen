@@ -31,7 +31,6 @@
 //! Вершина диаграммы
 class DiagramItem : public QGraphicsPolygonItem
 {
-    //TODO позиционирование надписи на ноде
 public:
     enum { Type = UserType + 1 };
 

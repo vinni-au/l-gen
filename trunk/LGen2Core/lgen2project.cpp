@@ -116,4 +116,15 @@ LGen2Project* LGen2Project::load(QString filename)
     return result;
 }
 
+//TODO: create empty ontologies
+void LGen2Project::createEmptyDomainOntology(QString filename)
+{
+
+}
+
+void LGen2Project::createEmptyTemplateOntology(QString filename)
+{
+
+}
+
 /* End of file: lgen2project.cpp */

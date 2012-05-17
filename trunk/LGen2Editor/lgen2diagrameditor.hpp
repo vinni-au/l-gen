@@ -27,7 +27,7 @@
 #include "diagramscene.hpp"
 
 //! Редактор диаграмм
-//TODO перенести часть интерфейса из DiagramScene
+//TODO: move API from DiagramScene
 class LGen2DiagramEditor : public QGraphicsView
 {
     Q_OBJECT
@@ -90,10 +90,10 @@ signals:
     void selectionCleared();
 
     //! Выделена дуга
-    //TODO переделать на внутренний идентификатор дуги???
+    //TODO: maybe chande to link's identifier
     void linkSelected(unsigned, unsigned);
 
-    //TODO удалить эти сигналы
+    //TODO: remove this signals
     void isaDeleted(unsigned sid, unsigned did);
     void apoDeleted(unsigned sid, unsigned did);
 
@@ -128,7 +128,7 @@ public slots:
 
     //Добавить связь между от вершины с идентификатором sid до вершины с идентификатором did
     //и надписью title
-    //TODO
+    //TODO: change to link's identifier
     void addLink(unsigned sid, unsigned did, QString title);
     void addArrow(Arrow* arrow);
     //Удалить связь

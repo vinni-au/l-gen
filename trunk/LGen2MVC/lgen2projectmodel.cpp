@@ -135,7 +135,7 @@ void LGen2ProjectModel::setProject(LGen2Project *project)
 
 void LGen2ProjectModel::clear()
 {
-    // TODO нормальная очистка
+    // TODO: write a correct clean
     m_project = 0;
     m_rootNode = 0;
 }

@@ -2,10 +2,12 @@
 #include "newprojectdialog.hpp"
 #include "ui_newprojectdialog.h"
 #include <QToolTip>
+#include <QMessageBox>
 
 NewProjectDialog::NewProjectDialog(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::NewProjectDialog)
+    ui(new Ui::NewProjectDialog),
+    m_doExists(false), m_toExists(false)
 {
     ui->setupUi(this);
 }
@@ -69,21 +71,32 @@ void NewProjectDialog::on_btn_cancel_clicked()
 
 bool NewProjectDialog::checkData()
 {
-    m_projectname = ui->le_name->text().simplified();
-    m_filename = ui->le_file->text().simplified();
-    m_templateFilename = ui->le_template->text().simplified();
-    m_domainFilename = ui->le_domain->text().simplified();
-    if (!QFile::exists(m_templateFilename)) {
-        showToolTipAtWidget(ui->le_template, "Указанный файл не существует");
-        return false;
-    }
-    if (!QFile::exists(m_domainFilename)) {
-        showToolTipAtWidget(ui->le_domain, "Указанный файл не существует");
-        return false;
-    }
+    //TODO: know whether files can be created
+    m_projectname       = ui->le_name->text().simplified();
+    m_filename          = ui->le_file->text().simplified();
+    m_templateFilename  = ui->le_template->text().simplified();
+    m_domainFilename    = ui->le_domain->text().simplified();
+    m_toExists          = QFile::exists(m_templateFilename);
+    m_doExists          = QFile::exists(m_domainFilename);
+
     if (m_projectname.isEmpty()) {
         showToolTipAtWidget(ui->le_name, "Имя проекта не может быть пустым");
         return false;
+    }
+    if (m_templateFilename == m_domainFilename) {
+        showToolTipAtWidget(ui->le_domain, "Один и тот же файл не может содержать две онтологии!");
+        return false;
+    }
+    if (!m_doExists || !m_toExists) {
+        QString msg = "Файлы со следующими онтологиями не существуют: <ul>";
+        if (!m_toExists)
+            msg += "<li>онтология шаблонов задач</li>";
+        if (!m_doExists)
+            msg += "<li>онтология предметной области</li>";
+        msg += "</ul>";
+        msg += "<p>Обратите внимание, что в этом случае вышеперечисленные онтологии будут пустыми, "
+               "и поэтому генерация текстов задач не будет работать.";
+        QMessageBox::warning(this, "Внимание!", msg);
     }
     return true;
 }
