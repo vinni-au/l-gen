@@ -22,6 +22,7 @@
 #include "global.h"
 #include <QtGui/QApplication>
 #include <QTextCodec>
+#include <QTranslator>
 #include "mainwindow.hpp"
 
 #ifdef Q_WS_X11
@@ -32,13 +33,13 @@ void segfault_sigaction(int /* signal */, siginfo_t * /* si */ , void * /* arg *
 {
     QMessageBox::critical(0, "Критическая ошибка", "В программе произошла критическая ошибка!"
                                                    "<br>Программа будет перезапущена");
-    //TODO перезапустить программу
+    //TODO: перезапустить программу
     exit(0);
 }
 
 #else
 #ifdef Q_WS_WIN
-//TODO Написать поимку memory access violation для Windows
+//TODO: catch memory access violation on Windows
 #endif
 #endif
 
@@ -51,6 +52,11 @@ int main(int argc, char *argv[])
 
     QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
     QApplication a(argc, argv);
+
+    QTranslator t;
+    if (t.load(":/translations/qt_ru.qm"))
+        a.installTranslator(&t);
+
     MainWindow w;
     w.show();
 

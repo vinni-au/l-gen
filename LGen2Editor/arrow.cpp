@@ -47,7 +47,7 @@ QRectF Arrow::boundingRect() const
 
 QPainterPath Arrow::shape() const
 {
-    //TODO добавить шейп вокрук текста
+    //TODO: add shape of text
     QPainterPath path = QGraphicsLineItem::shape();
     path.addPolygon(m_arrowHead);
     return path;

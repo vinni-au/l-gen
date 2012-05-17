@@ -108,7 +108,7 @@ void LGen2DiagramEditor::deleteLink(unsigned sid, unsigned did)
     Arrow* a = 0;
     for (int i = 0; i < m_links.count(); ++i) {
         a = m_links[i];
-        //TODO Убрать этот быдлокод!!!
+        //FIXME: WTF??
         if (a && (unsigned long long)a->endItem() != 0xfeeefeee  && (unsigned long long)a->startItem() != 3722304989)
             if (a->startItem()->id() == sid &&
                     a->endItem()->id() == did) {

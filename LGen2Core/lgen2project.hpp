@@ -27,7 +27,7 @@
 #include "LGen2Core/lontologymanager.hpp"
 
 //! Проект L-Gen 2
-//! TODO добавить поддержку множества онтологий
+// TODO: add multiple ontologies support
 class LGen2Project : public QObject
 {
     Q_OBJECT
@@ -76,6 +76,9 @@ public:
     {   return m_templateOntologyFile->fileName();  }
     QString dfilename() const
     {   return m_domainOntologyFile->fileName();    }
+
+    void createEmptyDomainOntology();
+    void createEmptyTemplateOntology();
 
     static LGen2Project* load(QString filename);
 
