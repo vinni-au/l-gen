@@ -131,12 +131,12 @@ public slots:
     //TODO: change to link's identifier
     void addLink(unsigned sid, unsigned did, QString title);
     void addArrow(Arrow* arrow);
-    //Удалить связь
+
+    //! Удалить связь
     void deleteLink(unsigned sid, unsigned did);
 
     //! Выделить вершину
     void selectNode(unsigned id);
-    void selectLink(unsigned sid, unsigned did);
 
 };
 

@@ -42,15 +42,13 @@ LGen2Project::~LGen2Project()
 bool LGen2Project::setDomainOntologyFromFile(QFile *file)
 {
     m_domainOntologyFile = file;
-    m_kb->setDomainOntology(LOntologyManager::loadOWLXML(file));
-    return static_cast<bool>(m_kb->domainOntology());
+    return m_kb->setDomainOntology(LOntologyManager::loadOWLXML(file));
  }
 
 bool LGen2Project::setTemplateOntologyFromFile(QFile *file)
 {
     m_templateOntologyFile = file;
-    m_kb->setTemplateOntology(LOntologyManager::loadOWLXML(file));
-    return m_kb->templateOntology();
+    return m_kb->setTemplateOntology(LOntologyManager::loadOWLXML(file));
 }
 
 void LGen2Project::save()

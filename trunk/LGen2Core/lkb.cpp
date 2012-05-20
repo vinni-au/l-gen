@@ -23,4 +23,18 @@
 LKB::LKB()
 {   }
 
+// TODO: check ontology
+bool LKB::setDomainOntology(LOntology *ontology)
+{
+    m_domainOntology = ontology;
+    return true;
+}
+
+bool LKB::setTemplateOntology(LOntology *ontology)
+{
+    m_templateOntology = ontology;
+    return true;
+}
+
+
 /* End of file: lkb.cpp */

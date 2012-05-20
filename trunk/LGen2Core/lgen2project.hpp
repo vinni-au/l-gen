@@ -77,8 +77,8 @@ public:
     QString dfilename() const
     {   return m_domainOntologyFile->fileName();    }
 
-    void createEmptyDomainOntology();
-    void createEmptyTemplateOntology();
+    void createEmptyDomainOntology(QString filename);
+    void createEmptyTemplateOntology(QString filename);
 
     static LGen2Project* load(QString filename);
 
