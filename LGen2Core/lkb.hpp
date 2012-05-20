@@ -44,9 +44,7 @@ public:
       \param ontology онтология предметной области
       \sa m_domainOntology, domainOntology()
     */
-    // TODO: check ontology
-    void setDomainOntology(LOntology* ontology)
-    {   m_domainOntology = ontology;    }
+    bool setDomainOntology(LOntology* ontology);
 
     //! Возвращает указатель на онтологию шаблонов задач
     /*!
@@ -59,9 +57,7 @@ public:
       \param ontology онтология шаблонов задач
       \sa m_templateOntology, templateOntology()
     */
-    //TODO: check ontology
-    void setTemplateOntology(LOntology* ontology)
-    {   m_templateOntology = ontology;  }
+    bool setTemplateOntology(LOntology* ontology);
 
 private:
     //! Указатель на онтологию предметной области

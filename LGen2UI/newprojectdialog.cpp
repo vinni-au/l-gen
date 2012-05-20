@@ -71,7 +71,7 @@ void NewProjectDialog::on_btn_cancel_clicked()
 
 bool NewProjectDialog::checkData()
 {
-    //TODO: know whether files can be created
+    //TODO: detect whether files can be created
     m_projectname       = ui->le_name->text().simplified();
     m_filename          = ui->le_file->text().simplified();
     m_templateFilename  = ui->le_template->text().simplified();

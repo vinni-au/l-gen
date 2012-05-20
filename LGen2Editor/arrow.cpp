@@ -67,8 +67,8 @@ void Arrow::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
         m_contextMenu->exec(event->screenPos());
 }
 
-void Arrow::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
-           QWidget *widget)
+void Arrow::paint(QPainter *painter, const QStyleOptionGraphicsItem *,
+           QWidget *)
 {
     if (m_startItem->collidesWithItem(m_endItem))
         return;

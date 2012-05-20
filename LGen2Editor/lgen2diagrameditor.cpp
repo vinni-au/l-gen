@@ -22,7 +22,7 @@
 #include <QContextMenuEvent>
 
 LGen2DiagramEditor::LGen2DiagramEditor(QWidget *parent, QMenu *contextMenu):
-    QGraphicsView(parent)
+    QGraphicsView(parent), m_contextMenu(contextMenu)
 {
     m_scene = new DiagramScene;
 
@@ -211,14 +211,10 @@ void LGen2DiagramEditor::deleteSelectedLink()
     }
 }
 
+//TODO: delete selected items
 void LGen2DiagramEditor::deleteSelectedItems()
 {
 
-}
-
-void LGen2DiagramEditor::selectLink(unsigned sid, unsigned did)
-{
-    //Вроде как нафиг не нужно
 }
 
 void LGen2DiagramEditor::zoomIn()
