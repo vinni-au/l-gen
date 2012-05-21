@@ -1,0 +1,177 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE Ontology [
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY xml "http://www.w3.org/XML/1998/namespace" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://www.semanticweb.org/ontologies/LTemplates.owl"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     ontologyIRI="http://www.semanticweb.org/ontologies/LTemplates.owl">
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Declaration>
+        <Class IRI="#*агент(сущность)*_*действие*_*объект*"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#*сущность*_-_*isa(сущность)*"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#+_*isa(сущность)*_не_*действие*_*объект*"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#+_все_*isa(сущность)*_*действие*_*объект*"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#+_некоторые_*isa(сущность)*_*действие*_*объект*"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#описание_действия"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#отрицательное_утверждение"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#утверждение_is_a"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#утверждение_о_всех"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#утверждение_о_некоторых"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#шаблон_аксиом"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#шаблон_аксиомы_is_a_1"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#шаблон_задания"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#шаблон_задания_is_a_1"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#шаблон_ответа_is_a_1"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#шаблон_ответов"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#a_part_of"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#general_property"/>
+    </Declaration>
+    <SubClassOf>
+        <Class IRI="#*агент(сущность)*_*действие*_*объект*"/>
+        <Class IRI="#описание_действия"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#*сущность*_-_*isa(сущность)*"/>
+        <Class IRI="#утверждение_is_a"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#+_*isa(сущность)*_не_*действие*_*объект*"/>
+        <Class IRI="#отрицательное_утверждение"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#+_все_*isa(сущность)*_*действие*_*объект*"/>
+        <Class IRI="#утверждение_о_всех"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#+_некоторые_*isa(сущность)*_*действие*_*объект*"/>
+        <Class IRI="#утверждение_о_некоторых"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#описание_действия"/>
+        <Class IRI="#шаблон_аксиомы_is_a_1"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#отрицательное_утверждение"/>
+        <Class IRI="#шаблон_ответа_is_a_1"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#утверждение_is_a"/>
+        <Class IRI="#шаблон_аксиомы_is_a_1"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#утверждение_о_всех"/>
+        <Class IRI="#шаблон_ответа_is_a_1"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#утверждение_о_некоторых"/>
+        <Class IRI="#шаблон_ответа_is_a_1"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#шаблон_аксиом"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#a_part_of"/>
+            <Class IRI="#шаблон_задания"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#шаблон_аксиомы_is_a_1"/>
+        <Class IRI="#шаблон_аксиом"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#шаблон_аксиомы_is_a_1"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#a_part_of"/>
+            <Class IRI="#шаблон_задания_is_a_1"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#шаблон_задания_is_a_1"/>
+        <Class IRI="#шаблон_задания"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#шаблон_ответа_is_a_1"/>
+        <Class IRI="#шаблон_ответов"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#шаблон_ответа_is_a_1"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#a_part_of"/>
+            <Class IRI="#шаблон_задания_is_a_1"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#шаблон_ответов"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#a_part_of"/>
+            <Class IRI="#шаблон_задания"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#a_part_of"/>
+        <ObjectProperty IRI="#general_property"/>
+    </SubObjectPropertyOf>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#описание_действия</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">Описание действия в виде падежной рамки</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#утверждение_is_a</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">Нижний уровень - на самом деле это описания объекта</Literal>
+    </AnnotationAssertion>
+</Ontology>
+
+
+
+<!-- Generated by the OWL API (version 3.2.5.1912) http://owlapi.sourceforge.net -->
+

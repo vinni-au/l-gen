@@ -1,0 +1,421 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE Ontology [
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY xml "http://www.w3.org/XML/1998/namespace" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://www.semanticweb.org/ontologies/LTool.owl"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     ontologyIRI="http://www.semanticweb.org/ontologies/LTool.owl">
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Declaration>
+        <Class IRI="#*действие"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#*ситуация"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#*сущность"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#абстрактная_сущность"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#бесконечное_множество"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#бесхвостое_земноводное"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#вещественное_число"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#двудольное_растение"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#доброе_действие"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#живая_сущность"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#животное"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#животные_пьют_жидкости"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#жидкость"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#жидкость_животное"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#зверь"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#земноводное"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#злое_действие"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#иррациональное_число"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#кактус"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#конечное_множество"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#лягушка"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#млекопитающее"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#множество"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#множество_точек_окружности"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#молоко"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#напиток"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#нейтральное_действие"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#отрицательное_число"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#пить"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#положительное_число"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#помочь"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#пустое_множество"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#растение"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#рациональное_число"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ситуация_пить"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#сок"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#сосна"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#сосновое_растение"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#убить"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#физическая_сущность"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#хвойное_растение"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#цветковое_растение"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#целое_число"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#человек"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#число"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#caseframeProperty"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#агент"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#время"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#действие"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#инструмент"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#локатив"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#объект"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#реципиент"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#цель"/>
+    </Declaration>
+    <EquivalentClasses>
+        <Class IRI="#животные_пьют_жидкости"/>
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#агент"/>
+                <Class IRI="#животное"/>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#объект"/>
+                <Class IRI="#жидкость_животное"/>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#ситуация_пить"/>
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#агент"/>
+                <Class IRI="#живая_сущность"/>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#действие"/>
+                <Class IRI="#пить"/>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#объект"/>
+                <Class IRI="#жидкость"/>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <SubClassOf>
+        <Class IRI="#абстрактная_сущность"/>
+        <Class IRI="#*сущность"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#бесконечное_множество"/>
+        <Class IRI="#множество"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#бесхвостое_земноводное"/>
+        <Class IRI="#земноводное"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#вещественное_число"/>
+        <Class IRI="#число"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#двудольное_растение"/>
+        <Class IRI="#цветковое_растение"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#доброе_действие"/>
+        <Class IRI="#*действие"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#живая_сущность"/>
+        <Class IRI="#физическая_сущность"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#животное"/>
+        <Class IRI="#живая_сущность"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#животные_пьют_жидкости"/>
+        <Class IRI="#ситуация_пить"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#жидкость"/>
+        <Class IRI="#физическая_сущность"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#жидкость_животное"/>
+        <Class IRI="#жидкость"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#зверь"/>
+        <Class IRI="#млекопитающее"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#земноводное"/>
+        <Class IRI="#животное"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#злое_действие"/>
+        <Class IRI="#*действие"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#иррациональное_число"/>
+        <Class IRI="#вещественное_число"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#кактус"/>
+        <Class IRI="#двудольное_растение"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#конечное_множество"/>
+        <Class IRI="#множество"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#лягушка"/>
+        <Class IRI="#бесхвостое_земноводное"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#млекопитающее"/>
+        <Class IRI="#животное"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#множество"/>
+        <Class IRI="#абстрактная_сущность"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#множество_точек_окружности"/>
+        <Class IRI="#бесконечное_множество"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#молоко"/>
+        <Class IRI="#жидкость_животное"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#напиток"/>
+        <Class IRI="#жидкость"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#нейтральное_действие"/>
+        <Class IRI="#*действие"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#отрицательное_число"/>
+        <Class IRI="#целое_число"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#пить"/>
+        <Class IRI="#нейтральное_действие"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#положительное_число"/>
+        <Class IRI="#целое_число"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#помочь"/>
+        <Class IRI="#доброе_действие"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#пустое_множество"/>
+        <Class IRI="#конечное_множество"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#растение"/>
+        <Class IRI="#живая_сущность"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#рациональное_число"/>
+        <Class IRI="#вещественное_число"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ситуация_пить"/>
+        <Class IRI="#*ситуация"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#сок"/>
+        <Class IRI="#напиток"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#сосна"/>
+        <Class IRI="#сосновое_растение"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#сосновое_растение"/>
+        <Class IRI="#хвойное_растение"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#убить"/>
+        <Class IRI="#злое_действие"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#физическая_сущность"/>
+        <Class IRI="#*сущность"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#хвойное_растение"/>
+        <Class IRI="#растение"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#цветковое_растение"/>
+        <Class IRI="#растение"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#целое_число"/>
+        <Class IRI="#число"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#человек"/>
+        <Class IRI="#зверь"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#число"/>
+        <Class IRI="#абстрактная_сущность"/>
+    </SubClassOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#агент"/>
+        <ObjectProperty IRI="#caseframeProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#время"/>
+        <ObjectProperty IRI="#caseframeProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#действие"/>
+        <ObjectProperty IRI="#caseframeProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#инструмент"/>
+        <ObjectProperty IRI="#caseframeProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#локатив"/>
+        <ObjectProperty IRI="#caseframeProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#объект"/>
+        <ObjectProperty IRI="#caseframeProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#реципиент"/>
+        <ObjectProperty IRI="#caseframeProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#цель"/>
+        <ObjectProperty IRI="#caseframeProperty"/>
+    </SubObjectPropertyOf>
+</Ontology>
+
+
+
+<!-- Generated by the OWL API (version 3.2.5.1912) http://owlapi.sourceforge.net -->
+
