@@ -17,36 +17,7 @@
    <locale language="Russian" country="RussianFederation"/>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QHBoxLayout" name="horizontalLayout_3">
-    <item>
-     <widget class="QMdiArea" name="mdiArea">
-      <property name="frameShape">
-       <enum>QFrame::NoFrame</enum>
-      </property>
-      <property name="verticalScrollBarPolicy">
-       <enum>Qt::ScrollBarAsNeeded</enum>
-      </property>
-      <property name="horizontalScrollBarPolicy">
-       <enum>Qt::ScrollBarAsNeeded</enum>
-      </property>
-      <property name="background">
-       <brush brushstyle="SolidPattern">
-        <color alpha="255">
-         <red>118</red>
-         <green>116</green>
-         <blue>115</blue>
-        </color>
-       </brush>
-      </property>
-      <property name="viewMode">
-       <enum>QMdiArea::SubWindowView</enum>
-      </property>
-      <property name="documentMode">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
-   </layout>
+   <layout class="QHBoxLayout" name="horizontalLayout_3"/>
   </widget>
   <widget class="QMenuBar" name="m_menuBar">
    <property name="geometry">
@@ -88,7 +59,6 @@
      <string>Вид</string>
     </property>
     <addaction name="act_ShowProjectTree"/>
-    <addaction name="act_ShowOntoEditor"/>
     <addaction name="act_ShowGenerator"/>
    </widget>
    <addaction name="menu_File"/>

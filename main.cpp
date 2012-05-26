@@ -33,7 +33,7 @@ void segfault_sigaction(int /* signal */, siginfo_t * /* si */ , void * /* arg *
 {
     QMessageBox::critical(0, "Критическая ошибка", "В программе произошла критическая ошибка!"
                                                    "<br>Программа будет перезапущена");
-    //TODO: перезапустить программу
+    //TODO: restart program
     exit(0);
 }
 
@@ -58,7 +58,7 @@ int main(int argc, char *argv[])
         a.installTranslator(&t);
 
     MainWindow w;
-    w.show();
+    w.showMaximized();
 
 #ifdef Q_WS_X11
     struct sigaction sa;

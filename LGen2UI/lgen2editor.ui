@@ -61,9 +61,9 @@
  }</string>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
-     <widget class="QWidget" name="tab_Domain">
+     <widget class="QWidget" name="tabDomain">
       <attribute name="title">
        <string>Онтология предметной области</string>
       </attribute>
@@ -76,7 +76,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_Template">
+     <widget class="QWidget" name="tabTemplate">
       <attribute name="title">
        <string>Онтология шаблонов задач</string>
       </attribute>

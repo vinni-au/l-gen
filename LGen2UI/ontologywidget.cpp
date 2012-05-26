@@ -18,8 +18,16 @@ OntologyWidget::~OntologyWidget()
 
 void OntologyWidget::setModel(LOntologyModel *model)
 {
+    QItemSelectionModel* smodel = ui->treeView->selectionModel();
     ui->treeView->setModel(model);
+    delete smodel;
     ui->treeView->update(QModelIndex());
+}
+
+void OntologyWidget::setCaseFramesVisible(bool visible /* = true */)
+{
+    ui->caseframesFrame->setVisible(visible);
+    ui->caseframesLabel->setVisible(visible);
 }
 
 /* End of file: ontologywidget.cpp */

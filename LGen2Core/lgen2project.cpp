@@ -117,12 +117,16 @@ LGen2Project* LGen2Project::load(QString filename)
 //TODO: create empty ontologies
 void LGen2Project::createEmptyDomainOntology(QString filename)
 {
-
+    LNode* root = new LNode("*Thing");
+    LNode* entity = new LNode("*сущность");
+    LNode* situation = new LNode("*ситуация");
+    LNode* action = new LNode("*действие");
 }
 
 void LGen2Project::createEmptyTemplateOntology(QString filename)
 {
-
+    LNode* root = new LNode("*Thing");
+    LNode* ttemp = new LNode("*шаблон_задания");
 }
 
 /* End of file: lgen2project.cpp */
