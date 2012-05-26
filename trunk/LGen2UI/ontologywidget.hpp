@@ -22,6 +22,9 @@ public:
 
     void setModel(LOntologyModel* model);
 
+    // TODO: do work with categories more elegantly
+    void setCaseFramesVisible(bool visible = true);
+
 private:
     Ui::OntologyWidget *ui;
 };

@@ -27,7 +27,7 @@
 #include <QMessageBox>
 #include <QTreeView>
 
-MainWindow::MainWindow(QWidget *parent) :
+MainWindow::MainWindow(QWidget *parent /* = 0 */) :
     QMainWindow(parent),
     ui(new Ui::MainWindow), m_project(0)
 {
@@ -63,8 +63,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QObject::connect(ui->act_ShowProjectTree, SIGNAL(triggered(bool)),
                      ui->m_projectDockWidget, SLOT(setVisible(bool)));
-    QObject::connect(ui->act_ShowOntoEditor, SIGNAL(triggered()),
-                     m_editor, SLOT(show()));
     QObject::connect(ui->act_Exit, SIGNAL(triggered()),
                      SLOT(close()));
 }
@@ -106,13 +104,12 @@ void MainWindow::on_act_ProjectNew_triggered()
                 delete project;
                 return;
             }
-        }
+        }        
         closeProject();
         loadProject(project);
         setProperWindowCaption();
 
         setProjectRelatedMenusEnabled();
-
     }
 }
 
@@ -181,6 +178,10 @@ void MainWindow::closeProject()
 
         m_projectModel->clear();
 
+        m_editor->unloadModels();
+
+        setCentralWidget(new QWidget);
+
         delete m_project;
         m_project = 0;
         setProperWindowCaption();
@@ -193,9 +194,19 @@ void MainWindow::loadProject(LGen2Project *project)
     m_project = project;
 
     m_projectModel->setProject(m_project);
-    //TODO: load model etc.
 
-    static_cast<QTreeView*>(ui->m_projectDockWidget->widget())->expandAll();
+    m_templateModel->setOntology(project->kb()->templateOntology());
+    m_domainModel->setOntology(project->kb()->domainOntology());
+
+    // QMainWindow takes ownership of centralWidget
+    m_editor = new LGen2Editor;
+    m_editor->loadModels(m_templateModel, m_domainModel);
+
+    setCentralWidget(m_editor);
+
+    QTreeView* view = static_cast<QTreeView*>(ui->m_projectDockWidget->widget());
+    if (view)
+        view->expandAll();
 
     setProjectRelatedMenusEnabled();
 }
@@ -207,7 +218,7 @@ void MainWindow::setProperWindowCaption()
     else setWindowTitle("L-Gen 2.0");
 }
 
-void MainWindow::setProjectRelatedMenusEnabled(bool enabled)
+void MainWindow::setProjectRelatedMenusEnabled(bool enabled /* = true */)
 {
     ui->act_ProjectSave->setEnabled(enabled);
     ui->act_ProjectSaveAs->setEnabled(enabled);
@@ -215,4 +226,5 @@ void MainWindow::setProjectRelatedMenusEnabled(bool enabled)
     ui->act_ShowOntoEditor->setEnabled(enabled);
     ui->act_ShowGenerator->setEnabled(enabled);
 }
+
 /* End of file: lontology.cpp */

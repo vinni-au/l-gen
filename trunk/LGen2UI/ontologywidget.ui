@@ -123,7 +123,7 @@ QLabel {
      <property name="currentIndex">
       <number>0</number>
      </property>
-     <widget class="QWidget" name="tab">
+     <widget class="QWidget" name="tabStandard">
       <attribute name="title">
        <string>Стандартные</string>
       </attribute>
@@ -135,7 +135,7 @@ QLabel {
         <number>5</number>
        </property>
        <item row="0" column="0" rowspan="2">
-        <widget class="QFrame" name="frame">
+        <widget class="QFrame" name="nodesFrame">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
            <horstretch>0</horstretch>
@@ -156,7 +156,7 @@ QLabel {
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
-           <widget class="QPushButton" name="pushButton">
+           <widget class="QPushButton" name="btnNode">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -178,7 +178,7 @@ QLabel {
         </widget>
        </item>
        <item row="0" column="3" rowspan="2">
-        <widget class="QFrame" name="frame_3">
+        <widget class="QFrame" name="caseframesFrame">
          <property name="frameShape">
           <enum>QFrame::StyledPanel</enum>
          </property>
@@ -260,7 +260,7 @@ QLabel {
         </widget>
        </item>
        <item row="2" column="0">
-        <widget class="QLabel" name="label">
+        <widget class="QLabel" name="nodesLabel">
          <property name="text">
           <string>Вершины</string>
          </property>
@@ -269,24 +269,8 @@ QLabel {
          </property>
         </widget>
        </item>
-       <item row="1" column="6">
-        <spacer name="horizontalSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeType">
-          <enum>QSizePolicy::Expanding</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
        <item row="0" column="1" rowspan="2">
-        <widget class="QFrame" name="frame_2">
+        <widget class="QFrame" name="relationsFrame">
          <property name="frameShape">
           <enum>QFrame::StyledPanel</enum>
          </property>
@@ -324,7 +308,7 @@ QLabel {
         </widget>
        </item>
        <item row="2" column="1">
-        <widget class="QLabel" name="label_2">
+        <widget class="QLabel" name="relationsLabel">
          <property name="text">
           <string>Отношения</string>
          </property>
@@ -334,7 +318,7 @@ QLabel {
         </widget>
        </item>
        <item row="2" column="3">
-        <widget class="QLabel" name="label_3">
+        <widget class="QLabel" name="caseframesLabel">
          <property name="text">
           <string>Падежные рамки</string>
          </property>
@@ -342,6 +326,22 @@ QLabel {
           <set>Qt::AlignCenter</set>
          </property>
         </widget>
+       </item>
+       <item row="1" column="6">
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Expanding</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
        </item>
       </layout>
      </widget>
