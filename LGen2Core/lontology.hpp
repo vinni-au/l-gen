@@ -33,6 +33,7 @@ class LOntology : public QObject
     Q_OBJECT
 public:
     explicit LOntology(LNode* root, QList<LNode*> nodes, QObject *parent = 0);
+    ~LOntology();
 
     //! Возвращает указатель на корневую вершину
     /*!
@@ -64,6 +65,12 @@ public:
     QList<LEdge*> edgesFromNode(QString iri)
     {   return m_edgesHash.values(iri);    }
 
+    bool addNode(QString iri);
+    bool addNode(LNode* node);
+
+    bool addEdge(QString name, QString sourceIri, QString destIri);
+    bool addEdge(QString name, LNode* source, LNode* dest);
+
 signals:
 
 public slots:
@@ -80,6 +87,9 @@ private:
       \sa nodes()
     */
     QList<LNode*> m_nodes;
+
+    //! Список вершин
+    QList<LEdge*> m_edges;
 
     //! Хэш-таблица вершин (ключ - IRI)
     /*!

@@ -20,18 +20,23 @@
 
 #include "lkb.hpp"
 
-LKB::LKB()
+LKB::LKB() :
+    m_domainOntology(0), m_templateOntology(0)
 {   }
 
 // TODO: check ontology
 bool LKB::setDomainOntology(LOntology *ontology)
 {
+    if (m_domainOntology)
+        delete m_domainOntology;
     m_domainOntology = ontology;
     return true;
 }
 
 bool LKB::setTemplateOntology(LOntology *ontology)
 {
+    if (m_templateOntology)
+        delete m_templateOntology;
     m_templateOntology = ontology;
     return true;
 }

@@ -30,10 +30,54 @@ LOntology::LOntology(LNode *root, QList<LNode *> nodes, QObject *parent) :
         m_nodesHash[current->iri()] = current;
         for (int j = 0; j < current->edgesCount(); ++j) {
             LEdge* cur = current->edges().at(j);
+            if (m_edges.contains(cur))
+                m_edges << cur;
             if (!m_edgesHash.contains(cur->name(), cur))
                 m_edgesHash.insert(cur->name(), cur);
         }
     }
+}
+
+LOntology::~LOntology()
+{
+    for (int i = 0; i < m_nodes.count(); ++i)
+        delete m_nodes.at(i);
+    for (int i = 0; i < m_edges.count(); ++i)
+        delete m_edges.at(i);
+}
+
+bool LOntology::addNode(QString iri)
+{
+    if (m_nodesHash.contains(iri))
+        return false;
+
+    LNode* node = new LNode(iri);
+    m_nodes << node;
+    m_nodesHash.insert(iri, node);
+    return true;
+}
+
+bool LOntology::addNode(LNode *node)
+{
+    if (m_nodes.contains(node))
+        return false;
+    if (m_nodesHash.contains(node->iri()))
+        return false;
+
+    m_nodes << node;
+    m_nodesHash.insert(node->iri(), node);
+    return true;
+}
+
+// TODO: code this!
+bool LOntology::addEdge(QString name, QString sourceIri, QString destIri)
+{
+
+}
+
+bool LOntology::addEdge(QString name, LNode *source, LNode *dest)
+{
+
 }
 
 /* End of file: lontology.cpp */
