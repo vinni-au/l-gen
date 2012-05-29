@@ -22,8 +22,13 @@ public:
 
     void setModel(LOntologyModel* model);
 
-    // TODO: do work with categories more elegantly
+    // TODO: work with categories more elegantly
     void setCaseFramesVisible(bool visible = true);
+
+    // TODO: like this
+    void addSection(QString caption) {}
+    void addCategory(QString caption, QString section) {}
+    void addElement(QString caption, QString category, bool node = true) {}
 
 private:
     Ui::OntologyWidget *ui;

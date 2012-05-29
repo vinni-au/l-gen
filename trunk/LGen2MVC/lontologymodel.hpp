@@ -50,6 +50,9 @@ public:
     void setCheckedOnlyLeaves(bool value)
     {   m_checkOnlyLeaves = value;    }
 
+    void setItemsCheckable(bool checkable)
+    {   m_itemsCheckable = checkable;   }
+
     QList<LNode*> checkedNodes() const
     {   return m_checkedNodes;  }
 
@@ -67,6 +70,7 @@ private:
     LOntologyModelTreeNode* m_rootNode;
     bool m_checkOnlyLeaves;
     QList<LNode*> m_checkedNodes;
+    bool m_itemsCheckable;
 
     LOntologyModelTreeNode* nodeFromIndex(const QModelIndex& index) const;
 };

@@ -22,7 +22,7 @@
 
 LOntologyModel::LOntologyModel(QObject *parent) :
     QAbstractItemModel(parent), m_ontology(0), m_rootNode(0),
-    m_checkOnlyLeaves(true), m_checkedNodes(QList<LNode*>())
+    m_checkOnlyLeaves(true), m_checkedNodes(QList<LNode*>()), m_itemsCheckable(false)
 {   }
 
 QModelIndex LOntologyModel::index(int row, int column, const QModelIndex &parent) const
@@ -79,10 +79,12 @@ QVariant LOntologyModel::data(const QModelIndex &index, int role) const
         if (role == Qt::DisplayRole)
             return node->node()->iri();
         if (role == Qt::CheckStateRole) {
+            if (!m_itemsCheckable)
+                return QVariant();
             if (m_checkOnlyLeaves) {
                 if (node->childCount())
                     return QVariant();
-                else return node->checked();
+                return node->checked();
             } else return node->checked();
         }
     }

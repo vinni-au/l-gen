@@ -1,5 +1,3 @@
-/* Begin of file: mainwindow.cpp */
-
 /*
  * Copyright (C) 2011-2012  Anton Storozhev, antonstorozhev@gmail.com
  *
@@ -226,5 +224,3 @@ void MainWindow::setProjectRelatedMenusEnabled(bool enabled /* = true */)
     ui->act_ShowOntoEditor->setEnabled(enabled);
     ui->act_ShowGenerator->setEnabled(enabled);
 }
-
-/* End of file: lontology.cpp */
