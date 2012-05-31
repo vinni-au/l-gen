@@ -1,5 +1,3 @@
-/* Begin of file diagramitem.cpp */
-
 /*
  * Copyright (C) 2011-2012  Anton Storozhev, antonstorozhev@gmail.com
  *
@@ -21,10 +19,23 @@
 #include "diagramitem.hpp"
 #include "diagramscene.hpp"
 
-DiagramItem::DiagramItem(unsigned id, DiagramItemType type, QString title, QMenu *contextMenu,
+DiagramItem::DiagramItem(DiagramItemType type, QString text, QMenu *contextMenu,
                          QGraphicsItem *parent, QGraphicsScene *scene) :
     QGraphicsPolygonItem(parent, scene), m_type(type), m_contextMenu(contextMenu),
-    m_text(title), m_id(id)
+    m_text(text), m_id(-1)
+{
+    init();
+}
+
+DiagramItem::DiagramItem(quint64 id, DiagramItemType type, QString text, QMenu *contextMenu,
+                         QGraphicsItem *parent, QGraphicsScene *scene) :
+    QGraphicsPolygonItem(parent, scene), m_type(type), m_contextMenu(contextMenu),
+    m_text(text), m_id(id)
+{
+    init();
+}
+
+void DiagramItem::init()
 {
     switch (m_type) {
         case TextRectangle:
@@ -144,5 +155,3 @@ void DiagramItem::imitateMousePress()
     mousePressEvent(new QGraphicsSceneMouseEvent(QEvent::MouseButtonPress));
     mouseReleaseEvent(new QGraphicsSceneMouseEvent(QEvent::MouseButtonRelease));
 }
-
-/* End of file diagramitem.cpp */

@@ -28,7 +28,21 @@ Arrow::Arrow(DiagramItem *startItem, DiagramItem *endItem,
              QString text, QGraphicsItem *parent,
              QGraphicsScene *scene)
     : QGraphicsLineItem(parent, scene), m_startItem(startItem),
-      m_endItem(endItem), m_text(text), m_contextMenu(0)
+      m_endItem(endItem), m_text(text), m_contextMenu(0), m_id(-1)
+{
+    init();
+}
+
+Arrow::Arrow(quint64 id, DiagramItem *startItem, DiagramItem *endItem,
+             QString text, QGraphicsItem *parent,
+             QGraphicsScene *scene) :
+    m_id(id), QGraphicsLineItem(parent, scene), m_startItem(startItem),
+    m_endItem(endItem), m_text(text), m_contextMenu(0)
+{
+    init();
+}
+
+void Arrow::init()
 {
     setFlag(QGraphicsItem::ItemIsSelectable, true);
     m_color = Qt::black;

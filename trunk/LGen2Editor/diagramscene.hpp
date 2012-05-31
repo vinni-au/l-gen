@@ -1,5 +1,3 @@
-/* Begin of file diagramscene.hpp */
-
 /*
  * Copyright (C) 2011-2012  Anton Storozhev, antonstorozhev@gmail.com
  *
@@ -76,11 +74,7 @@ private:
     QGraphicsLineItem* m_line;
 
 signals:
-    //! Извещает о том, что добавлена дуга
-    void arrowAdded(Arrow* arrow);
-
+    void addArrowRequest(quint64 source, quint64 dest);
 };
 
 #endif // DIAGRAMSCENE_HPP
-
-/* End of file diagramscene.hpp */

@@ -1,5 +1,3 @@
-/* Begin of file arrow.hpp */
-
 /*
  * Copyright (C) 2011-2012  Anton Storozhev, antonstorozhev@gmail.com
  *
@@ -34,6 +32,9 @@ public:
 
     //TODO: add internal identifier
     Arrow(DiagramItem *startItem, DiagramItem *endItem, QString text = QString(),
+      QGraphicsItem *parent = 0, QGraphicsScene *scene = 0);
+
+    Arrow(quint64 id, DiagramItem *startItem, DiagramItem *endItem, QString text = QString(),
       QGraphicsItem *parent = 0, QGraphicsScene *scene = 0);
 
     virtual int type() const
@@ -134,10 +135,13 @@ private:
     */
     QMenu* m_contextMenu;
 
+    //! Внутренний идентификатор
+    quint64 m_id;
+
+    void init();
+
 };
 
 #include "diagramitem.hpp"
 
 #endif // ARROW_HPP
-
-/* End of file arrow.hpp */

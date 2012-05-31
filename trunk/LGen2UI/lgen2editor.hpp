@@ -19,6 +19,16 @@ public:
     void loadModels(LOntologyModel* templateModel, LOntologyModel* domainModel);
     void unloadModels();
 
+private slots:
+    void addNodeToDO(QString name);
+    void addNodeToTO(QString name);
+
+    void linkModeOnDO(QString name);
+    void linkModeOnTO(QString name);
+
+    void linkModeOffDO();
+    void linkModeOffTO();
+
 private:
     Ui::LGen2Editor *ui;
 };

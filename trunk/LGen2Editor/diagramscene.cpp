@@ -79,14 +79,7 @@ void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
                 qgraphicsitem_cast<DiagramItem *>(startItems.first());
             DiagramItem *endItem =
                 qgraphicsitem_cast<DiagramItem *>(endItems.first());
-            Arrow *arrow = new Arrow(startItem, endItem, "", 0, 0);
-            arrow->setColor(m_lineColor);
-            //startItem->addArrow(arrow);
-            //endItem->addArrow(arrow);
-            arrow->setZValue(-1000.0);
-            //addItem(arrow);
-            arrow->updatePosition();
-            emit arrowAdded(arrow);
+            emit addArrowRequest(startItem->id(), endItem->id());
         }
     }
     m_line = 0;

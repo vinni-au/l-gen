@@ -46,7 +46,8 @@ SOURCES += main.cpp\
     LGen2Editor/arrow.cpp \
     3rdparty/QSugar/QSugar.cpp \
     LGen2MVC/lgen2projectmodel.cpp \
-    LGen2MVC/lgen2projectmodeltreenode.cpp
+    LGen2MVC/lgen2projectmodeltreenode.cpp \
+    LGen2UI/categorizer.cpp
 
 HEADERS  += mainwindow.hpp \
     LGen2UI/ontologywidget.hpp \
@@ -70,7 +71,8 @@ HEADERS  += mainwindow.hpp \
     3rdparty/QSugar/QSugar.hpp \
     global.h \
     LGen2MVC/lgen2projectmodel.hpp \
-    LGen2MVC/lgen2projectmodeltreenode.hpp
+    LGen2MVC/lgen2projectmodeltreenode.hpp \
+    LGen2UI/categorizer.hpp
 
 FORMS    += mainwindow.ui \
     LGen2UI/lgen2editor.ui \

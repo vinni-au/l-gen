@@ -39,7 +39,10 @@ public:
         TextRectangle /*!< Прямоугольник с текстом */
     };
 
-    DiagramItem(unsigned id, DiagramItemType type = TextRectangle, QString text = QString(), QMenu* contextMenu = 0,
+    DiagramItem(DiagramItemType type = TextRectangle, QString text = QString(), QMenu* contextMenu = 0,
+                QGraphicsItem* parent = 0, QGraphicsScene* scene = 0);
+
+    DiagramItem(quint64 id, DiagramItemType type = TextRectangle, QString text = QString(), QMenu* contextMenu = 0,
                 QGraphicsItem* parent = 0, QGraphicsScene* scene = 0);
 
     //! Удаляет дугу
@@ -74,7 +77,7 @@ public:
     {   return Type;    }
 
     //! Возвращает внутренний идентификатор
-    unsigned id() const
+    quint64 id() const
     {   return m_id;    }
 
     //! Возвращает текст
@@ -114,7 +117,9 @@ private:
     QString m_text;
 
     //! Внутренний идентификатор вершины
-    unsigned m_id;
+    quint64 m_id;
+
+    void init();
 };
 
 #endif // DIAGRAMITEM_HPP
