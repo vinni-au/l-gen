@@ -40,8 +40,6 @@ MainWindow::MainWindow(QWidget *parent /* = 0 */) :
     ui->m_projectDockWidget->setWidget(projectTree);
     ui->m_projectDockWidget->setVisible(false);
 
-    m_domainOntologyWidget  = new OntologyWidget;
-    m_temlateOntologyWidget = new OntologyWidget;
     m_resultWidget          = new ResultWidget(this);
 
     m_editor = new LGen2Editor;
@@ -149,9 +147,6 @@ void MainWindow::on_act_ProjectClose_triggered()
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-#ifdef DEBUG_EVENT
-#endif
-
     if (userReallyWantsToQuit())
         event->accept();
     else event->ignore();

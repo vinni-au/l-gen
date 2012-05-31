@@ -68,12 +68,6 @@ private:
     //! Интерфейс пользователя
     Ui::MainWindow* ui;
 
-    //! Окно онтологии предметной области
-    OntologyWidget*     m_domainOntologyWidget;
-
-    //! Окно онтологии шаблонов задач
-    OntologyWidget*     m_temlateOntologyWidget;
-
     //! Окно результата генерации
     ResultWidget*       m_resultWidget;
 
@@ -86,6 +80,7 @@ private:
     //! Модель понятий предметной области
     LOntologyModel*     m_domainModel;
 
+    //! Модель дерева проекта
     LGen2ProjectModel*  m_projectModel;
 
     //! Текущий проект, с которым идёт работа

@@ -1,14 +1,21 @@
-/* Begin of file: ontologywidget.cpp */
 #include "ontologywidget.hpp"
 #include "ui_ontologywidget.h"
 
 OntologyWidget::OntologyWidget(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::OntologyWidget)
+    ui(new Ui::OntologyWidget), m_categorizer(0)
 {
     ui->setupUi(this);
+}
 
-    ui->splitter->setSizes(QList<int>() << 1 << 4);
+void OntologyWidget::setCategorizer(Categorizer *categorizer)
+{
+    if (m_categorizer)
+        delete m_categorizer;
+
+    m_categorizer = categorizer;
+    ui->tabWidget->clear();
+    m_categorizer->applyToTabWidget(ui->tabWidget);
 }
 
 OntologyWidget::~OntologyWidget()
@@ -23,11 +30,3 @@ void OntologyWidget::setModel(LOntologyModel *model)
     delete smodel;
     ui->treeView->update(QModelIndex());
 }
-
-void OntologyWidget::setCaseFramesVisible(bool visible /* = true */)
-{
-    ui->caseframesFrame->setVisible(visible);
-    ui->caseframesLabel->setVisible(visible);
-}
-
-/* End of file: ontologywidget.cpp */

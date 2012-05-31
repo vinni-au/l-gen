@@ -81,21 +81,20 @@ private:
 
 signals:
     //! Выделена вершина
-    void nodeSelected(unsigned id);
+    void nodeSelected(quint64 id);
 
     //! Запрос на удаление вершины
-    void nodeDeleteRequest(unsigned id);
+    void nodeDeleteRequest(quint64 id);
 
     //! Выделение снято
     void selectionCleared();
 
     //! Выделена дуга
     //TODO: maybe chande to link's identifier
-    void linkSelected(unsigned, unsigned);
+    void linkSelected(quint64, quint64);
 
-    //TODO: remove this signals
-    void isaDeleted(unsigned sid, unsigned did);
-    void apoDeleted(unsigned sid, unsigned did);
+    //! Запрос на добавление дуги
+    void addArrowRequest(quint64 source, quint64 dest);
 
 protected slots:
     //! Обработать изменение выделения
@@ -115,28 +114,28 @@ public slots:
     void zoomIn();
 
     //! Уменьшить масштаб
-    void zoonOut();
+    void zoomOut();
 
     //! Добавить вершину
-    void addNode(unsigned id, QString title);
+    void addNode(quint64 id, QString title);
 
     //! Изменить текст вершины
-    void changeNodeText(unsigned id, QString newtitle);
+    void changeNodeText(quint64 id, QString newtitle);
 
     //! Удалить вершину
-    void deleteNode(unsigned id);
+    void deleteNode(quint64 id);
 
-    //Добавить связь между от вершины с идентификатором sid до вершины с идентификатором did
-    //и надписью title
-    //TODO: change to link's identifier
-    void addLink(unsigned sid, unsigned did, QString title);
+    //! Добавить связь между от вершины с идентификатором sid до вершины с идентификатором did и надписью title
+    void addLink(quint64 sid, quint64 did, QString title);
+
+    //TODO: change to link's identifier?
     void addArrow(Arrow* arrow);
 
     //! Удалить связь
-    void deleteLink(unsigned sid, unsigned did);
+    void deleteLink(quint64 sid, quint64 did);
 
     //! Выделить вершину
-    void selectNode(unsigned id);
+    void selectNode(quint64 id);
 
 };
 

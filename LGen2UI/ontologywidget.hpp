@@ -7,6 +7,7 @@
 #include <QLabel>
 #include <QTextEdit>
 #include "LGen2MVC/lontologymodel.hpp"
+#include "categorizer.hpp"
 
 namespace Ui {
     class OntologyWidget;
@@ -22,16 +23,12 @@ public:
 
     void setModel(LOntologyModel* model);
 
-    // TODO: work with categories more elegantly
-    void setCaseFramesVisible(bool visible = true);
-
-    // TODO: like this
-    void addSection(QString caption) {}
-    void addCategory(QString caption, QString section) {}
-    void addElement(QString caption, QString category, bool node = true) {}
+    void setCategorizer(Categorizer* categorizer);
 
 private:
     Ui::OntologyWidget *ui;
+
+    Categorizer* m_categorizer;
 };
 
 #endif // ONTOLOGYWIDGET_HPP

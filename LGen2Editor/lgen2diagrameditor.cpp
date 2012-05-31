@@ -1,5 +1,3 @@
-/* Begin of file lgen2diagrameditor.cpp */
-
 /*
  * Copyright (C) 2011-2012  Anton Storozhev, antonstorozhev@gmail.com
  *
@@ -39,9 +37,11 @@ LGen2DiagramEditor::LGen2DiagramEditor(QWidget *parent, QMenu *contextMenu):
 
     QObject::connect(m_scene, SIGNAL(selectionChanged()),
                      SLOT(onSceneSelectionChanged()));
+    QObject::connect(m_scene, SIGNAL(addArrowRequest(quint64,quint64)),
+                     SIGNAL(addArrowRequest(quint64,quint64)));
 }
 
-void LGen2DiagramEditor::addNode(unsigned id, QString title)
+void LGen2DiagramEditor::addNode(quint64 id, QString title)
 {
     static QMenu* menu = new QMenu;
     static QAction* act = menu->addAction("Удалить вершину", this, SLOT(deleteSelectedNode()));
@@ -51,7 +51,7 @@ void LGen2DiagramEditor::addNode(unsigned id, QString title)
     m_scene->addItem(node);
 }
 
-void LGen2DiagramEditor::changeNodeText(unsigned id, QString newtitle)
+void LGen2DiagramEditor::changeNodeText(quint64 id, QString newtitle)
 {
     DiagramItem* node = m_items[id];
     node->setText(newtitle);
@@ -66,7 +66,7 @@ void LGen2DiagramEditor::addArrow(Arrow *arrow)
     m_links << arrow;
 }
 
-void LGen2DiagramEditor::deleteNode(unsigned id)
+void LGen2DiagramEditor::deleteNode(quint64 id)
 {
     //setViewportUpdateMode(QGraphicsView::NoViewportUpdate);
     m_scene->blockSignals(true);
@@ -85,7 +85,7 @@ void LGen2DiagramEditor::deleteNode(unsigned id)
     //update();
 }
 
-void LGen2DiagramEditor::addLink(unsigned sid, unsigned did, QString title)
+void LGen2DiagramEditor::addLink(quint64 sid, quint64 did, QString title)
 {
     DiagramItem* i1 = m_items[sid];
     DiagramItem* i2 = m_items[did];
@@ -103,7 +103,7 @@ void LGen2DiagramEditor::addLink(unsigned sid, unsigned did, QString title)
         a->setColor(Qt::darkYellow);
 }
 
-void LGen2DiagramEditor::deleteLink(unsigned sid, unsigned did)
+void LGen2DiagramEditor::deleteLink(quint64 sid, quint64 did)
 {
     Arrow* a = 0;
     for (int i = 0; i < m_links.count(); ++i) {
@@ -175,7 +175,7 @@ unsigned LGen2DiagramEditor::selectedFrameId()
     return -1;
 }
 
-void LGen2DiagramEditor::selectNode(unsigned id)
+void LGen2DiagramEditor::selectNode(quint64 id)
 {
     blockSignals(true);
     QList<QGraphicsItem*> items = m_scene->items();
@@ -201,12 +201,7 @@ void LGen2DiagramEditor::deleteSelectedLink()
     if (items.count() == 1) {
         Arrow* a = qgraphicsitem_cast<Arrow*>(items[0]);
         if (a) {
-            if (a->text() == "is-a") {
-                emit isaDeleted(a->startItem()->id(), a->endItem()->id());
-            } else if (a->text() == "sub") {
-                emit apoDeleted(a->startItem()->id(), a->endItem()->id());
-            }
-            //deleteLink(a->startItem()->id(), a->endItem()->id());
+            deleteLink(a->startItem()->id(), a->endItem()->id());
         }
     }
 }
@@ -222,11 +217,12 @@ void LGen2DiagramEditor::zoomIn()
     scale(1.15, 1.15);
 }
 
-void LGen2DiagramEditor::zoonOut()
+void LGen2DiagramEditor::zoomOut()
 {
     scale(1 / 1.15, 1 / 1.15);
 }
 
+// TODO: use QSugar
 QDomElement LGen2DiagramEditor::toXML(QDomDocument &doc)
 {
     QDomElement dElem = doc.createElement("diagram");
@@ -292,10 +288,7 @@ void LGen2DiagramEditor::fromXML(QDomElement &elem)
                 start->addArrow(a);
                 end->addArrow(a);
                 m_links << a;
-                //m_scene->addItem(a);
             }
         }
     }
 }
-
-/* End of file lgen2diagrameditor.cpp */
