@@ -1,5 +1,3 @@
-/* Begin of file: lontologymodel.сpp */
-
 /*
  * Copyright (C) 2011-2012  Anton Storozhev, antonstorozhev@gmail.com
  *
@@ -171,5 +169,3 @@ void LOntologyModel::setOntology(LOntology *ontology)
         toProcess.removeAll(current);
     }
 }
-
-/* End of file: lontologymodel.сpp */

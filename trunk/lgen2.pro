@@ -47,7 +47,10 @@ SOURCES += main.cpp\
     3rdparty/QSugar/QSugar.cpp \
     LGen2MVC/lgen2projectmodel.cpp \
     LGen2MVC/lgen2projectmodeltreenode.cpp \
-    LGen2UI/categorizer.cpp
+    LGen2UI/categorizer.cpp \
+    LGen2UI/DataUIDialogs/nodedialog.cpp \
+    LGen2UI/DataUIDialogs/situationdialog.cpp \
+    LGen2UI/DataUIDialogs/edgedialog.cpp
 
 HEADERS  += mainwindow.hpp \
     LGen2UI/ontologywidget.hpp \
@@ -72,13 +75,19 @@ HEADERS  += mainwindow.hpp \
     global.h \
     LGen2MVC/lgen2projectmodel.hpp \
     LGen2MVC/lgen2projectmodeltreenode.hpp \
-    LGen2UI/categorizer.hpp
+    LGen2UI/categorizer.hpp \
+    LGen2UI/DataUIDialogs/nodedialog.hpp \
+    LGen2UI/DataUIDialogs/situationdialog.hpp \
+    LGen2UI/DataUIDialogs/edgedialog.hpp
 
 FORMS    += mainwindow.ui \
     LGen2UI/lgen2editor.ui \
     LGen2UI/ontologywidget.ui \
     LGen2UI/newprojectdialog.ui \
-    LGen2UI/resultwidget.ui
+    LGen2UI/resultwidget.ui \
+    LGen2UI/DataUIDialogs/nodedialog.ui \
+    LGen2UI/DataUIDialogs/situationdialog.ui \
+    LGen2UI/DataUIDialogs/edgedialog.ui
 
 RESOURCES += \
     res.qrc
