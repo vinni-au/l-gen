@@ -1,5 +1,3 @@
-/* Begin of file: lontologymodel.hpp */
-
 /*
  * Copyright (C) 2011-2012  Anton Storozhev, antonstorozhev@gmail.com
  *
@@ -76,4 +74,3 @@ private:
 };
 
 #endif // LONTOLOGYMODEL_HPP
-/* Begin of file: lontologymodel.hpp */
