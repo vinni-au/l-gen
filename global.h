@@ -5,6 +5,7 @@
     #define NOW QDateTime::currentDateTime().toString("yyyy.MM.dd hh:mm:ss.zzz")
     #include <QDebug>
     #include <QDateTime>
+
 #endif
 
 #endif // GLOBAL_H

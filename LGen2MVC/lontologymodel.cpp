@@ -68,7 +68,7 @@ int LOntologyModel::columnCount(const QModelIndex&) const
 
 QVariant LOntologyModel::data(const QModelIndex &index, int role) const
 {
-    if (role != Qt::DisplayRole && role != Qt::CheckStateRole)
+    if (role != Qt::DisplayRole && role != Qt::CheckStateRole && role != Qt::EditRole)
         return QVariant();
 
     LOntologyModelTreeNode* node = nodeFromIndex(index);
@@ -76,7 +76,7 @@ QVariant LOntologyModel::data(const QModelIndex &index, int role) const
         return QVariant();
 
     if (index.column() == 0) {
-        if (role == Qt::DisplayRole)
+        if (role == Qt::DisplayRole || role == Qt::EditRole)
             return node->node()->iri();
         if (role == Qt::CheckStateRole) {
             if (!m_itemsCheckable)
@@ -91,14 +91,14 @@ QVariant LOntologyModel::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
-bool LOntologyModel::setData(const QModelIndex &index, const QVariant&, int role)
+bool LOntologyModel::setData(const QModelIndex &index, const QVariant& data, int role)
 {
-    if (role != Qt::CheckStateRole)
+    if (role != Qt::CheckStateRole && role != Qt::EditRole)
         return false;
     LOntologyModelTreeNode* node = nodeFromIndex(index);
     if (!node)
         return false;
-    if (index.column() == 0)
+    if (index.column() == 0) {
         if (role == Qt::CheckStateRole) {
             node->setChecked(!node->checked());
             if (node->checked()) {
@@ -108,8 +108,15 @@ bool LOntologyModel::setData(const QModelIndex &index, const QVariant&, int role
                 emit nodeUnchecked(node->node());
                 onNodeUnchecked(node);
             }
+            emit dataChanged(index, index);
             return true;
+        } else if (role == Qt::EditRole) {
+            if (node->node()->setIri(data.toString())) {
+                emit dataChanged(index, index);
+                return true;
+            } else return false;
         }
+    }
     return false;
 }
 

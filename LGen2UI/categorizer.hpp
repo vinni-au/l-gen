@@ -102,7 +102,6 @@ signals:
 
 private slots:
     void onClick(bool checked);
-    void onToggle(bool toggled);
 
 private:
     Element* m_element;

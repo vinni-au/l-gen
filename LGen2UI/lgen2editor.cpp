@@ -10,14 +10,20 @@ LGen2Editor::LGen2Editor(QWidget *parent) :
 
     Categorizer* docategorizer = new Categorizer;
 
+    // TODO: load categories from ontology
     docategorizer->addSection("Стандартные");
         docategorizer->addCategoryToSection("Вершины", "Стандартные");
-            docategorizer->addElementToCategory("Вершина","Вершины", false);
+            docategorizer->addElementToCategory("#Сущность","Вершины", false);
+            docategorizer->addElementToCategory("#Действие","Вершины", false);
+            docategorizer->addElementToCategory("#Ситуация","Вершины", false);
         docategorizer->addCategoryToSection("Связи","Стандартные");
-            docategorizer->addElementToCategory("is-a", "Связи");
-            docategorizer->addElementToCategory("a-part-of", "Связи");
+            docategorizer->addElementToCategory("#is-a", "Связи");
+            docategorizer->addElementToCategory("#APO", "Связи");
         docategorizer->addCategoryToSection("Падежные рамки", "Стандартные");
             docategorizer->addElementToCategory("Агент", "Падежные рамки");
+            docategorizer->addElementToCategory("Реципиент", "Падежные рамки");
+            docategorizer->addElementToCategory("Объект", "Падежные рамки");
+            docategorizer->addElementToCategory("Действие", "Падежные рамки");
 
     ui->doEditor->setCategorizer(docategorizer);
 
@@ -61,49 +67,26 @@ void LGen2Editor::unloadModels()
 
 void LGen2Editor::addNodeToDO(QString name)
 {
-#ifdef DEBUG_SLOT
-    qDebug() << NOW << "slot LGen2Editor::addNodeToDO(QString name)  activated";
-#endif
 }
 
 void LGen2Editor::addNodeToTO(QString name)
 {
-#ifdef DEBUG_SLOT
-    qDebug() << NOW << "slot  LGen2Editor::addNodeToTO(QString name) activated";
-#endif
-
 }
 
 void LGen2Editor::linkModeOnDO(QString name)
 {
-#ifdef DEBUG_SLOT
-    qDebug() << NOW << "slot LGen2Editor::linkModeOnDO(QString name) activated";
-#endif
-
 }
 
 void LGen2Editor::linkModeOnTO(QString name)
 {
-#ifdef DEBUG_SLOT
-    qDebug() << NOW << "slot LGen2Editor::linkModeOnTO(QString name) activated";
-#endif
-
 }
 
 void LGen2Editor::linkModeOffDO()
 {
-#ifdef DEBUG_SLOT
-    qDebug() << NOW << "slot LGen2Editor::linkModeOffDO() activated";
-#endif
-
 }
 
 void LGen2Editor::linkModeOffTO()
 {
-#ifdef DEBUG_SLOT
-    qDebug() << NOW << "slot LGen2Editor::linkModeOffTO() activated";
-#endif
-
 }
 
 LGen2Editor::~LGen2Editor()
