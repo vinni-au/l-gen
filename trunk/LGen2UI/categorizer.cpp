@@ -118,22 +118,18 @@ Button::Button(QString text, Element* element) :
 {
     QObject::connect(this, SIGNAL(clicked(bool)),
                      SLOT(onClick(bool)));
-    QObject::connect(this, SIGNAL(toggled(bool)),
-                     SLOT(onToggle(bool)));
 }
 
 void Button::afterAllCreated()
 {
-    if (isCheckable()) {
-        Section* section = m_element->category()->section();
+    Section* section = m_element->category()->section();
 
-        for (int i = 0; i < section->categories().count(); ++i) {
-            Category* category = section->categories().at(i);
-            for (int j = 0; j < category->elements().count(); ++j)
-                m_others << category->elements().at(j)->button();
-        }
-        m_others.removeAll(this);
+    for (int i = 0; i < section->categories().count(); ++i) {
+        Category* category = section->categories().at(i);
+        for (int j = 0; j < category->elements().count(); ++j)
+            m_others << category->elements().at(j)->button();
     }
+    m_others.removeAll(this);
 }
 
 void Button::onClick(bool checked)
@@ -143,14 +139,10 @@ void Button::onClick(bool checked)
         return;
     }
     emit activated(m_element);
-}
 
-void Button::onToggle(bool toggled)
-{
-    if (toggled)
-        for (int i = 0; i < m_others.count(); ++i) {
-            Button* other = m_others.at(i);
-            if (other)
-                other->setChecked(false);
-        }
+    for (int i = 0; i < m_others.count(); ++i) {
+        Button* other = m_others.at(i);
+        if (other)
+            other->setChecked(false);
+    }
 }

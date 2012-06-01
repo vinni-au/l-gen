@@ -46,6 +46,10 @@ public:
     QString iri() const
     {   return m_iri;   }
 
+    // TODO: check new IRI
+    bool setIri(QString iri)
+    {   m_iri = iri; return true;   }
+
     //! Возвращает список дуг, выходящих из вершины
     /*!
       \sa edgesCount()
