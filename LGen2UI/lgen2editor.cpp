@@ -1,9 +1,10 @@
 #include "global.h"
 #include "lgen2editor.hpp"
 #include "ui_lgen2editor.h"
+#include "DataUIDialogs/nodedialog.hpp"
 
 LGen2Editor::LGen2Editor(QWidget *parent) :
-    QWidget(parent),
+    QWidget(parent), m_project(0),
     ui(new Ui::LGen2Editor)
 {
     ui->setupUi(this);
@@ -54,12 +55,59 @@ LGen2Editor::LGen2Editor(QWidget *parent) :
 }
 
 void LGen2Editor::loadModels(LOntologyModel *templateModel, LOntologyModel *domainModel)
-{
-    ui->toEditor->setModel(templateModel);
-    ui->doEditor->setModel(domainModel);
+{    
+    ui->toEditor->setModel(m_templateModel = templateModel);
+    ui->doEditor->setModel(m_domainModel = domainModel);
 }
 
-void LGen2Editor::unloadModels()
+// FIXME: that's temporary
+struct tempedge
+{
+    quint64 sid;
+    quint64 did;
+    QString name;
+
+    tempedge(quint64 s, quint64 d, QString n) : sid(s), did(d), name(n) {}
+};
+
+void LGen2Editor::loadProject(LGen2Project *project, LOntologyModel *templateModel, LOntologyModel *domainModel)
+{
+    m_project = project;
+    loadModels(templateModel, domainModel);
+
+    //TODO: load diagrams
+    if (project->domainDiagram().isNull()) {
+        LOntology* ontology = domainModel->ontology();
+        QList< LNode* > nodes = ontology->nodes();
+        QList< tempedge > edges;
+        for (int i = 0; i < nodes.count(); ++i) {
+            LNode* node = nodes.at(i);
+            if (node->iri() != "Thing") {
+                ui->doEditor->diagramEditor()->addNode(node->id(), node->iri());
+                for (int j = 0; j < node->edges().count(); ++j) {
+                    LEdge* edge = node->edges().at(j);
+                    if (!edge->name().contains("_reverse") && edge->name() != "has-subclass")
+                        edges << tempedge(node->id(), edge->node()->id(), edge->name());
+                }
+            }
+        }
+        for (int i = 0; i < edges.count(); ++i) {
+            ui->doEditor->diagramEditor()->addLink(edges[i].sid, edges[i].did, edges[i].name);
+        }
+    }
+
+    if (project->templateDiagram().isNull()) {
+        LOntology* ontology = templateModel->ontology();
+        QList< LNode* > nodes = ontology->nodes();
+        for (int i = 0; i < nodes.count(); ++i) {
+            LNode* node = nodes.at(i);
+            if (node->iri() != "Thing")
+                ui->toEditor->diagramEditor()->addNode(node->id(), node->iri());
+        }
+    }
+}
+
+void LGen2Editor::unloadProject()
 {
     ui->toEditor->setModel(0);
     ui->doEditor->setModel(0);
@@ -67,6 +115,10 @@ void LGen2Editor::unloadModels()
 
 void LGen2Editor::addNodeToDO(QString name)
 {
+    NodeDialog nd("Добавить вершину", m_domainModel);
+    if (nd.exec()) {
+
+    }
 }
 
 void LGen2Editor::addNodeToTO(QString name)

@@ -51,14 +51,28 @@ bool LGen2Project::setTemplateOntologyFromFile(QFile *file)
     return m_kb->setTemplateOntology(LOntologyManager::loadOWLXML(file));
 }
 
-void LGen2Project::save()
+void LGen2Project::save(const QDomDocument &domainDiagram, const QDomDocument &templateDiagram)
 {
     QDomDocument xml =
         QXML"lgen2project"
             <"name"> m_name
             <"filename"> m_file->fileName()
-            <"template"> m_templateOntologyFile->fileName()
+            > (QXML"template"
+                <"file"> m_templateOntologyFile->fileName()
+                > templateDiagram)
+            > (QXML"domain"
+                <"file"> m_domainOntologyFile->fileName()
+                > domainDiagram);
+/*            <"template"> m_templateOntologyFile->fileName()
             <"domain"> m_domainOntologyFile->fileName();
+
+    QXML"template"
+            <"file"> m_templateOntologyFile->fileName()
+            > templateDiagram;
+
+    QXML"domain"
+            <"file"> m_domainOntologyFile->fileName()
+            > domainDiagram;*/
 
     if (m_file->open(QIODevice::WriteOnly))
         m_file->write(xml.toByteArray(4));
@@ -90,12 +104,12 @@ LGen2Project* LGen2Project::load(QString filename)
 
         nodes = xml.elementsByTagName("template");
         if (nodes.count() == 1) {
-            tfilename = nodes.at(0).toElement().text().trimmed();
+            tfilename = nodes.at(0).toElement().firstChildElement("file").text().trimmed();
         } else return 0;
 
         nodes = xml.elementsByTagName("domain");
         if (nodes.count() == 1) {
-            dfilename = nodes.at(0).toElement().text().trimmed();
+            dfilename = nodes.at(0).toElement().firstChildElement("file").text().trimmed();
         } else return 0;
 
         result = new LGen2Project(name, new QFile(filename));
@@ -114,19 +128,58 @@ LGen2Project* LGen2Project::load(QString filename)
     return result;
 }
 
-//TODO: create empty ontologies
 void LGen2Project::createEmptyDomainOntology(QString filename)
 {
-    LNode* root = new LNode("*Thing");
-    LNode* entity = new LNode("*сущность");
-    LNode* situation = new LNode("*ситуация");
-    LNode* action = new LNode("*действие");
+    QList< LNode* > nodes;
+    LNode* root = new LNode("Thing");
+    LNode* entity = new LNode("#сущность");
+    LNode* situation = new LNode("#ситуация");
+    LNode* action = new LNode("#действие");
+
+    LEdge* edge1 = new LEdge("is-a", root, entity);
+    LEdge* edge2 = new LEdge("has-subclass", entity, root);
+    root->addEgde(edge2);
+    entity->addEgde(edge1);
+
+    edge1 = new LEdge("is-a", root, situation);
+    edge2 = new LEdge("has-subclass", situation, root);
+    root->addEgde(edge2);
+    situation->addEgde(edge1);
+
+    edge1 = new LEdge("is-a", root, action);
+    edge2 = new LEdge("has-subclass", action, root);
+    root->addEgde(edge2);
+    action->addEgde(edge1);
+
+    nodes << root << entity << situation << action;
+
+    LOntology* ontology = new LOntology(root, nodes);
+    m_kb->setDomainOntology(ontology);
+
+    m_domainOntologyFile = new QFile(filename);
+    m_domainOntologyFile->open(QIODevice::WriteOnly);
+    m_domainOntologyFile->close();
 }
 
 void LGen2Project::createEmptyTemplateOntology(QString filename)
 {
-    LNode* root = new LNode("*Thing");
-    LNode* ttemp = new LNode("*шаблон_задания");
+    QList< LNode* > nodes;
+    LNode* root = new LNode("Thing");
+    LNode* ttemp = new LNode("#шаблон_задания");
+
+    LEdge* edge1 = new LEdge("is-a", root, ttemp);
+    LEdge* edge2 = new LEdge("has-subclass", ttemp, root);
+    root->addEgde(edge2);
+    ttemp->addEgde(edge1);
+
+    nodes << root << ttemp;
+
+    LOntology* ontology = new LOntology(root, nodes);
+    m_kb->setTemplateOntology(ontology);
+
+    m_templateOntologyFile = new QFile(filename);
+    m_templateOntologyFile->open(QIODevice::WriteOnly);
+    m_templateOntologyFile->close();
 }
 
 /* End of file: lgen2project.cpp */

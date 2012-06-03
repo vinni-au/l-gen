@@ -84,8 +84,10 @@ void MainWindow::on_act_AboutQt_triggered()
 
 void MainWindow::on_act_ProjectNew_triggered()
 {
+    // TODO: create empty project
     NewProjectDialog pd;
     if (pd.exec()) {
+        bool needToCreate = false;
         LGen2Project* project = new LGen2Project(pd.name(), new QFile(pd.filename()));
         if (pd.domainFileExists()) {
             if (!project->setDomainOntologyFromFile(new QFile(pd.domainFilename()))) {
@@ -93,15 +95,23 @@ void MainWindow::on_act_ProjectNew_triggered()
                 delete project;
                 return;
             }
+        } else needToCreate = true;
+        if (needToCreate) {
+            project->createEmptyDomainOntology(pd.domainFilename());
         }
+        needToCreate = false;
         if (pd.templateFileExists()) {
             if (!project->setTemplateOntologyFromFile(new QFile(pd.templateFilename()))) {
                 QMessageBox::critical(this, "Ошибка", "Не удалось загрузить онтологию шаблонов задач!");
                 delete project;
                 return;
             }
-        }        
+        } else needToCreate = true;
+        if (needToCreate) {
+            project->createEmptyTemplateOntology(pd.templateFilename());
+        }
         closeProject();
+        project->save();
         loadProject(project);
         setProperWindowCaption();
 
@@ -171,7 +181,7 @@ void MainWindow::closeProject()
 
         m_projectModel->clear();
 
-        m_editor->unloadModels();
+        m_editor->unloadProject();
 
         setCentralWidget(new QWidget);
 
@@ -193,7 +203,7 @@ void MainWindow::loadProject(LGen2Project *project)
 
     // QMainWindow takes ownership of centralWidget
     m_editor = new LGen2Editor;
-    m_editor->loadModels(m_templateModel, m_domainModel);
+    m_editor->loadProject(m_project, m_templateModel, m_domainModel);
 
     setCentralWidget(m_editor);
 

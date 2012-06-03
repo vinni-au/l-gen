@@ -32,7 +32,8 @@ class LEdge : public QObject
     Q_OBJECT
 
 public:
-    LEdge(QString name, LNode* node = 0, QObject *parent = 0);
+    LEdge(QString name, LNode* node, LNode* source, QObject *parent = 0);
+    LEdge(quint64 id, QString name, LNode* node, LNode* source, QObject *parent = 0);
 
     //! Возвращает имя дуги
     /*!
@@ -47,6 +48,14 @@ public:
     */
     LNode* node() const
     {   return m_node;  }
+
+    LNode* source() const
+    {   return m_source;    }
+
+    quint64 id() const
+    {   return m_id;    }
+    void setId(quint64 id)
+    {   m_id = id;  }
 
 signals:
 
@@ -64,6 +73,10 @@ private:
       \sa node()
     */
     LNode* m_node;
+
+    LNode* m_source;
+
+    quint64 m_id;
 };
 
 #include "lnode.hpp"

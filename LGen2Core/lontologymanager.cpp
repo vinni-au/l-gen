@@ -19,6 +19,7 @@
  */
 
 #include "lontologymanager.hpp"
+#include "3rdparty/QSugar/QSugar.hpp"
 
 LOntologyManager::LOntologyManager(QObject *parent) :
     QObject(parent)
@@ -52,7 +53,7 @@ LOntology* LOntologyManager::loadOWLXML(QFile *file)
                         }
                         if (child.tagName() == "ObjectProperty") {
                             QString iri = child.attribute("IRI").remove(0, 1);
-                            LEdge* edge = new LEdge(iri);
+                            LEdge* edge = new LEdge(iri, 0, 0);
                             edgesHash[iri] = edge;
                         }
                     }
@@ -69,8 +70,8 @@ LOntology* LOntologyManager::loadOWLXML(QFile *file)
                                 QString to = second.firstChildElement("Class").attribute("IRI").remove(0, 1);
                                 LNode* subnode = nodesHash.value(to, 0);
                                 if (classNode && subnode) {
-                                    LEdge* edge = new LEdge(link, subnode);
-                                    LEdge* egde = new LEdge(link + "_reverse", classNode);
+                                    LEdge* edge = new LEdge(link, subnode, classNode);
+                                    LEdge* egde = new LEdge(link + "_reverse", classNode, subnode);
                                     classNode->addEgde(edge);
                                     subnode->addEgde(egde);
                                 }
@@ -84,8 +85,8 @@ LOntology* LOntologyManager::loadOWLXML(QFile *file)
                                         QString to = cel.firstChildElement("Class").attribute("IRI").remove(0, 1);
                                         LNode* subnode = nodesHash.value(to, 0);
                                         if (classNode && subnode) {
-                                            LEdge* edge = new LEdge(link, subnode);
-                                            LEdge* egde = new LEdge(link + "_reverse", classNode);
+                                            LEdge* edge = new LEdge(link, subnode, classNode);
+                                            LEdge* egde = new LEdge(link + "_reverse", classNode, subnode);
                                             classNode->addEgde(edge);
                                             subnode->addEgde(egde);
                                         }
@@ -106,8 +107,8 @@ LOntology* LOntologyManager::loadOWLXML(QFile *file)
                                 nodesHasParentHash.insert(node->iri(), node);
                                 LNode* snode = nodesHash.value(second.attribute("IRI").remove(0, 1));
                                 if (snode && node) {
-                                    LEdge* edge = new LEdge("is-a", snode);
-                                    LEdge* egde = new LEdge("has-subclass", node);
+                                    LEdge* edge = new LEdge("is-a", snode, node);
+                                    LEdge* egde = new LEdge("has-subclass", node, snode);
                                     node->addEgde(edge);
                                     snode->addEgde(egde);
                                 }
@@ -117,8 +118,8 @@ LOntology* LOntologyManager::loadOWLXML(QFile *file)
                                 QString to = second.firstChildElement("Class").attribute("IRI").remove(0, 1);
                                 LNode* snode = nodesHash.value(to, 0);
                                 if (node && snode) {
-                                    LEdge* edge = new LEdge(link, snode);
-                                    LEdge* egde = new LEdge(link + "_reverse", node);
+                                    LEdge* edge = new LEdge(link, snode, node);
+                                    LEdge* egde = new LEdge(link + "_reverse", node, snode);
                                     node->addEgde(edge);
                                     snode->addEgde(egde);
                                 }
@@ -131,8 +132,8 @@ LOntology* LOntologyManager::loadOWLXML(QFile *file)
                 for (int i = 0; i < count; ++i)
                     if (!nodesHasParentHash.value(values.at(i)->iri(), 0)) {
                         LNode* subnode = values.at(i);
-                        LEdge* edge = new LEdge("is-a", thing);
-                        LEdge* egde = new LEdge("has-subclass", subnode);
+                        LEdge* edge = new LEdge("is-a", thing, subnode);
+                        LEdge* egde = new LEdge("has-subclass", subnode, thing);
                         thing->addEgde(egde);
                         subnode->addEgde(edge);
                     }
@@ -144,11 +145,30 @@ LOntology* LOntologyManager::loadOWLXML(QFile *file)
     return result;
 }
 
-bool LOntologyManager::saveOWLXML(QString filename)
+bool LOntologyManager::saveOWLXML(LOntology* ontology, QString filename)
 {
     //TODO: write OWL/XML to file
 
     return false;
+}
+
+LOntology* LOntologyManager::loadXML(QFile *file)
+{
+    if (file->open(QIODevice::ReadOnly)) {
+        QDomDocument doc;
+        doc.setContent(file->readAll());
+        LOntology* result = new LOntology(reinterpret_cast<LNode*>(0), QList<LNode*>());
+        result->fromXML(doc);
+        file->close();
+    }
+}
+
+bool LOntologyManager::saveXML(LOntology *ontology, QString filename)
+{
+    QFile file(filename);
+    file.open(QIODevice::WriteOnly);
+    file.write(ontology->toXML().toByteArray(4));
+    file.close();
 }
 
 /* End of file: lontologymanager.cpp */

@@ -1,5 +1,3 @@
-/* Begin of file: lontology.cpp */
-
 /*
  * Copyright (C) 2011-2012  Anton Storozhev, antonstorozhev@gmail.com
  *
@@ -30,7 +28,7 @@ LOntology::LOntology(LNode *root, QList<LNode *> nodes, QObject *parent) :
         m_nodesHash[current->iri()] = current;
         for (int j = 0; j < current->edgesCount(); ++j) {
             LEdge* cur = current->edges().at(j);
-            if (m_edges.contains(cur))
+            if (!m_edges.contains(cur))
                 m_edges << cur;
             if (!m_edgesHash.contains(cur->name(), cur))
                 m_edgesHash.insert(cur->name(), cur);
@@ -63,21 +61,99 @@ bool LOntology::addNode(LNode *node)
         return false;
     if (m_nodesHash.contains(node->iri()))
         return false;
+    if (m_nodesIdHash.contains(node->id()))
+        return false;
 
     m_nodes << node;
     m_nodesHash.insert(node->iri(), node);
+    m_nodesIdHash.insert(node->id(), node);
     return true;
 }
 
-// TODO: code this!
-bool LOntology::addEdge(QString name, QString sourceIri, QString destIri)
+LEdge *LOntology::addEdge(QString name, QString sourceIri, QString destIri)
 {
-
+    LNode* source = m_nodesHash.value(sourceIri, 0);
+    LNode* dest = m_nodesHash.value(destIri, 0);
+    return addEdge(name, source, dest);
 }
 
-bool LOntology::addEdge(QString name, LNode *source, LNode *dest)
+LEdge *LOntology::addEdge(QString name, LNode *source, LNode *dest)
 {
-
+    if (source && dest) {
+        LEdge* edge = new LEdge(name, dest, source);
+        m_edges << edge;
+        m_edgesHash.insert(edge->name(), edge);
+        m_edgesIdHash.insert(edge->id(), edge);
+        return edge;
+    } else return 0;
 }
 
-/* End of file: lontology.cpp */
+QDomDocument LOntology::toXML()
+{
+    QDomDocument doc = QXML"lontology";
+    QDomDocument nodes = QXML"nodes";
+    QDomDocument edges = QXML"edges";
+
+    for (int i = 0; i < m_nodes.count(); ++i) {
+        LNode* node = m_nodes.at(i);
+        nodes << (QXML"node"
+                      < "@id" > node->id()
+                      < "@iri" > node->iri()
+                  );
+    }
+
+    for (int i = 0; i < m_edges.count(); ++i) {
+        LEdge* edge = m_edges.at(i);
+        edges << (QXML"edge"
+                      < "@id" > edge->id()
+                      < "@sid" > edge->source()->id()
+                      < "@did" > edge->node()->id()
+                      < "@name" > edge->name()
+                     );
+    }
+
+    doc << nodes;
+    doc << edges;
+
+    return doc;
+}
+
+bool LOntology::fromXML(const QDomDocument &doc)
+{
+    if (doc.toElement().tagName() == "lontology") {
+        for (int i = 0; i < m_nodes.count(); ++i)
+            delete m_nodes.at(i);
+        for (int i = 0; i < m_edges.count(); ++i)
+            delete m_edges.at(i);
+        m_nodes.clear();
+        m_edges.clear();
+
+        QDomElement nodesElement = doc.firstChildElement("nodes");
+        if (!nodesElement.isNull()) {
+            for (int i = 0; i < nodesElement.childNodes().count(); ++i) {
+                QDomElement nodeElement = nodesElement.childNodes().at(i).toElement();
+                quint64 id = nodeElement.attribute("id").toULongLong();
+                QString iri = nodeElement.attribute("iri");
+                LNode* node = new LNode(id, iri);
+                addNode(node);
+            }
+        } else return false;
+
+        QDomElement edgesElement = doc.firstChildElement("edges");
+        if (!edgesElement.isNull()) {
+            for (int i = 0; i < edgesElement.childNodes().count(); ++i) {
+                QDomElement edgeElement = edgesElement.childNodes().at(i).toElement();
+                quint64 id = edgeElement.attribute("id").toULongLong();
+                quint64 sid = edgeElement.attribute("sid").toULongLong();
+                quint64 did = edgeElement.attribute("did").toULongLong();
+                QString name = edgeElement.attribute("name");
+                LNode* source = m_nodesIdHash.value(sid, 0);
+                LNode* dest = m_nodesIdHash.value(did, 0);
+                if (source && dest)
+                    addEdge(name, source, dest)->setId(id);
+            }
+        } else return false;
+
+        return true;
+    } else return false;
+}

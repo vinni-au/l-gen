@@ -1,4 +1,3 @@
-/* Begin of file: newprojectdialog.cpp */
 #include "newprojectdialog.hpp"
 #include "ui_newprojectdialog.h"
 #include <QToolTip>
@@ -33,7 +32,8 @@ void NewProjectDialog::on_btn_template_clicked()
 {
     QFileDialog fd;
     fd.setAcceptMode(QFileDialog::AcceptOpen);
-    fd.setNameFilter("Онтология в формате OWL/XML (*.owl)");
+    fd.setNameFilters(QStringList() << "Онтология в формате XML (*.xml)"
+                      << "Онтология в формате OWL/XML (*.owl)");
     if (fd.exec()) {
         QString filename = fd.selectedFiles().at(0);
         ui->le_template->setText(filename);
@@ -45,7 +45,8 @@ void NewProjectDialog::on_btn_domain_clicked()
 {
     QFileDialog fd;
     fd.setAcceptMode(QFileDialog::AcceptOpen);
-    fd.setNameFilter("Онтология в формате OWL/XML (*.owl)");
+    fd.setNameFilters(QStringList() << "Онтология в формате XML (*.xml)"
+                     <<"Онтология в формате OWL/XML (*.owl)");
     if (fd.exec()) {
         QString filename = fd.selectedFiles().at(0);
         ui->le_domain->setText(filename);
@@ -56,6 +57,8 @@ void NewProjectDialog::on_btn_domain_clicked()
 void NewProjectDialog::on_le_name_textEdited(const QString &arg1)
 {
     ui->le_file->setText(QDir::homePath() + QDir::separator() + arg1 + ".lgen");
+    ui->le_domain->setText(QDir::homePath() + QDir::separator() + arg1 + "_DO.xml");
+    ui->le_template->setText(QDir::homePath() + QDir::separator() + arg1 + "_TO.xml");
 }
 
 void NewProjectDialog::on_btn_ok_clicked()
@@ -83,6 +86,14 @@ bool NewProjectDialog::checkData()
         showToolTipAtWidget(ui->le_name, "Имя проекта не может быть пустым");
         return false;
     }
+    if (m_templateFilename.isEmpty()) {
+        showToolTipAtWidget(ui->le_template, "Укажите файл с онтологией шаблонов задач");
+        return false;
+    }
+    if (m_domainFilename.isEmpty()) {
+        showToolTipAtWidget(ui->le_domain, "Укажите файл с онтологией предметной области");
+        return false;
+    }
     if (m_templateFilename == m_domainFilename) {
         showToolTipAtWidget(ui->le_domain, "Один и тот же файл не может содержать две онтологии!");
         return false;
@@ -106,5 +117,3 @@ void NewProjectDialog::showToolTipAtWidget(QWidget *widget, QString text)
     QToolTip::showText(widget->rect().topLeft() + pos() + widget->pos(),
                        "<div style=\"background:white; color:red;\">" + text + "</div>", widget);
 }
-
-/* End of file: newprojectdialog.cpp */

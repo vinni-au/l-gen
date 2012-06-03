@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "LGen2MVC/lontologymodel.hpp"
+#include "LGen2Core/lgen2project.hpp"
 
 namespace Ui {
     class LGen2Editor;
@@ -17,7 +18,9 @@ public:
     ~LGen2Editor();
 
     void loadModels(LOntologyModel* templateModel, LOntologyModel* domainModel);
-    void unloadModels();
+
+    void loadProject(LGen2Project* project, LOntologyModel* templateModel, LOntologyModel* domainModel);
+    void unloadProject();
 
 private slots:
     void addNodeToDO(QString name);
@@ -31,6 +34,11 @@ private slots:
 
 private:
     Ui::LGen2Editor *ui;
+
+    LOntologyModel* m_domainModel;
+    LOntologyModel* m_templateModel;
+
+    LGen2Project* m_project;
 };
 
 #endif // LGEN2EDITOR_HPP

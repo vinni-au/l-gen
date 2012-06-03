@@ -20,8 +20,15 @@
 
 #include "ledge.hpp"
 
-LEdge::LEdge(QString name, LNode *node, QObject *parent) :
-    QObject(parent), m_name(name), m_node(node)
+LEdge::LEdge(QString name, LNode *node, LNode *source, QObject *parent) :
+    QObject(parent), m_name(name), m_node(node), m_source(source)
+{
+    static quint64 id = 0;
+    m_id = id++;
+}
+
+LEdge::LEdge(quint64 id, QString name, LNode *node, LNode *source, QObject *parent) :
+    QObject(parent), m_name(name), m_node(node), m_source(source), m_id(id)
 {   }
 
 /* End of file: ledge.cpp */
