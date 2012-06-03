@@ -60,7 +60,7 @@
      <item>
       <widget class="QLineEdit" name="le_template">
        <property name="text">
-        <string>/home/anton/Learning/Курсовая работа - зачёт/Текст квазибакалаврской работы/ontologies/LTemplates.owl</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -85,7 +85,7 @@
      <item>
       <widget class="QLineEdit" name="le_domain">
        <property name="text">
-        <string>/home/anton/Learning/Курсовая работа - зачёт/Текст квазибакалаврской работы/ontologies/LEntities.owl</string>
+        <string/>
        </property>
        <property name="frame">
         <bool>true</bool>

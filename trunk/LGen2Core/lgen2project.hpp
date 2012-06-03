@@ -73,19 +73,25 @@ public:
     {   return m_file->fileName();  }
 
     QString tfilename() const
-    {   return m_templateOntologyFile->fileName();  }
+    {   return m_templateOntologyFile ? m_templateOntologyFile->fileName() : QString();  }
     QString dfilename() const
-    {   return m_domainOntologyFile->fileName();    }
+    {   return m_domainOntologyFile ? m_domainOntologyFile->fileName() : QString();    }
 
     void createEmptyDomainOntology(QString filename);
     void createEmptyTemplateOntology(QString filename);
+
+    QDomDocument domainDiagram() const
+    {   return m_domainDiagram; }
+
+    QDomDocument templateDiagram() const
+    {   return m_templateDiagram;   }
 
     static LGen2Project* load(QString filename);
 
 signals:
 
 public slots:
-        void save();
+    void save(const QDomDocument &domainDiagram = QDomDocument(), const QDomDocument &templateDiagram = QDomDocument());
 
 private:
     //! Название проекта
@@ -111,6 +117,9 @@ private:
       \sa kb()
     */
     LKB* m_kb;
+
+    QDomDocument m_domainDiagram;
+    QDomDocument m_templateDiagram;
 };
 
 #endif // LGEN2PROJECT_HPP

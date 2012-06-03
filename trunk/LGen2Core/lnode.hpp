@@ -35,6 +35,7 @@ class LNode : public QObject
 
 public:
     LNode(QString iri, QList<LEdge*> edges = QList<LEdge*>(), QObject *parent = 0);
+    LNode(quint64 id, QString iri, QList<LEdge*> edges = QList<LEdge*>(), QObject *parent = 0);
 
     //! Добавляет дугу
     void addEgde(LEdge* edge);
@@ -82,6 +83,9 @@ public:
     //! Определяет, является ли вершина листовой
     bool isLeaf() const;
 
+    quint64 id() const
+    {   return m_id;    }
+
 signals:
 
 public slots:
@@ -104,6 +108,8 @@ private:
       \sa ontology(), setOntology()
     */
     LOntology* m_ontology;
+
+    quint64 m_id;
 };
 
 #endif // LNODE_HPP

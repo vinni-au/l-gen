@@ -7,6 +7,8 @@
 #include <QLabel>
 #include <QTextEdit>
 #include "LGen2MVC/lontologymodel.hpp"
+#include "LGen2Editor/lgen2diagrameditor.hpp"
+#include "LGen2Editor/lgen2objectpropertieseditor.hpp"
 #include "categorizer.hpp"
 
 namespace Ui {
@@ -24,6 +26,8 @@ public:
     void setModel(LOntologyModel* model);
 
     void setCategorizer(Categorizer* categorizer);
+
+    LGen2DiagramEditor* diagramEditor() const;
 
 private:
     Ui::OntologyWidget *ui;

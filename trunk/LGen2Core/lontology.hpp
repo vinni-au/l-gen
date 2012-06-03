@@ -26,6 +26,7 @@
 #include <QHash>
 #include <QMultiHash>
 #include "lnode.hpp"
+#include "3rdparty/QSugar/QSugar.hpp"
 
 //! Онтология
 class LOntology : public QObject
@@ -49,6 +50,9 @@ public:
     QList<LNode*> nodes() const
     {   return m_nodes; }
 
+    QList<LEdge*> edges() const
+    {   return m_edges; }
+
     //! Возвращает указатель на вершину по IRI
     /*!
       \param iri IRI искомой вершины
@@ -68,8 +72,11 @@ public:
     bool addNode(QString iri);
     bool addNode(LNode* node);
 
-    bool addEdge(QString name, QString sourceIri, QString destIri);
-    bool addEdge(QString name, LNode* source, LNode* dest);
+    LEdge* addEdge(QString name, QString sourceIri, QString destIri);
+    LEdge* addEdge(QString name, LNode* source, LNode* dest);
+
+    QDomDocument toXML();
+    bool fromXML(const QDomDocument& doc);
 
 signals:
 
@@ -102,6 +109,9 @@ private:
       \sa edgesFromNode()
     */
     QMultiHash<QString, LEdge*> m_edgesHash;
+
+    QHash<quint64, LNode*> m_nodesIdHash;
+    QHash<quint64, LEdge*> m_edgesIdHash;
 };
 
 #endif // LONTOLOGY_HPP

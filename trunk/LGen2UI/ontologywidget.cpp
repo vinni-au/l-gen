@@ -30,3 +30,8 @@ void OntologyWidget::setModel(LOntologyModel *model)
     delete smodel;
     ui->treeView->update(QModelIndex());
 }
+
+LGen2DiagramEditor* OntologyWidget::diagramEditor() const
+{
+    return ui->graphicsView;
+}

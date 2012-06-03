@@ -45,7 +45,10 @@ public:
     /*!
       \param filename Путь к файлу
     */
-    bool saveOWLXML(QString filename);
+    static bool saveOWLXML(LOntology* ontology, QString filename);
+
+    static LOntology* loadXML(QFile* file);
+    static bool saveXML(LOntology* ontology, QString filename);
 
 signals:
 

@@ -89,18 +89,20 @@ void LGen2DiagramEditor::addLink(quint64 sid, quint64 did, QString title)
 {
     DiagramItem* i1 = m_items[sid];
     DiagramItem* i2 = m_items[did];
-    static QMenu* menu = new QMenu;
-    static QAction* act = menu->addAction("Удалить связь", this, SLOT(deleteSelectedLink()));
-    Arrow* a = new Arrow(i1, i2, title, 0, m_scene);
-    a->setContextMenu(menu);
-    m_links << a;
-    i1->addArrow(a);
-    i2->addArrow(a);
-    //m_scene->addItem(a);
-    if (title == "is-a")
-        a->setColor(Qt::darkGreen);
-    else if (title == "sub")
-        a->setColor(Qt::darkYellow);
+    if (i1 && i2) {
+        static QMenu* menu = new QMenu;
+        static QAction* act = menu->addAction("Удалить связь", this, SLOT(deleteSelectedLink()));
+        Arrow* a = new Arrow(i1, i2, title, 0, m_scene);
+        a->setContextMenu(menu);
+        m_links << a;
+        i1->addArrow(a);
+        i2->addArrow(a);
+        //m_scene->addItem(a);
+        if (title == "is-a")
+            a->setColor(Qt::darkGreen);
+        else if (title == "APO")
+            a->setColor(Qt::darkYellow);
+    }
 }
 
 void LGen2DiagramEditor::deleteLink(quint64 sid, quint64 did)
