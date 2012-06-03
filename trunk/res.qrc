@@ -2,4 +2,8 @@
     <qresource prefix="/translations">
         <file>qt_ru.qm</file>
     </qresource>
+    <qresource prefix="/pic">
+        <file alias="/pic/plus.png">data/plus.png</file>
+        <file alias="/pic/minus.png">data/minus.png</file>
+    </qresource>
 </RCC>

@@ -49,6 +49,7 @@ public:
 
     static LOntology* loadXML(QFile* file);
     static bool saveXML(LOntology* ontology, QString filename);
+    static bool saveXML(LOntology *ontology, QFile* file);
 
 signals:
 

@@ -120,7 +120,7 @@ QDomDocument LOntology::toXML()
 
 bool LOntology::fromXML(const QDomDocument &doc)
 {
-    if (doc.toElement().tagName() == "lontology") {
+    if (doc.documentElement().tagName() == "lontology") {
         for (int i = 0; i < m_nodes.count(); ++i)
             delete m_nodes.at(i);
         for (int i = 0; i < m_edges.count(); ++i)
@@ -128,7 +128,7 @@ bool LOntology::fromXML(const QDomDocument &doc)
         m_nodes.clear();
         m_edges.clear();
 
-        QDomElement nodesElement = doc.firstChildElement("nodes");
+        QDomElement nodesElement = doc.documentElement().firstChildElement("nodes");
         if (!nodesElement.isNull()) {
             for (int i = 0; i < nodesElement.childNodes().count(); ++i) {
                 QDomElement nodeElement = nodesElement.childNodes().at(i).toElement();
@@ -136,10 +136,12 @@ bool LOntology::fromXML(const QDomDocument &doc)
                 QString iri = nodeElement.attribute("iri");
                 LNode* node = new LNode(id, iri);
                 addNode(node);
+                if (iri == "Thing")
+                    m_root = node;
             }
         } else return false;
 
-        QDomElement edgesElement = doc.firstChildElement("edges");
+        QDomElement edgesElement = doc.documentElement().firstChildElement("edges");
         if (!edgesElement.isNull()) {
             for (int i = 0; i < edgesElement.childNodes().count(); ++i) {
                 QDomElement edgeElement = edgesElement.childNodes().at(i).toElement();
@@ -149,8 +151,11 @@ bool LOntology::fromXML(const QDomDocument &doc)
                 QString name = edgeElement.attribute("name");
                 LNode* source = m_nodesIdHash.value(sid, 0);
                 LNode* dest = m_nodesIdHash.value(did, 0);
-                if (source && dest)
-                    addEdge(name, source, dest)->setId(id);
+                if (source && dest) {
+                    LEdge* edge = addEdge(name, source, dest);
+                    edge->setId(id);
+                    source->addEgde(edge);
+                }
             }
         } else return false;
 

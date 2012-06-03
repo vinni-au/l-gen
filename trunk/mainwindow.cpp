@@ -122,7 +122,7 @@ void MainWindow::on_act_ProjectNew_triggered()
 void MainWindow::on_act_ProjectSave_triggered()
 {
     if (m_project)
-        m_project->save();
+        m_project->save(m_editor->doEditor(), m_editor->toEditor());
 }
 
 void MainWindow::on_act_ProjectSaveAs_triggered()
@@ -204,6 +204,7 @@ void MainWindow::loadProject(LGen2Project *project)
     // QMainWindow takes ownership of centralWidget
     m_editor = new LGen2Editor;
     m_editor->loadProject(m_project, m_templateModel, m_domainModel);
+
 
     setCentralWidget(m_editor);
 

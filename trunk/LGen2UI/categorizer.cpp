@@ -29,7 +29,7 @@ bool Categorizer::addCategoryToSection(QString category_, QString section_)
     return true;
 }
 
-bool Categorizer::addElementToCategory(QString element_, QString category_, bool link)
+bool Categorizer::addElementToCategory(QString element_, QString category_, bool link, QIcon *icon)
 {
     if (m_elements.contains(element_))
         return false;
@@ -38,7 +38,7 @@ bool Categorizer::addElementToCategory(QString element_, QString category_, bool
     if (!category)
         return false;
 
-    Element* element = new Element(element_, category, link);
+    Element* element = new Element(element_, category, link, icon);
     category->m_elements << element;
     m_elements.insert(element_, element);
     return true;
@@ -79,7 +79,7 @@ void Categorizer::applyToTabWidget(QTabWidget *widget)
             for (int k = 0; k < category->m_elements.count(); ++k) {//Создаём кнопки
                 Element* element = category->m_elements.at(k);
 
-                Button* btn = new Button(element->m_name, element);
+                Button* btn = new Button(element->m_name, element, element->icon());
                 btn->setCheckable(element->m_link);
                 frame->layout()->addWidget(btn);                
 
@@ -113,9 +113,12 @@ void Categorizer::elementDeactivated(Element *elem)
         emit endLink();
 }
 
-Button::Button(QString text, Element* element) :
+Button::Button(QString text, Element *element, QIcon *icon) :
     QPushButton(text), m_element(element)
 {
+    if (icon) {
+        setIcon(*icon);
+    }
     QObject::connect(this, SIGNAL(clicked(bool)),
                      SLOT(onClick(bool)));
 }

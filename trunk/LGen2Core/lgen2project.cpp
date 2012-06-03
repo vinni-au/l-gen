@@ -51,32 +51,31 @@ bool LGen2Project::setTemplateOntologyFromFile(QFile *file)
     return m_kb->setTemplateOntology(LOntologyManager::loadOWLXML(file));
 }
 
-void LGen2Project::save(const QDomDocument &domainDiagram, const QDomDocument &templateDiagram)
+void LGen2Project::save(LGen2DiagramEditor *doEditor, LGen2DiagramEditor *toEditor)
 {
     QDomDocument xml =
         QXML"lgen2project"
             <"name"> m_name
-            <"filename"> m_file->fileName()
-            > (QXML"template"
-                <"file"> m_templateOntologyFile->fileName()
-                > templateDiagram)
-            > (QXML"domain"
-                <"file"> m_domainOntologyFile->fileName()
-                > domainDiagram);
-/*            <"template"> m_templateOntologyFile->fileName()
-            <"domain"> m_domainOntologyFile->fileName();
+            <"filename"> m_file->fileName();
+    QDomDocument tempdoc = QXML"template"
+                <"file"> m_templateOntologyFile->fileName();
+    QDomDocument domain =  QXML"domain"
+                <"file"> m_domainOntologyFile->fileName();
 
-    QXML"template"
-            <"file"> m_templateOntologyFile->fileName()
-            > templateDiagram;
+    if (doEditor)
+        tempdoc << toEditor->toXML();
+    if (toEditor)
+        domain << doEditor->toXML();
 
-    QXML"domain"
-            <"file"> m_domainOntologyFile->fileName()
-            > domainDiagram;*/
+    xml << tempdoc;
+    xml << domain;
 
     if (m_file->open(QIODevice::WriteOnly))
         m_file->write(xml.toByteArray(4));
     m_file->close();
+
+    LOntologyManager::saveXML(m_kb->domainOntology(), m_domainOntologyFile);
+    LOntologyManager::saveXML(m_kb->templateOntology(), m_templateOntologyFile);
 }
 
 LGen2Project* LGen2Project::load(QString filename)
@@ -102,17 +101,21 @@ LGen2Project* LGen2Project::load(QString filename)
             filename = nodes.at(0).toElement().text().trimmed();
         } else return 0;
 
+        result = new LGen2Project(name, new QFile(filename));
         nodes = xml.elementsByTagName("template");
         if (nodes.count() == 1) {
             tfilename = nodes.at(0).toElement().firstChildElement("file").text().trimmed();
+            result->m_templateDiagram = *(new QDomDocument("diagram"));
+            result->m_templateDiagram.appendChild(nodes.at(0).childNodes().at(1));
         } else return 0;
 
         nodes = xml.elementsByTagName("domain");
         if (nodes.count() == 1) {
             dfilename = nodes.at(0).toElement().firstChildElement("file").text().trimmed();
+            result->m_domainDiagram = *(new QDomDocument("diagram"));
+            result->m_domainDiagram.appendChild(nodes.at(0).childNodes().at(1));
         } else return 0;
 
-        result = new LGen2Project(name, new QFile(filename));
         if (!result->setTemplateOntologyFromFile(new QFile(tfilename))) {
             delete result;
             return 0;
@@ -121,6 +124,9 @@ LGen2Project* LGen2Project::load(QString filename)
             delete result;
             return 0;
         }
+
+        result->m_kb->setDomainOntology(LOntologyManager::loadXML(new QFile(dfilename)));
+        result->m_kb->setTemplateOntology(LOntologyManager::loadXML(new QFile(tfilename)));
     }
 
     file.close();
@@ -165,14 +171,26 @@ void LGen2Project::createEmptyTemplateOntology(QString filename)
 {
     QList< LNode* > nodes;
     LNode* root = new LNode("Thing");
-    LNode* ttemp = new LNode("#шаблон_задания");
+    LNode* ttemp = new LNode("#шаблон задания");
+    LNode* axiom = new LNode("#шаблон аксиом");
+    LNode* answer = new LNode("#шаблон ответа");
 
     LEdge* edge1 = new LEdge("is-a", root, ttemp);
     LEdge* edge2 = new LEdge("has-subclass", ttemp, root);
     root->addEgde(edge2);
     ttemp->addEgde(edge1);
 
-    nodes << root << ttemp;
+    edge1 = new LEdge("is-a", root, axiom);
+    edge2 = new LEdge("has-subclass", axiom, root);
+    root->addEgde(edge2);
+    axiom->addEgde(edge1);
+
+    edge1 = new LEdge("is-a", root, answer);
+    edge2 = new LEdge("has-subclass", answer, root);
+    root->addEgde(edge2);
+    answer->addEgde(edge1);
+
+    nodes << root << ttemp << axiom << answer;
 
     LOntology* ontology = new LOntology(root, nodes);
     m_kb->setTemplateOntology(ontology);

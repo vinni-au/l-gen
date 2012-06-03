@@ -1,5 +1,3 @@
-/* Begin of file arrow.cpp */
-
 /*
  * Copyright (C) 2011-2012  Anton Storozhev, antonstorozhev@gmail.com
  *
@@ -147,5 +145,3 @@ void Arrow::paint(QPainter *painter, const QStyleOptionGraphicsItem *,
     painter->setPen(QPen(Qt::black, 3));
     painter->drawText(x, y, m_text);
 }
-
-/* End of file arrow.cpp */

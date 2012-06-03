@@ -40,9 +40,9 @@ void DiagramItem::init()
     switch (m_type) {
         case TextRectangle:
         default:
-            m_polygon << QPointF(-50, -25) << QPointF(-50, 25)
-                      << QPointF(50, 25) << QPointF(50, -25)
-                      << QPointF(-50, -25);
+            m_polygon << QPointF(-50, -15) << QPointF(-50, 15)
+                      << QPointF(50, 15) << QPointF(50, -15)
+                      << QPointF(-50, -15);
             break;
     }
     setPolygon(m_polygon);
@@ -143,7 +143,7 @@ void DiagramItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
 {
     QGraphicsPolygonItem::paint(painter, option, widget);
     //TODO: write a corrent rectangle creation
-    painter->drawText(QRectF(-50, -25, 100, 50), Qt::AlignCenter, m_text);
+    painter->drawText(QRectF(-50, -15, 100, 30), Qt::AlignCenter, m_text);
     if (isSelected()) {
         painter->setBrush(QBrush(QColor(0, 0, 255, 40)));
         painter->drawPolygon(polygon());
