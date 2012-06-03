@@ -156,19 +156,31 @@ LOntology* LOntologyManager::loadXML(QFile *file)
 {
     if (file->open(QIODevice::ReadOnly)) {
         QDomDocument doc;
-        doc.setContent(file->readAll());
+        doc.setContent(file);
         LOntology* result = new LOntology(reinterpret_cast<LNode*>(0), QList<LNode*>());
         result->fromXML(doc);
         file->close();
-    }
+        return result;
+    } else return 0;
+}
+
+bool LOntologyManager::saveXML(LOntology *ontology, QFile *file)
+{
+    if (file->open(QIODevice::WriteOnly)) {
+        file->write(ontology->toXML().toByteArray(4));
+        file->close();
+        return true;
+    } else return false;
 }
 
 bool LOntologyManager::saveXML(LOntology *ontology, QString filename)
 {
     QFile file(filename);
-    file.open(QIODevice::WriteOnly);
-    file.write(ontology->toXML().toByteArray(4));
-    file.close();
+    if (file.open(QIODevice::WriteOnly)) {
+        file.write(ontology->toXML().toByteArray(4));
+        file.close();
+        return true;
+    } else return false;
 }
 
 /* End of file: lontologymanager.cpp */

@@ -22,6 +22,9 @@ public:
     void loadProject(LGen2Project* project, LOntologyModel* templateModel, LOntologyModel* domainModel);
     void unloadProject();
 
+    LGen2DiagramEditor* doEditor() const;
+    LGen2DiagramEditor* toEditor() const;
+
 private slots:
     void addNodeToDO(QString name);
     void addNodeToTO(QString name);

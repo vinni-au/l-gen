@@ -168,4 +168,5 @@ void LOntologyModel::setOntology(LOntology *ontology)
         }
         toProcess.removeAll(current);
     }
+    reset();
 }

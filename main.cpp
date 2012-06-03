@@ -32,7 +32,7 @@
 void segfault_sigaction(int /* signal */, siginfo_t * /* si */ , void * /* arg */)
 {
     QMessageBox::critical(0, "Критическая ошибка", "В программе произошла критическая ошибка!"
-                                                   "<br>Программа будет перезапущена");
+                                                   "<br>Программа будет закрыта");
     //TODO: restart program
     exit(0);
 }

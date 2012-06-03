@@ -64,14 +64,17 @@ class Element : public QObject
     Q_OBJECT
 
 public:
-    Element(QString name, Category* category, bool link) :
-        m_name(name), m_category(category), m_link(link) {}
+    Element(QString name, Category* category, bool link, QIcon* icon = 0) :
+        m_name(name), m_category(category), m_link(link), m_icon(icon) {}
 
     Category* category() const
     {   return m_category;  }
 
     Button* button() const
     {   return m_button;    }
+
+    QIcon* icon() const
+    {   return m_icon;  }
 
     bool isLink() const
     {   return m_link;  }
@@ -81,6 +84,7 @@ private:
     Category* m_category;
 
     Button* m_button;
+    QIcon* m_icon;
 
     bool m_link;
 
@@ -92,7 +96,7 @@ class Button : public QPushButton
     Q_OBJECT
 
 public:
-    Button(QString text, Element* element);
+    Button(QString text, Element* element, QIcon* icon = 0);
 
     void afterAllCreated();
 
@@ -119,7 +123,7 @@ public:
 
     bool addSection(QString name);
     bool addCategoryToSection(QString category, QString section);
-    bool addElementToCategory(QString element, QString category, bool link = true);
+    bool addElementToCategory(QString element, QString category, bool link = true, QIcon* icon = 0);
 
 signals:
     void node(QString name);

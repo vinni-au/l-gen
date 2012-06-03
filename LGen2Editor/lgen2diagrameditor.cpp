@@ -18,6 +18,7 @@
 
 #include "lgen2diagrameditor.hpp"
 #include <QContextMenuEvent>
+#include "3rdparty/QSugar/QSugar.hpp"
 
 LGen2DiagramEditor::LGen2DiagramEditor(QWidget *parent, QMenu *contextMenu):
     QGraphicsView(parent), m_contextMenu(contextMenu)
@@ -235,7 +236,7 @@ QDomElement LGen2DiagramEditor::toXML(QDomDocument &doc)
             QDomElement ielem = doc.createElement("item");
             ielem.setAttribute("x", ditem->x());
             ielem.setAttribute("y", ditem->y());
-            ielem.setAttribute("title", ditem->text());
+            ielem.setAttribute("text", ditem->text());
             ielem.setAttribute("id", ditem->id());
             dElem.appendChild(ielem);
         }
@@ -252,10 +253,43 @@ QDomElement LGen2DiagramEditor::toXML(QDomDocument &doc)
     return dElem;
 }
 
-void LGen2DiagramEditor::fromXML(QDomElement &elem)
+QDomDocument LGen2DiagramEditor::toXML()
+{
+    QDomDocument doc = QXML"diagram";
+
+    for (int i = 0; i < m_items.count(); ++i) {
+        DiagramItem* item = qgraphicsitem_cast<DiagramItem*>(m_items.values()[i]);
+        if (item) {
+            doc << (QXML"item"
+                    < "@x" > item->x()
+                    < "@y" > item->y()
+                    < "@id" > item->id()
+                    < "@text" > item->text()
+                       );
+        }
+    }
+
+    for (int i = 0; i < m_links.count(); ++i) {
+        Arrow* arrow = m_links[i];
+        if (arrow) {
+            doc << (QXML"link"
+                    < "@id" > arrow->id()
+                    < "@text" > arrow->text()
+                    < "@sid" > arrow->startItem()->id()
+                    < "@did" > arrow->endItem()->id()
+                    );
+        }
+    }
+
+    QDomDocument* document = new QDomDocument(doc);
+
+    return *document;
+}
+
+void LGen2DiagramEditor::fromXML(QDomElement elem)
 {
     static QMenu* menu = new QMenu;
-    static QAction* act = menu->addAction("Удалить фрейм");
+    static QAction* act = menu->addAction("Удалить вершину");
     QObject::connect(act, SIGNAL(triggered()),
                      SLOT(deleteSelectedNode()));
     if (elem.tagName() == "diagram") {
@@ -264,8 +298,8 @@ void LGen2DiagramEditor::fromXML(QDomElement &elem)
         for (int i = 0; i < count; ++i) {
             QDomElement e = nodes.at(i).toElement();
             if (e.tagName() == "item") {
-                unsigned id = e.attribute("id").toUInt();
-                QString title = e.attribute("title");
+                quint64 id = e.attribute("id").toULongLong();
+                QString title = e.attribute("text");
                 qreal x = e.attribute("x").toDouble();
                 qreal y = e.attribute("y").toDouble();
                 DiagramItem* item = new DiagramItem(id, DiagramItem::TextRectangle, title, menu);
@@ -274,18 +308,19 @@ void LGen2DiagramEditor::fromXML(QDomElement &elem)
                 m_items.insert(id, item);
                 m_scene->addItem(item);
             } else if (e.tagName() == "link") {
+                quint64 id = e.attribute("id").toULongLong();
                 QString text = e.attribute("text");
-                unsigned sid = e.attribute("sid").toUInt();
-                unsigned did = e.attribute("did").toUInt();
+                quint64 sid = e.attribute("sid").toULongLong();
+                quint64 did = e.attribute("did").toULongLong();
                 DiagramItem* start = m_items.value(sid, 0);
                 DiagramItem* end = m_items.value(did, 0);
                 static QMenu* menu = new QMenu;
                 static QAction* act = menu->addAction("Удалить связь", this, SLOT(deleteSelectedLink()));
-                Arrow* a = new Arrow(start, end, text, 0, m_scene);
+                Arrow* a = new Arrow(id, start, end, text, 0, m_scene);
                 a->setContextMenu(menu);
                 if (text == "is-a")
                     a->setColor(Qt::darkGreen);
-                else if (text == "sub")
+                else if (text == "APO")
                     a->setColor(Qt::darkYellow);
                 start->addArrow(a);
                 end->addArrow(a);
@@ -293,4 +328,5 @@ void LGen2DiagramEditor::fromXML(QDomElement &elem)
             }
         }
     }
+    update();
 }

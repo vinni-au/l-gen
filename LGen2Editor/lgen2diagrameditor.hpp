@@ -41,7 +41,8 @@ public:
     unsigned selectedFrameId();
 
     QDomElement toXML(QDomDocument &doc);
-    void fromXML(QDomElement &doc);
+    QDomDocument toXML();
+    void fromXML(QDomElement doc);
 
     void setContextMenu(QMenu* menu)
     {   m_scene->m_contextMenu = menu;   }
@@ -91,7 +92,9 @@ signals:
 
     //! Выделена дуга
     //TODO: maybe chande to link's identifier
-    void linkSelected(quint64, quint64);
+    void linkSelected(quint64 sid, quint64 did);
+
+    void linkSelected(quint64 id);
 
     //! Запрос на добавление дуги
     void addArrowRequest(quint64 source, quint64 dest);

@@ -25,6 +25,7 @@
 #include <QFile>
 #include "LGen2Core/lkb.hpp"
 #include "LGen2Core/lontologymanager.hpp"
+#include "LGen2Editor/lgen2diagrameditor.hpp"
 
 //! Проект L-Gen 2
 // TODO: add multiple ontologies support
@@ -91,7 +92,7 @@ public:
 signals:
 
 public slots:
-    void save(const QDomDocument &domainDiagram = QDomDocument(), const QDomDocument &templateDiagram = QDomDocument());
+    void save(LGen2DiagramEditor* doEditor = 0, LGen2DiagramEditor* toEditor = 0);
 
 private:
     //! Название проекта
