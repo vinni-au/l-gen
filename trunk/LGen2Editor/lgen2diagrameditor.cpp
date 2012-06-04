@@ -86,14 +86,14 @@ void LGen2DiagramEditor::deleteNode(quint64 id)
     //update();
 }
 
-void LGen2DiagramEditor::addLink(quint64 sid, quint64 did, QString title)
+void LGen2DiagramEditor::addLink(quint64 id, quint64 sid, quint64 did, QString title)
 {
     DiagramItem* i1 = m_items[sid];
     DiagramItem* i2 = m_items[did];
     if (i1 && i2) {
         static QMenu* menu = new QMenu;
         static QAction* act = menu->addAction("Удалить связь", this, SLOT(deleteSelectedLink()));
-        Arrow* a = new Arrow(i1, i2, title, 0, m_scene);
+        Arrow* a = new Arrow(id, i1, i2, title, 0, m_scene);
         a->setContextMenu(menu);
         m_links << a;
         i1->addArrow(a);
@@ -225,7 +225,6 @@ void LGen2DiagramEditor::zoomOut()
     scale(1 / 1.15, 1 / 1.15);
 }
 
-// TODO: use QSugar
 QDomElement LGen2DiagramEditor::toXML(QDomDocument &doc)
 {
     QDomElement dElem = doc.createElement("diagram");

@@ -77,6 +77,8 @@ private:
     LNode* m_source;
 
     quint64 m_id;
+
+    static quint64 m_lastid;
 };
 
 #include "lnode.hpp"

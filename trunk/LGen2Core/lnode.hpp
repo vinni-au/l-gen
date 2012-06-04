@@ -110,6 +110,8 @@ private:
     LOntology* m_ontology;
 
     quint64 m_id;
+
+    static quint64 m_lastid;
 };
 
 #endif // LNODE_HPP

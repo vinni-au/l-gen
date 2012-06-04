@@ -52,6 +52,8 @@ bool LOntology::addNode(QString iri)
     LNode* node = new LNode(iri);
     m_nodes << node;
     m_nodesHash.insert(iri, node);
+    m_nodesIdHash.insert(node->id(), node);
+    emit nodeAdded(node);
     return true;
 }
 
@@ -67,7 +69,17 @@ bool LOntology::addNode(LNode *node)
     m_nodes << node;
     m_nodesHash.insert(node->iri(), node);
     m_nodesIdHash.insert(node->id(), node);
+    emit nodeAdded(node);
     return true;
+}
+
+bool LOntology::addNode(LNode *node, LNode *parent)
+{
+    if (addNode(node)) {
+        addEdge("is-a", node, parent);
+        addEdge("has-subclass", parent, node);
+        return true;
+    } else return false;
 }
 
 LEdge *LOntology::addEdge(QString name, QString sourceIri, QString destIri)
@@ -84,6 +96,8 @@ LEdge *LOntology::addEdge(QString name, LNode *source, LNode *dest)
         m_edges << edge;
         m_edgesHash.insert(edge->name(), edge);
         m_edgesIdHash.insert(edge->id(), edge);
+        if (edge->name() != "has-subclass" && !edge->name().contains("_reverse"))
+            emit edgeAdded(edge);
         return edge;
     } else return 0;
 }

@@ -74,8 +74,8 @@ void LGen2Project::save(LGen2DiagramEditor *doEditor, LGen2DiagramEditor *toEdit
         m_file->write(xml.toByteArray(4));
     m_file->close();
 
-    LOntologyManager::saveXML(m_kb->domainOntology(), m_domainOntologyFile);
-    LOntologyManager::saveXML(m_kb->templateOntology(), m_templateOntologyFile);
+    LOntologyManager::saveXML(m_kb->domainOntology(), m_domainOntologyFile->fileName());
+    LOntologyManager::saveXML(m_kb->templateOntology(), m_templateOntologyFile->fileName());
 }
 
 LGen2Project* LGen2Project::load(QString filename)

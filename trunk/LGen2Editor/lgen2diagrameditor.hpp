@@ -129,7 +129,7 @@ public slots:
     void deleteNode(quint64 id);
 
     //! Добавить связь между от вершины с идентификатором sid до вершины с идентификатором did и надписью title
-    void addLink(quint64 sid, quint64 did, QString title);
+    void addLink(quint64 id, quint64 sid, quint64 did, QString title);
 
     //TODO: change to link's identifier?
     void addArrow(Arrow* arrow);
