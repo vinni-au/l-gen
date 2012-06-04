@@ -71,6 +71,7 @@ public:
 
     bool addNode(QString iri);
     bool addNode(LNode* node);
+    bool addNode(LNode *node, LNode* parent);
 
     LEdge* addEdge(QString name, QString sourceIri, QString destIri);
     LEdge* addEdge(QString name, LNode* source, LNode* dest);
@@ -79,8 +80,8 @@ public:
     bool fromXML(const QDomDocument& doc);
 
 signals:
-
-public slots:
+    void nodeAdded(LNode* node);
+    void edgeAdded(LEdge* edge);
 
 private:
     //! Указатель на вершину, представляющую корневое понятие (Thing)
@@ -95,7 +96,7 @@ private:
     */
     QList<LNode*> m_nodes;
 
-    //! Список вершин
+    //! Список дуг
     QList<LEdge*> m_edges;
 
     //! Хэш-таблица вершин (ключ - IRI)

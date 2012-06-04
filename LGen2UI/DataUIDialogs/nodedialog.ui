@@ -43,7 +43,7 @@
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QComboBox" name="cbParent">
+      <widget class="TreeBox" name="cbParent">
        <property name="editable">
         <bool>true</bool>
        </property>
@@ -81,6 +81,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>TreeBox</class>
+   <extends>QComboBox</extends>
+   <header location="global">./LGen2UI/treebox.hpp</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

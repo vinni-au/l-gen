@@ -35,6 +35,9 @@ private slots:
     void linkModeOffDO();
     void linkModeOffTO();
 
+    void nodeAddedToDO(LNode* node);
+    void edgeAddedToDO(LEdge* edge);
+
 private:
     Ui::LGen2Editor *ui;
 

@@ -20,6 +20,7 @@
 #define LONTOLOGYMODEL_HPP
 
 #include <QAbstractItemModel>
+#include <QHash>
 #include "LGen2Core/lontology.hpp"
 #include "lontologymodeltreenode.hpp"
 
@@ -57,13 +58,19 @@ public:
     virtual void onNodeChecked(LOntologyModelTreeNode* treeNode);
     virtual void onNodeUnchecked(LOntologyModelTreeNode* treeNode);
 
+    QModelIndex indexFromIri(QString iri);
+
+    void insertNodeOn(QModelIndex index, QString name);
+
 signals:
     void nodeChecked(LNode* node);
     void nodeUnchecked(LNode* node);
 
-public slots:
+    void nodeAdded(LNode* node);
+    void edgeAdded(LEdge* edge);
 
 private:
+    QHash<QString, QModelIndex> m_indexHash;
     LOntology* m_ontology;
     LOntologyModelTreeNode* m_rootNode;
     bool m_checkOnlyLeaves;

@@ -84,7 +84,6 @@ void MainWindow::on_act_AboutQt_triggered()
 
 void MainWindow::on_act_ProjectNew_triggered()
 {
-    // TODO: create empty project
     NewProjectDialog pd;
     if (pd.exec()) {
         bool needToCreate = false;
@@ -204,7 +203,6 @@ void MainWindow::loadProject(LGen2Project *project)
     // QMainWindow takes ownership of centralWidget
     m_editor = new LGen2Editor;
     m_editor->loadProject(m_project, m_templateModel, m_domainModel);
-
 
     setCentralWidget(m_editor);
 

@@ -20,6 +20,8 @@
 
 #include "ledge.hpp"
 
+quint64 LEdge::m_lastid = 0;
+
 LEdge::LEdge(QString name, LNode *node, LNode *source, QObject *parent) :
     QObject(parent), m_name(name), m_node(node), m_source(source)
 {
@@ -29,6 +31,9 @@ LEdge::LEdge(QString name, LNode *node, LNode *source, QObject *parent) :
 
 LEdge::LEdge(quint64 id, QString name, LNode *node, LNode *source, QObject *parent) :
     QObject(parent), m_name(name), m_node(node), m_source(source), m_id(id)
-{   }
+{
+    if (id >= m_lastid)
+        m_lastid = id + 1;
+}
 
 /* End of file: ledge.cpp */

@@ -20,16 +20,20 @@
 
 #include "lnode.hpp"
 
+quint64 LNode::m_lastid = 0;
+
 LNode::LNode(QString iri, QList<LEdge *> edges, QObject *parent) :
     QObject(parent), m_iri(iri), m_edges(edges), m_ontology(0)
-{
-    static quint64 id = 0;
-    m_id = id++;
+{    
+    m_id = m_lastid++;
 }
 
 LNode::LNode(quint64 id, QString iri, QList<LEdge *> edges, QObject *parent) :
     QObject(parent), m_iri(iri), m_edges(edges), m_ontology(0), m_id(id)
-{   }
+{
+    if (id >= m_lastid)
+        m_lastid = id + 1;
+}
 
 void LNode::addEgde(LEdge *edge)
 {

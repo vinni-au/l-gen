@@ -31,7 +31,9 @@ QModelIndex LOntologyModel::index(int row, int column, const QModelIndex &parent
     LOntologyModelTreeNode* childNode = parentNode->children().at(row);
     if (!childNode)
         return QModelIndex();
-    return createIndex(row, 0, childNode);
+    QModelIndex result = createIndex(row, 0, childNode);
+    const_cast<QHash<QString, QModelIndex>* >(&m_indexHash)->insert(childNode->node()->iri(), result);
+    return result;
 }
 
 QModelIndex LOntologyModel::parent(const QModelIndex &child) const
@@ -142,6 +144,25 @@ void LOntologyModel::onNodeUnchecked(LOntologyModelTreeNode *treeNode)
     m_checkedNodes.removeAll(treeNode->node());
 }
 
+QModelIndex LOntologyModel::indexFromIri(QString iri)
+{
+    return m_indexHash.value(iri, QModelIndex());
+}
+
+void LOntologyModel::insertNodeOn(QModelIndex index, QString name)
+{
+    LOntologyModelTreeNode* treeNode = nodeFromIndex(index);
+    if (treeNode) {
+        LNode* node = new LNode(name);
+        LOntologyModelTreeNode* newNode = new LOntologyModelTreeNode(node);
+        newNode->setParent(treeNode);
+        treeNode->addChild(newNode);
+        m_ontology->addNode(node, treeNode->node());
+        //FIXME: not reset!
+        reset();
+    }
+}
+
 void LOntologyModel::setOntology(LOntology *ontology)
 {
     m_ontology = ontology;
@@ -169,4 +190,9 @@ void LOntologyModel::setOntology(LOntology *ontology)
         toProcess.removeAll(current);
     }
     reset();
+
+    QObject::connect(ontology, SIGNAL(nodeAdded(LNode*)),
+                     SIGNAL(nodeAdded(LNode*)));
+    QObject::connect(ontology, SIGNAL(edgeAdded(LEdge*)),
+                     SIGNAL(edgeAdded(LEdge*)));
 }

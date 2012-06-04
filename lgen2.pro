@@ -50,7 +50,8 @@ SOURCES += main.cpp\
     LGen2UI/categorizer.cpp \
     LGen2UI/DataUIDialogs/nodedialog.cpp \
     LGen2UI/DataUIDialogs/situationdialog.cpp \
-    LGen2UI/DataUIDialogs/edgedialog.cpp
+    LGen2UI/DataUIDialogs/edgedialog.cpp \
+    LGen2UI/treebox.cpp
 
 HEADERS  += mainwindow.hpp \
     LGen2UI/ontologywidget.hpp \
@@ -78,7 +79,8 @@ HEADERS  += mainwindow.hpp \
     LGen2UI/categorizer.hpp \
     LGen2UI/DataUIDialogs/nodedialog.hpp \
     LGen2UI/DataUIDialogs/situationdialog.hpp \
-    LGen2UI/DataUIDialogs/edgedialog.hpp
+    LGen2UI/DataUIDialogs/edgedialog.hpp \
+    LGen2UI/treebox.hpp
 
 FORMS    += mainwindow.ui \
     LGen2UI/lgen2editor.ui \
