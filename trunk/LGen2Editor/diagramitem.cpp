@@ -18,6 +18,7 @@
 
 #include "diagramitem.hpp"
 #include "diagramscene.hpp"
+#include <QFontMetrics>
 
 DiagramItem::DiagramItem(DiagramItemType type, QString text, QMenu *contextMenu,
                          QGraphicsItem *parent, QGraphicsScene *scene) :
@@ -37,12 +38,14 @@ DiagramItem::DiagramItem(quint64 id, DiagramItemType type, QString text, QMenu *
 
 void DiagramItem::init()
 {
+    QFont font;
+    m_width = QFontMetrics(QFont(font.defaultFamily())).width(m_text);
     switch (m_type) {
         case TextRectangle:
         default:
-            m_polygon << QPointF(-50, -15) << QPointF(-50, 15)
-                      << QPointF(50, 15) << QPointF(50, -15)
-                      << QPointF(-50, -15);
+            m_polygon << QPointF(-m_width/2, -15) << QPointF(-m_width/2, 15)
+                      << QPointF(m_width/2, 15) << QPointF(m_width/2, -15)
+                      << QPointF(-m_width/2, -15);
             break;
     }
     setPolygon(m_polygon);
@@ -109,11 +112,11 @@ void DiagramItem::addArrow(Arrow *arrow)
 
 QPixmap DiagramItem::image() const
 {
-    QPixmap pixmap(250, 250);
+    QPixmap pixmap(m_width, 30);
     pixmap.fill(Qt::transparent);
     QPainter painter(&pixmap);
     painter.setPen(QPen(Qt::black, 8));
-    painter.translate(125, 125);
+    painter.translate(m_width/2, 15);
     painter.drawPolyline(m_polygon);
 
     return pixmap;
@@ -142,8 +145,7 @@ QVariant DiagramItem::itemChange(GraphicsItemChange change, const QVariant &valu
 void DiagramItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     QGraphicsPolygonItem::paint(painter, option, widget);
-    //TODO: write a corrent rectangle creation
-    painter->drawText(QRectF(-50, -15, 100, 30), Qt::AlignCenter, m_text);
+    painter->drawText(QRectF(-m_width/2, -15, m_width, 30), Qt::AlignCenter, m_text);
     if (isSelected()) {
         painter->setBrush(QBrush(QColor(0, 0, 255, 40)));
         painter->drawPolygon(polygon());
