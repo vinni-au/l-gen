@@ -120,6 +120,8 @@ private:
     quint64 m_id;
 
     void init();
+
+    int m_width;
 };
 
 #endif // DIAGRAMITEM_HPP
