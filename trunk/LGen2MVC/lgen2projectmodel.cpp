@@ -60,7 +60,7 @@ int LGen2ProjectModel::rowCount(const QModelIndex &parent) const
     return node->childCount();
 }
 
-int LGen2ProjectModel::columnCount(const QModelIndex &parent) const
+int LGen2ProjectModel::columnCount(const QModelIndex &) const
 {
     return 1;
 }
@@ -99,11 +99,6 @@ void LGen2ProjectModel::setProject(LGen2Project *project)
                                           PMTreeNode::ProjectName);
     nameNode->setParent(m_rootNode);
     m_rootNode->addChild(nameNode);
-
-/*    PMTreeNode* pathNode = new PMTreeNode(project, project->filename(),
-                                          PMTreeNode::Path);
-    pathNode->setParent(nameNode);
-    nameNode->addChild(pathNode);*/
 
     PMTreeNode* dNode = new PMTreeNode(project, "Онтологии предметной области",
                                        PMTreeNode::Text);

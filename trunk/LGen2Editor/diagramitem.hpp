@@ -1,5 +1,3 @@
-/* Begin of file diagramitem.hpp */
-
 /*
  * Copyright (C) 2011-2012  Anton Storozhev, antonstorozhev@gmail.com
  *
@@ -125,5 +123,3 @@ private:
 };
 
 #endif // DIAGRAMITEM_HPP
-
-/* End of file diagramitem.hpp */

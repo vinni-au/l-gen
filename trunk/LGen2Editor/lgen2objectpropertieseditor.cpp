@@ -19,10 +19,44 @@
  */
 
 #include "lgen2objectpropertieseditor.hpp"
+#include "LGen2MVC/lontologymodel.hpp"
 
 LGen2ObjectPropertiesEditor::LGen2ObjectPropertiesEditor(QWidget *parent) :
     QTreeView(parent)
 {
+}
+
+void LGen2ObjectPropertiesEditor::onCurrentChanged(QModelIndex current, QModelIndex)
+{
+    LOntologyModel* m = static_cast<LOntologyModel*>(model());
+    if (m) {
+        LNode* node = m->nodeFromIndex(current);
+        if (node)
+            emit nodeSelected(node->id());
+    }
+}
+
+void LGen2ObjectPropertiesEditor::setModel(QAbstractItemModel *m)
+{
+    QTreeView::setModel(m);
+    if (!selectionModel())
+        setSelectionModel(new QItemSelectionModel(model()));
+    QObject::connect(selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)),
+                     SLOT(onCurrentChanged(QModelIndex,QModelIndex)));
+}
+
+void LGen2ObjectPropertiesEditor::selectNode(quint64 id)
+{
+//FIXME: expand if needed
+    LOntologyModel* m = static_cast<LOntologyModel*>(model());
+    if (m) {
+        setCurrentIndex(m->indexFromId(id));
+    }
+}
+
+void LGen2ObjectPropertiesEditor::focusInEvent(QFocusEvent *)
+{
+    emit currentChanged(currentIndex(), currentIndex());
 }
 
 /* End of file lgen2objectpropertieseditor.hpp */

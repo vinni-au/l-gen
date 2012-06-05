@@ -1,5 +1,3 @@
-/* Begin of file: lgen2project.cpp */
-
 /*
  * Copyright (C) 2011-2012  Anton Storozhev, antonstorozhev@gmail.com
  *
@@ -199,5 +197,3 @@ void LGen2Project::createEmptyTemplateOntology(QString filename)
     m_templateOntologyFile->open(QIODevice::WriteOnly);
     m_templateOntologyFile->close();
 }
-
-/* End of file: lgen2project.cpp */

@@ -1,5 +1,3 @@
-/* Begin of file: lontology.hpp */
-
 /*
  * Copyright (C) 2011-2012  Anton Storozhev, antonstorozhev@gmail.com
  *
@@ -61,6 +59,9 @@ public:
     LNode* nodeFromIri(QString iri)
     {   return m_nodesHash.value(iri, 0);   }
 
+    LNode* nodeFromId(quint64 id)
+    {   return m_nodesIdHash.value(id, 0);  }
+
     //! Возвращает список дуг, выходящих из вершины с определённым IRI
     /*!
       \param iri IRI вершины
@@ -116,4 +117,3 @@ private:
 };
 
 #endif // LONTOLOGY_HPP
-/* End of file: lontology.hpp */
