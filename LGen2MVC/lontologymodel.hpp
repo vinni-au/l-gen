@@ -58,7 +58,11 @@ public:
     virtual void onNodeChecked(LOntologyModelTreeNode* treeNode);
     virtual void onNodeUnchecked(LOntologyModelTreeNode* treeNode);
 
+    LNode* nodeFromIndex(const QModelIndex& index) const
+    {   return treenodeFromIndex(index)->node();    }
+
     QModelIndex indexFromIri(QString iri);
+    QModelIndex indexFromId(quint64 id);
 
     void insertNodeOn(QModelIndex index, QString name);
 
@@ -77,7 +81,7 @@ private:
     QList<LNode*> m_checkedNodes;
     bool m_itemsCheckable;
 
-    LOntologyModelTreeNode* nodeFromIndex(const QModelIndex& index) const;
+    LOntologyModelTreeNode* treenodeFromIndex(const QModelIndex& index) const;
 };
 
 #endif // LONTOLOGYMODEL_HPP

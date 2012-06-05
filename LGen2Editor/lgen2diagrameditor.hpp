@@ -91,7 +91,6 @@ signals:
     void selectionCleared();
 
     //! Выделена дуга
-    //TODO: maybe chande to link's identifier
     void linkSelected(quint64 sid, quint64 did);
 
     void linkSelected(quint64 id);

@@ -27,7 +27,7 @@ QModelIndex LOntologyModel::index(int row, int column, const QModelIndex &parent
 {
     if (!m_rootNode || row < 0 || column < 0 || column > 0)
         return QModelIndex();
-    LOntologyModelTreeNode* parentNode = nodeFromIndex(parent);
+    LOntologyModelTreeNode* parentNode = treenodeFromIndex(parent);
     LOntologyModelTreeNode* childNode = parentNode->children().at(row);
     if (!childNode)
         return QModelIndex();
@@ -38,7 +38,7 @@ QModelIndex LOntologyModel::index(int row, int column, const QModelIndex &parent
 
 QModelIndex LOntologyModel::parent(const QModelIndex &child) const
 {
-    LOntologyModelTreeNode* node = nodeFromIndex(child);
+    LOntologyModelTreeNode* node = treenodeFromIndex(child);
     if (!node)
         return QModelIndex();
     LOntologyModelTreeNode* parentNode = node->parent();
@@ -55,7 +55,7 @@ int LOntologyModel::rowCount(const QModelIndex &parent) const
 {
     if (parent.column() > 0)
         return 0;
-    LOntologyModelTreeNode* node = nodeFromIndex(parent);
+    LOntologyModelTreeNode* node = treenodeFromIndex(parent);
     if (!node)
         return 0;
     return node->childCount();
@@ -71,7 +71,7 @@ QVariant LOntologyModel::data(const QModelIndex &index, int role) const
     if (role != Qt::DisplayRole && role != Qt::CheckStateRole && role != Qt::EditRole)
         return QVariant();
 
-    LOntologyModelTreeNode* node = nodeFromIndex(index);
+    LOntologyModelTreeNode* node = treenodeFromIndex(index);
     if (!node)
         return QVariant();
 
@@ -95,7 +95,7 @@ bool LOntologyModel::setData(const QModelIndex &index, const QVariant& data, int
 {
     if (role != Qt::CheckStateRole && role != Qt::EditRole)
         return false;
-    LOntologyModelTreeNode* node = nodeFromIndex(index);
+    LOntologyModelTreeNode* node = treenodeFromIndex(index);
     if (!node)
         return false;
     if (index.column() == 0) {
@@ -127,7 +127,7 @@ Qt::ItemFlags LOntologyModel::flags(const QModelIndex &index) const
     return QAbstractItemModel::flags(index);
 }
 
-LOntologyModelTreeNode* LOntologyModel::nodeFromIndex(const QModelIndex &index) const
+LOntologyModelTreeNode* LOntologyModel::treenodeFromIndex(const QModelIndex &index) const
 {
     if (index.isValid())
         return static_cast<LOntologyModelTreeNode*>(index.internalPointer());
@@ -149,9 +149,14 @@ QModelIndex LOntologyModel::indexFromIri(QString iri)
     return m_indexHash.value(iri, QModelIndex());
 }
 
+QModelIndex LOntologyModel::indexFromId(quint64 id)
+{
+    return indexFromIri(ontology()->nodeFromId(id)->iri());
+}
+
 void LOntologyModel::insertNodeOn(QModelIndex index, QString name)
 {
-    LOntologyModelTreeNode* treeNode = nodeFromIndex(index);
+    LOntologyModelTreeNode* treeNode = treenodeFromIndex(index);
     if (treeNode) {
         LNode* node = new LNode(name);
         LOntologyModelTreeNode* newNode = new LOntologyModelTreeNode(node);

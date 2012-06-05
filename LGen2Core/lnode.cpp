@@ -1,5 +1,3 @@
-/* Begin of file: lnode.cpp */
-
 /*
  * Copyright (C) 2011-2012  Anton Storozhev, antonstorozhev@gmail.com
  *
@@ -48,4 +46,3 @@ bool LNode::isLeaf() const
             ++count;
     return count == 0;
 }
-/* End of file: lnode.cpp */

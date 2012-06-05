@@ -1,5 +1,3 @@
-/* Begin of file: lontologymanager.hpp */
-
 /*
  * Copyright (C) 2011-2012  Anton Storozhev, antonstorozhev@gmail.com
  *
@@ -58,4 +56,3 @@ public slots:
 };
 
 #endif // LONTOLOGYMANAGER_HPP
-/* End of file: lontologymanager.hpp */

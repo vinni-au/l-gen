@@ -1,5 +1,3 @@
-/* Begin of file: main.cpp */
-
 /*
  * Copyright (C) 2011-2012  Anton Storozhev, antonstorozhev@gmail.com
  *
@@ -76,5 +74,3 @@ int main(int argc, char *argv[])
 
     return a.exec();
 }
-
-/* End of file: main.cpp */

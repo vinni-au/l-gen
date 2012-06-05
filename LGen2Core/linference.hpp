@@ -1,5 +1,3 @@
-/* Begin of file: linference.hpp */
-
 /*
  * Copyright (C) 2011-2012  Anton Storozhev, antonstorozhev@gmail.com
  *
@@ -44,4 +42,3 @@ public slots:
 };
 
 #endif // LINFERENCE_HPP
-/* End of file: linference.hpp */

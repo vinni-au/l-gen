@@ -1,3 +1,22 @@
+/*
+ * Copyright (C) 2011-2012  Anton Storozhev, antonstorozhev@gmail.com
+ *
+ * This file is a part of L-Gen 2.0
+ *
+ * L-Gen 2.0 is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation, either version 3
+ * of the License, or (at your option) any later version.
+ *
+ * L-Gen 2.0 is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include "global.h"
 #include "lgen2editor.hpp"
 #include "ui_lgen2editor.h"
@@ -40,6 +59,9 @@ LGen2Editor::LGen2Editor(QWidget *parent) :
             tocategorizer->addElementToCategory("-", "Масштаб", false/*, new QIcon(":/pic/minus.png")*/);
             tocategorizer->addElementToCategory("+", "Масштаб", false/*, new QIcon(":/pic/plus.png")*/);
         tocategorizer->addCategoryToSection("Добавить вершину", "Стандартные");
+            tocategorizer->addElementToCategory("шаблон задания", "Добавить вершину", false);
+            tocategorizer->addElementToCategory("шаблон аксиомы", "Добавить вершину", false);
+            tocategorizer->addElementToCategory("шаблон ответа", "Добавить вершину", false);
 
     tocategorizer->addSection("Связи");
         tocategorizer->addCategoryToSection("Стандартные","Связи");
@@ -74,17 +96,6 @@ void LGen2Editor::loadModels(LOntologyModel *templateModel, LOntologyModel *doma
                      SLOT(edgeAddedToDO(LEdge*)));
 }
 
-// FIXME: that's temporary
-struct tempedge
-{
-    quint64 id;
-    quint64 sid;
-    quint64 did;
-    QString name;
-
-    tempedge(quint64 i, quint64 s, quint64 d, QString n) : id(i), sid(s), did(d), name(n) {}
-};
-
 void LGen2Editor::loadProject(LGen2Project *project, LOntologyModel *templateModel, LOntologyModel *domainModel)
 {
     m_project = project;
@@ -93,20 +104,21 @@ void LGen2Editor::loadProject(LGen2Project *project, LOntologyModel *templateMod
     if (project->domainDiagram().isNull()) {
         LOntology* ontology = domainModel->ontology();
         QList< LNode* > nodes = ontology->nodes();
-        QList< tempedge > edges;
         for (int i = 0; i < nodes.count(); ++i) {
             LNode* node = nodes.at(i);
             if (node->iri() != "Thing") {
                 ui->doEditor->diagramEditor()->addNode(node->id(), node->iri());
-                for (int j = 0; j < node->edges().count(); ++j) {
-                    LEdge* edge = node->edges().at(j);
-                    if (!edge->name().contains("_reverse") && edge->name() != "has-subclass")
-                        edges << tempedge(edge->id(), node->id(), edge->node()->id(), edge->name());
-                }
             }
         }
+
+        QList< LEdge* > edges = ontology->edges();
         for (int i = 0; i < edges.count(); ++i) {
-            ui->doEditor->diagramEditor()->addLink(edges[i].id, edges[i].sid, edges[i].did, edges[i].name);
+            LEdge* edge = edges.at(i);
+            if (edge->name() != "has-subclass" && !edge->name().contains("_reverse"))
+                if (edge->source()->iri() != "Thing" && edge->node()->iri() != "Thing")
+                    ui->doEditor->diagramEditor()->addLink(
+                                edge->id(), edge->source()->id(),
+                                edge->node()->id(), edge->name());
         }
     }
 
@@ -118,6 +130,7 @@ void LGen2Editor::loadProject(LGen2Project *project, LOntologyModel *templateMod
             if (node->iri() != "Thing")
                 ui->toEditor->diagramEditor()->addNode(node->id(), node->iri());
         }
+
     }
 
     ui->doEditor->diagramEditor()->fromXML(project->domainDiagram().documentElement());
@@ -132,14 +145,8 @@ void LGen2Editor::unloadProject()
 
 void LGen2Editor::addNodeToDO(QString name)
 {
-    if (name == "-") {
-        ui->doEditor->diagramEditor()->zoomOut();
+    if (ui->doEditor->acceptCommand(name))
         return;
-    }
-    if (name == "+") {
-        ui->doEditor->diagramEditor()->zoomIn();
-        return;
-    }
     if (name == "#сущность" || name == "#действие") {
         NodeDialog nd("Добавить вершину", m_domainModel, name);
         nd.exec();
@@ -156,14 +163,8 @@ void LGen2Editor::addNodeToDO(QString name)
 
 void LGen2Editor::addNodeToTO(QString name)
 {
-    if (name == "-") {
-        ui->toEditor->diagramEditor()->zoomOut();
+    if (ui->toEditor->acceptCommand(name))
         return;
-    }
-    if (name == "+") {
-        ui->toEditor->diagramEditor()->zoomIn();
-        return;
-    }
 }
 
 void LGen2Editor::linkModeOnDO(QString name)
@@ -194,12 +195,12 @@ void LGen2Editor::edgeAddedToDO(LEdge *edge)
 
 LGen2DiagramEditor* LGen2Editor::doEditor() const
 {
-    ui->doEditor->diagramEditor();
+    return ui->doEditor->diagramEditor();
 }
 
 LGen2DiagramEditor* LGen2Editor::toEditor() const
 {
-    ui->toEditor->diagramEditor();
+    return ui->toEditor->diagramEditor();
 }
 
 LGen2Editor::~LGen2Editor()

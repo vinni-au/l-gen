@@ -30,9 +30,17 @@ class LGen2ObjectPropertiesEditor : public QTreeView
 public:
     explicit LGen2ObjectPropertiesEditor(QWidget *parent = 0);
 
+    virtual void setModel(QAbstractItemModel *model);
+
+protected:
+    void focusInEvent(QFocusEvent *event);
+
 signals:
+    void nodeSelected(quint64 id);
 
 public slots:
+    void onCurrentChanged(QModelIndex current, QModelIndex);
+    void selectNode(quint64 id);
 
 };
 

@@ -1,5 +1,3 @@
-/* Begin of file: lkb.hpp */
-
 /*
  * Copyright (C) 2011-2012  Anton Storozhev, antonstorozhev@gmail.com
  *
@@ -74,4 +72,3 @@ private:
 };
 
 #endif // LKB_HPP
-/* End of file: lkb.hpp */
