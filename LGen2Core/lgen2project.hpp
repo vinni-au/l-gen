@@ -1,5 +1,3 @@
-/* Begin of file: lgen2project.hpp */
-
 /*
  * Copyright (C) 2011-2012  Anton Storozhev, antonstorozhev@gmail.com
  *
@@ -124,4 +122,3 @@ private:
 };
 
 #endif // LGEN2PROJECT_HPP
-/* End of file: lgen2project.hpp */
