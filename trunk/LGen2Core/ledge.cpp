@@ -1,5 +1,3 @@
-/* Begin of file: ledge.cpp */
-
 /*
  * Copyright (C) 2011-2012  Anton Storozhev, antonstorozhev@gmail.com
  *
@@ -35,5 +33,3 @@ LEdge::LEdge(quint64 id, QString name, LNode *node, LNode *source, QObject *pare
     if (id >= m_lastid)
         m_lastid = id + 1;
 }
-
-/* End of file: ledge.cpp */

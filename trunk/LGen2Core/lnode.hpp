@@ -1,5 +1,3 @@
-/* Begin of file: lnode.hpp */
-
 /*
  * Copyright (C) 2011-2012  Anton Storozhev, antonstorozhev@gmail.com
  *
@@ -115,4 +113,3 @@ private:
 };
 
 #endif // LNODE_HPP
-/* End of file: lnode.hpp */

@@ -1,5 +1,3 @@
-/* Begin of file: ledge.hpp */
-
 /*
  * Copyright (C) 2011-2012  Anton Storozhev, antonstorozhev@gmail.com
  *
@@ -84,4 +82,3 @@ private:
 #include "lnode.hpp"
 
 #endif // LEDGE_HPP
-/* End of file: ledge.hpp */
