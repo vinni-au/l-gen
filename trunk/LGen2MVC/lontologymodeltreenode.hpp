@@ -23,6 +23,7 @@
 
 #include <QObject>
 #include <QList>
+#include <QModelIndex>
 #include <LGen2Core/lnode.hpp>
 
 //! Вершина дерева для модели представления онтологии
@@ -64,6 +65,9 @@ private:
     LOntologyModelTreeNode* m_parent;
     QList<LOntologyModelTreeNode*> m_children;
     bool m_checked;
+    QModelIndex m_index;
+
+    friend class LOntologyModel;
 };
 
 typedef LOntologyModelTreeNode OMTreeNode;
