@@ -39,6 +39,8 @@ void LGen2ObjectPropertiesEditor::onCurrentChanged(QModelIndex current, QModelIn
 void LGen2ObjectPropertiesEditor::setModel(QAbstractItemModel *m)
 {
     QTreeView::setModel(m);
+    expandAll();
+    collapseAll();
     if (!selectionModel())
         setSelectionModel(new QItemSelectionModel(model()));
     QObject::connect(selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)),
@@ -50,6 +52,7 @@ void LGen2ObjectPropertiesEditor::selectNode(quint64 id)
 //FIXME: expand if needed
     LOntologyModel* m = static_cast<LOntologyModel*>(model());
     if (m) {
+
         setCurrentIndex(m->indexFromId(id));
     }
 }

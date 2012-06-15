@@ -33,6 +33,7 @@ QModelIndex LOntologyModel::index(int row, int column, const QModelIndex &parent
         return QModelIndex();
     QModelIndex result = createIndex(row, 0, childNode);
     const_cast<QHash<QString, QModelIndex>* >(&m_indexHash)->insert(childNode->node()->iri(), result);
+    childNode->m_index = result;
     return result;
 }
 
@@ -151,7 +152,10 @@ QModelIndex LOntologyModel::indexFromIri(QString iri)
 
 QModelIndex LOntologyModel::indexFromId(quint64 id)
 {
-    return indexFromIri(ontology()->nodeFromId(id)->iri());
+    LNode* node = ontology()->nodeFromId(id);
+    if (!node)
+        return QModelIndex();
+    return indexFromIri(node->iri());
 }
 
 void LOntologyModel::insertNodeOn(QModelIndex index, QString name)
