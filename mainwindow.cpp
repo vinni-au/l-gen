@@ -21,6 +21,7 @@
 #include "mainwindow.hpp"
 #include "ui_mainwindow.h"
 #include "LGen2UI/lgen2editor.hpp"
+#include "LGen2UI/lemmatizerform.hpp"
 #include <QCloseEvent>
 #include <QMessageBox>
 #include <QTreeView>
@@ -227,4 +228,10 @@ void MainWindow::setProjectRelatedMenusEnabled(bool enabled /* = true */)
     ui->act_ProjectClose->setEnabled(enabled);
     ui->act_ShowOntoEditor->setEnabled(enabled);
     ui->act_ShowGenerator->setEnabled(enabled);
+}
+
+void MainWindow::on_act_Lemmatizer_triggered()
+{
+    LemmatizerForm* form = new LemmatizerForm;
+    form->show();
 }

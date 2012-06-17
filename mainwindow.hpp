@@ -64,6 +64,8 @@ private slots:
     void on_act_ProjectOpen_triggered();
     void on_act_ProjectClose_triggered();
 
+    void on_act_Lemmatizer_triggered();
+
 private:
     //! Интерфейс пользователя
     Ui::MainWindow* ui;

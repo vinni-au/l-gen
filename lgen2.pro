@@ -21,7 +21,11 @@ CONFIG(debug) {
 } else {
 }
 
-INCLUDEPATH += .
+INCLUDEPATH += . \
+    3rdparty/libMAFSA-0.2/include \
+    3rdparty/libturglem-0.2/include \
+    3rdparty/expat-2.1.0/ \
+    3rdparty/turglem-russian-0.2/include
 
 
 SOURCES += main.cpp\
@@ -51,7 +55,23 @@ SOURCES += main.cpp\
     LGen2UI/DataUIDialogs/nodedialog.cpp \
     LGen2UI/DataUIDialogs/situationdialog.cpp \
     LGen2UI/DataUIDialogs/edgedialog.cpp \
-    LGen2UI/treebox.cpp
+    LGen2UI/treebox.cpp \
+    3rdparty/libMAFSA-0.2/include/MAFSA/daciuk.cpp \
+    3rdparty/libturglem-0.2/include/turglem/morph_compiler.tcc \
+    3rdparty/libturglem-0.2/include/turglem/lemmatizer.tcc \
+    3rdparty/libturglem-0.2/txml.cpp \
+    3rdparty/libturglem-0.2/prediction.c \
+    3rdparty/libturglem-0.2/paradigms.c \
+    3rdparty/libturglem-0.2/lemmatizer.c \
+    3rdparty/expat-2.1.0/xmltok_ns.c \
+    3rdparty/expat-2.1.0/xmltok_impl.c \
+    3rdparty/expat-2.1.0/xmltok.c \
+    3rdparty/expat-2.1.0/xmlrole.c \
+    3rdparty/expat-2.1.0/xmlparse.c \
+    3rdparty/libturglem-0.2/include/turglem/morph_compiler.cpp \
+    3rdparty/libMAFSA-0.2/automaton_basic.c \
+    3rdparty/turglem-russian-0.2/charset_adapters.c \
+    LGen2UI/lemmatizerform.cpp
 
 HEADERS  += mainwindow.hpp \
     LGen2UI/ontologywidget.hpp \
@@ -80,7 +100,53 @@ HEADERS  += mainwindow.hpp \
     LGen2UI/DataUIDialogs/nodedialog.hpp \
     LGen2UI/DataUIDialogs/situationdialog.hpp \
     LGen2UI/DataUIDialogs/edgedialog.hpp \
-    LGen2UI/treebox.hpp
+    LGen2UI/treebox.hpp \
+    3rdparty/libMAFSA-0.2/include/MAFSA/stack.hpp \
+    3rdparty/libMAFSA-0.2/include/MAFSA/mafsa_internal.h \
+    3rdparty/libMAFSA-0.2/include/MAFSA/charset_adapter.h \
+    3rdparty/libMAFSA-0.2/include/MAFSA/automaton_int_pair.h \
+    3rdparty/libMAFSA-0.2/include/MAFSA/automaton_int.h \
+    3rdparty/libMAFSA-0.2/include/MAFSA/automaton.h \
+    3rdparty/libMAFSA-0.2/include/MAFSA/stack.hpp \
+    3rdparty/libMAFSA-0.2/include/MAFSA/pool.tcc \
+    3rdparty/libMAFSA-0.2/include/MAFSA/mafsa_internal.h \
+    3rdparty/libMAFSA-0.2/include/MAFSA/daciuk.tcc \
+    3rdparty/libMAFSA-0.2/include/MAFSA/charset_adapter.h \
+    3rdparty/libMAFSA-0.2/include/MAFSA/automaton_int_pair.h \
+    3rdparty/libMAFSA-0.2/include/MAFSA/automaton_int.h \
+    3rdparty/libMAFSA-0.2/include/MAFSA/automaton.h \
+    3rdparty/libMAFSA-0.2/include/MAFSA/stack.hpp \
+    3rdparty/libMAFSA-0.2/include/MAFSA/mafsa_internal.h \
+    3rdparty/libMAFSA-0.2/include/MAFSA/charset_adapter.h \
+    3rdparty/libMAFSA-0.2/include/MAFSA/automaton_int_pair.h \
+    3rdparty/libMAFSA-0.2/include/MAFSA/automaton_int.h \
+    3rdparty/libMAFSA-0.2/include/MAFSA/automaton.h \
+    3rdparty/libMAFSA-0.2/include/MAFSA/pool.hpp \
+    3rdparty/libturglem-0.2/include/turglem/prediction.h \
+    3rdparty/libturglem-0.2/include/turglem/paradigms.h \
+    3rdparty/libturglem-0.2/include/turglem/lemmatizer.hpp \
+    3rdparty/libturglem-0.2/include/turglem/lemmatizer.h \
+    3rdparty/libturglem-0.2/include/txml/txml.hpp \
+    3rdparty/expat-2.1.0/xmltok_impl.h \
+    3rdparty/expat-2.1.0/xmltok.h \
+    3rdparty/expat-2.1.0/xmlrole.h \
+    3rdparty/expat-2.1.0/winconfig.h \
+    3rdparty/expat-2.1.0/watcomconfig.h \
+    3rdparty/expat-2.1.0/utf8tab.h \
+    3rdparty/expat-2.1.0/nametab.h \
+    3rdparty/expat-2.1.0/macconfig.h \
+    3rdparty/expat-2.1.0/latin1tab.h \
+    3rdparty/expat-2.1.0/internal.h \
+    3rdparty/expat-2.1.0/iasciitab.h \
+    3rdparty/expat-2.1.0/expat_external.h \
+    3rdparty/expat-2.1.0/expat.h \
+    3rdparty/expat-2.1.0/asciitab.h \
+    3rdparty/expat-2.1.0/ascii.h \
+    3rdparty/expat-2.1.0/amigaconfig.h \
+    3rdparty/turglem-russian-0.2/include/turglem/russian/gram_const.h \
+    3rdparty/turglem-russian-0.2/include/turglem/russian/charset_adapters.hpp \
+    3rdparty/turglem-russian-0.2/include/turglem/russian/charset_adapters.h \
+    LGen2UI/lemmatizerform.hpp
 
 FORMS    += mainwindow.ui \
     LGen2UI/lgen2editor.ui \
@@ -89,7 +155,8 @@ FORMS    += mainwindow.ui \
     LGen2UI/resultwidget.ui \
     LGen2UI/DataUIDialogs/nodedialog.ui \
     LGen2UI/DataUIDialogs/situationdialog.ui \
-    LGen2UI/DataUIDialogs/edgedialog.ui
+    LGen2UI/DataUIDialogs/edgedialog.ui \
+    LGen2UI/lemmatizerform.ui
 
 RESOURCES += \
     res.qrc
