@@ -15,38 +15,40 @@ LemmatizerForm::~LemmatizerForm()
 }
 
 #include <QMessageBox>
-#include <turglem/lemmatizer.hpp>
-#include <turglem/russian/charset_adapters.hpp>
+#include <QTextCodec>
+#include <QTextStream>
+#include <3rdparty/MCR/mcr.hpp>
 
 void LemmatizerForm::on_pushButton_clicked()
 {
-    tl::lemmatizer lem;
-    try
-    {
-        lem.load_lemmatizer("dict_russian.auto",
-            "paradigms_russian.bin",
-            "prediction_russian.auto"
-        );
-    }
-    catch (const std::logic_error& e)
-    {
-        QMessageBox::critical(this, "Ошибка!", e.what());
-        return;
-    }
-    catch (const std::exception &e)
-    {
-        QMessageBox::critical(this, "Ошибка!", e.what());
-        return;
-    }
+    MCR* mcr = new MCR;
+    mcr->LoadVocabulary("./data/zal.mcr");
 
-    tl::lem_result lr;
-    size_t sz_lem = lem.lemmatize<russian_utf8_adapter>(ui->lineEdit->text().toStdString().c_str(), lr);
-    std::string str;
-
-    for (size_t i = 0; i < sz_lem; i++) {
-        std::string nform = lem.get_text<russian_utf8_adapter>(lr, i, 0);
-        str += nform;
+    QString res;
+    QTextCodec* codec = QTextCodec::codecForName("Windows-1251");
+    QByteArray encoded = codec->fromUnicode(ui->lineEdit->text());
+    const char* text = encoded.constData();
+    WordForms *wf = mcr->FindWordForms(text);
+    res += "Для слова: " + codec->toUnicode(text) + "\n";
+    res += "Найдено форм: " + QString::number(wf->count) + "\n\n";
+    for (int i = 0; i < wf->count; ++i) {
+        Words *ws = mcr->GetLexemByID(wf->ids[i], true, false);
+        res += QString::number(i+1) + "." + codec->toUnicode(text) +
+               "\t(" + codec->toUnicode(mcr->ConstGrammarChar(ws->inlex[0].cid)) + ", " +
+               codec->toUnicode(mcr->VarGrammarChar(ws->inlex[0].cid, ws->inlex[0].vid)) + ")\n";
+        delete ws;
     }
-
-    ui->textBrowser->setPlainText(QString(str.c_str()));
+    res += "\n";
+    for (int i = 0; i < wf->count; ++i) {
+        Words *ws = mcr->GetLexemByID(wf->ids[i], false, true);
+        for (int j = 0; j < ws->count; ++j) {
+            res += QString::number(j+1) + ") " + codec->toUnicode(ws->inlex[j].wordForm) +
+                   "\t(" + codec->toUnicode(mcr->ConstGrammarChar(ws->inlex[j].cid)) + ", " +
+                   codec->toUnicode(mcr->VarGrammarChar(ws->inlex[j].cid, ws->inlex[j].vid)) + ")\n";
+        }
+        res += "\n";
+        delete ws;
+    }
+    ui->textBrowser->setPlainText(res.toAscii());
+    delete wf;
 }

@@ -49,6 +49,7 @@ int main(int argc, char *argv[])
 #endif
 
     QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
+//    QTextCodec::setCodecForLocale(QTextCodec::codecForName("Windows-1251"));
     QApplication a(argc, argv);
 
     QTranslator t;
