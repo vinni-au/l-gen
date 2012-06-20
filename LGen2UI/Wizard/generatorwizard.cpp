@@ -3,6 +3,8 @@
 #include "startpage.hpp"
 #include "templatepage.hpp"
 #include "finalpage.hpp"
+#include "resultspage.hpp"
+#include "entitypage.hpp"
 
 GeneratorWizard::GeneratorWizard(QWidget *parent) :
     QWizard(parent),
@@ -15,6 +17,8 @@ GeneratorWizard::GeneratorWizard(QWidget *parent) :
 
     addPage(new StartPage);
     addPage(new TemplatePage);
+    addPage(new EntityPage);
+    addPage(new ResultsPage);
     addPage(new FinalPage);
 }
 
