@@ -53,7 +53,11 @@ SOURCES += main.cpp\
     LGen2UI/DataUIDialogs/edgedialog.cpp \
     LGen2UI/treebox.cpp \
     LGen2UI/lemmatizerform.cpp \
-    3rdparty/MCR/mcr.cpp
+    3rdparty/MCR/mcr.cpp \
+    LGen2UI/Wizard/generatorwizard.cpp \
+    LGen2UI/Wizard/startpage.cpp \
+    LGen2UI/Wizard/templatepage.cpp \
+    LGen2UI/Wizard/finalpage.cpp
 
 HEADERS  += mainwindow.hpp \
     LGen2UI/ontologywidget.hpp \
@@ -84,7 +88,11 @@ HEADERS  += mainwindow.hpp \
     LGen2UI/DataUIDialogs/edgedialog.hpp \
     LGen2UI/treebox.hpp \
     LGen2UI/lemmatizerform.hpp \
-    3rdparty/MCR/mcr.hpp
+    3rdparty/MCR/mcr.hpp \
+    LGen2UI/Wizard/generatorwizard.hpp \
+    LGen2UI/Wizard/startpage.hpp \
+    LGen2UI/Wizard/templatepage.hpp \
+    LGen2UI/Wizard/finalpage.hpp
 
 FORMS    += mainwindow.ui \
     LGen2UI/lgen2editor.ui \
@@ -94,7 +102,11 @@ FORMS    += mainwindow.ui \
     LGen2UI/DataUIDialogs/nodedialog.ui \
     LGen2UI/DataUIDialogs/situationdialog.ui \
     LGen2UI/DataUIDialogs/edgedialog.ui \
-    LGen2UI/lemmatizerform.ui
+    LGen2UI/lemmatizerform.ui \
+    LGen2UI/Wizard/generatorwizard.ui \
+    LGen2UI/Wizard/startpage.ui \
+    LGen2UI/Wizard/templatepage.ui \
+    LGen2UI/Wizard/finalpage.ui
 
 RESOURCES += \
     res.qrc

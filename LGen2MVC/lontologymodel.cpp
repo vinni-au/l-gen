@@ -172,6 +172,21 @@ void LOntologyModel::insertNodeOn(QModelIndex index, QString name)
     }
 }
 
+void LOntologyModel::deleteNode(quint64 id)
+{
+    //TODO: delete node
+    LNode* node = m_ontology->nodeFromId(id);
+    if (node->iri().startsWith("#"))
+        //TODO: show error message
+        return;
+}
+
+void LOntologyModel::insertEdge(quint64 sid, quint64 did, QString title)
+{
+    //TODO: insert edge
+    m_ontology->addEdge(title, m_ontology->nodeFromId(sid), m_ontology->nodeFromId(did));
+}
+
 void LOntologyModel::setOntology(LOntology *ontology)
 {
     m_ontology = ontology;

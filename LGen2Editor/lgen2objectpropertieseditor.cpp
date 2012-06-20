@@ -51,10 +51,15 @@ void LGen2ObjectPropertiesEditor::selectNode(quint64 id)
 {
 //FIXME: expand if needed
     LOntologyModel* m = static_cast<LOntologyModel*>(model());
-    if (m) {
-
+    if (m)
         setCurrentIndex(m->indexFromId(id));
-    }
+}
+
+void LGen2ObjectPropertiesEditor::deleteNode(quint64 id)
+{
+    LOntologyModel* m = static_cast<LOntologyModel*>(model());
+    if (m)
+        m->deleteNode(id);
 }
 
 void LGen2ObjectPropertiesEditor::focusInEvent(QFocusEvent *)

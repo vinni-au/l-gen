@@ -41,6 +41,7 @@ signals:
 public slots:
     void onCurrentChanged(QModelIndex current, QModelIndex);
     void selectNode(quint64 id);
+    void deleteNode(quint64 id);
 
 };
 

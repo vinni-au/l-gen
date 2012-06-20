@@ -1,0 +1,46 @@
+<lgen2project>
+    <name>test</name>
+    <filename>D:/l-gen/projects/test.lgen</filename>
+    <template>
+        <file>D:/l-gen/projects/test_TO.xml</file>
+        <diagram>
+            <item x="-20" y="-103" id="5" text="#шаблон задания"/>
+            <item x="190" y="-8" id="6" text="#шаблон аксиом"/>
+            <item x="-221" y="1" id="7" text="#шаблон ответа"/>
+        </diagram>
+    </template>
+    <domain>
+        <file>D:/l-gen/projects/test_DO.xml</file>
+        <diagram>
+            <item x="117" y="164" id="17" text="земноводное"/>
+            <item x="-20" y="-182" id="1" text="#сущность"/>
+            <item x="-31" y="168" id="18" text="млекопитающее"/>
+            <item x="441" y="-164" id="2" text="#ситуация"/>
+            <item x="-164" y="-6" id="19" text="нейтральное действие"/>
+            <item x="-343" y="-160" id="3" text="#действие"/>
+            <item x="-76" y="269" id="20" text="зверь"/>
+            <item x="-341" y="143" id="21" text="помочь"/>
+            <item x="-104" y="361" id="22" text="человек"/>
+            <item x="-33" y="-56" id="10" text="физическая сущность"/>
+            <item x="-20" y="70" id="11" text="животное"/>
+            <item x="239" y="-54" id="12" text="абстрактная сущность"/>
+            <item x="-327" y="11" id="13" text="доброе действие"/>
+            <item x="357" y="71" id="14" text="число"/>
+            <item x="-186" y="177" id="15" text="лягушка"/>
+            <item x="-491" y="16" id="16" text="злое действие"/>
+            <link sid="10" did="1" id="24" text="is-a"/>
+            <link sid="11" did="10" id="26" text="is-a"/>
+            <link sid="12" did="1" id="16" text="is-a"/>
+            <link sid="13" did="3" id="18" text="is-a"/>
+            <link sid="14" did="12" id="20" text="is-a"/>
+            <link sid="15" did="11" id="22" text="is-a"/>
+            <link sid="16" did="3" id="24" text="is-a"/>
+            <link sid="17" did="11" id="26" text="is-a"/>
+            <link sid="18" did="11" id="28" text="is-a"/>
+            <link sid="19" did="3" id="30" text="is-a"/>
+            <link sid="20" did="18" id="32" text="is-a"/>
+            <link sid="21" did="13" id="34" text="is-a"/>
+            <link sid="22" did="20" id="36" text="is-a"/>
+        </diagram>
+    </domain>
+</lgen2project>

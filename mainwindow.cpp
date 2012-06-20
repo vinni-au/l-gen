@@ -22,6 +22,7 @@
 #include "ui_mainwindow.h"
 #include "LGen2UI/lgen2editor.hpp"
 #include "LGen2UI/lemmatizerform.hpp"
+#include "LGen2UI/Wizard/generatorwizard.hpp"
 #include <QCloseEvent>
 #include <QMessageBox>
 #include <QTreeView>
@@ -234,4 +235,11 @@ void MainWindow::on_act_Lemmatizer_triggered()
 {
     LemmatizerForm* form = new LemmatizerForm;
     form->show();
+}
+
+void MainWindow::on_act_ShowGenerator_triggered()
+{
+    GeneratorWizard* wiz = new GeneratorWizard;
+    wiz->exec();
+    delete wiz;
 }
