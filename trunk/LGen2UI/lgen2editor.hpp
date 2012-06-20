@@ -57,6 +57,8 @@ private slots:
     void nodeAddedToDO(LNode* node);
     void edgeAddedToDO(LEdge* edge);
 
+    void addEdgeRequestToDO(quint64 sid, quint64 did, QString title);
+    void addEdgeRequestToTO(quint64 sid, quint64 did, QString title);
 private:
     Ui::LGen2Editor *ui;
 

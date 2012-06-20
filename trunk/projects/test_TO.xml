@@ -1,0 +1,16 @@
+<lontology>
+    <nodes>
+        <node iri="Thing" id="4"/>
+        <node iri="#шаблон задания" id="5"/>
+        <node iri="#шаблон аксиом" id="6"/>
+        <node iri="#шаблон ответа" id="7"/>
+    </nodes>
+    <edges>
+        <edge sid="4" did="5" id="7" name="has-subclass"/>
+        <edge sid="4" did="6" id="9" name="has-subclass"/>
+        <edge sid="4" did="7" id="11" name="has-subclass"/>
+        <edge sid="5" did="4" id="6" name="is-a"/>
+        <edge sid="6" did="4" id="8" name="is-a"/>
+        <edge sid="7" did="4" id="10" name="is-a"/>
+    </edges>
+</lontology>

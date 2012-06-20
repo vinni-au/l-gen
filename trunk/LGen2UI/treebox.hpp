@@ -36,7 +36,6 @@ public:
     bool eventFilter(QObject* object, QEvent* event);
 
     virtual void showPopup();
-
     virtual void hidePopup();
 
 private:

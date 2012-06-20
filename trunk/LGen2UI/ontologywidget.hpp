@@ -49,6 +49,8 @@ public:
 
     bool acceptCommand(QString cmd);
 
+private slots:
+
 private:
     Ui::OntologyWidget *ui;
 

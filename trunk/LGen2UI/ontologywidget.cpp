@@ -26,8 +26,14 @@ OntologyWidget::OntologyWidget(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    QObject::connect(ui->graphicsView, SIGNAL(nodeDeleteRequest(quint64)),
+                     ui->treeView, SLOT(deleteNode(quint64)));
+
+
     QObject::connect(ui->graphicsView, SIGNAL(nodeSelected(quint64)),
                      ui->treeView, SLOT(selectNode(quint64)));
+    QObject::connect(ui->graphicsView, SIGNAL(selectionCleared()),
+                     ui->treeView, SLOT(clearSelection()));
     QObject::connect(ui->treeView, SIGNAL(nodeSelected(quint64)),
                      ui->graphicsView, SLOT(selectNode(quint64)));
 }

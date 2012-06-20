@@ -66,6 +66,8 @@ private slots:
 
     void on_act_Lemmatizer_triggered();
 
+    void on_act_ShowGenerator_triggered();
+
 private:
     //! Интерфейс пользователя
     Ui::MainWindow* ui;

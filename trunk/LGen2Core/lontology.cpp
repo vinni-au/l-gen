@@ -91,6 +91,7 @@ LEdge *LOntology::addEdge(QString name, QString sourceIri, QString destIri)
 
 LEdge *LOntology::addEdge(QString name, LNode *source, LNode *dest)
 {
+    //TODO: check whether edge can be added
     if (source && dest) {
         LEdge* edge = new LEdge(name, dest, source);
         m_edges << edge;
@@ -100,6 +101,24 @@ LEdge *LOntology::addEdge(QString name, LNode *source, LNode *dest)
             emit edgeAdded(edge);
         return edge;
     } else return 0;
+}
+
+bool LOntology::hasParent(LNode *node, QString parentIRI)
+{
+    LEdge* edge = node->edgeFromName("is-a");
+    LNode* parent;
+    if (edge)
+        parent = edge->node();
+    else parent = 0;
+    while (parent) {
+        if (parent->iri() == parentIRI)
+            return true;
+        edge = parent->edgeFromName("is-a");
+        if (edge)
+            parent = edge->node();
+        else parent = 0;
+    }
+    return false;
 }
 
 QDomDocument LOntology::toXML()

@@ -31,7 +31,7 @@ LGen2Editor::LGen2Editor(QWidget *parent) :
 
     Categorizer* docategorizer = new Categorizer;
 
-    // TODO: load categories from ontology
+    // FIXME: load icons
     docategorizer->addSection("Стандартные");
         docategorizer->addCategoryToSection("Масштаб", "Стандартные");
             docategorizer->addElementToCategory("-", "Масштаб", false/*, new QIcon(":/pic/minus.png")*/);
@@ -42,8 +42,8 @@ LGen2Editor::LGen2Editor(QWidget *parent) :
             docategorizer->addElementToCategory("#ситуация","Добавить вершину", false);
     docategorizer->addSection("Связи");
         docategorizer->addCategoryToSection("Стандартные","Связи");
-            docategorizer->addElementToCategory("#is-a", "Стандартные");
-            docategorizer->addElementToCategory("#APO", "Стандартные");
+            docategorizer->addElementToCategory("is-a", "Стандартные");
+            docategorizer->addElementToCategory("APO", "Стандартные");
         docategorizer->addCategoryToSection("Падежные рамки", "Связи");
             docategorizer->addElementToCategory("Агент", "Падежные рамки");
             docategorizer->addElementToCategory("Реципиент", "Падежные рамки");
@@ -65,8 +65,8 @@ LGen2Editor::LGen2Editor(QWidget *parent) :
 
     tocategorizer->addSection("Связи");
         tocategorizer->addCategoryToSection("Стандартные","Связи");
-            tocategorizer->addElementToCategory("#is-a", "Стандартные");
-            tocategorizer->addElementToCategory("#APO", "Стандартные");
+            tocategorizer->addElementToCategory("is-a", "Стандартные");
+            tocategorizer->addElementToCategory("APO", "Стандартные");
 
     ui->toEditor->setCategorizer(tocategorizer);
 
@@ -83,6 +83,11 @@ LGen2Editor::LGen2Editor(QWidget *parent) :
                      SLOT(linkModeOnTO(QString)));
     QObject::connect(tocategorizer, SIGNAL(endLink()),
                      SLOT(linkModeOffTO()));
+
+    QObject::connect(ui->doEditor->diagramEditor(), SIGNAL(addArrowRequest(quint64,quint64,QString)),
+                     SLOT(addEdgeRequestToDO(quint64,quint64,QString)));
+    QObject::connect(ui->toEditor->diagramEditor(), SIGNAL(addArrowRequest(quint64,quint64,QString)),
+                     SLOT(addEdgeRequestToTO(quint64,quint64,QString)));
 }
 
 void LGen2Editor::loadModels(LOntologyModel *templateModel, LOntologyModel *domainModel)
@@ -153,10 +158,8 @@ void LGen2Editor::addNodeToDO(QString name)
         return;
     }
     if (name == "#ситуация") {
-        SituationDialog sd;
-        if (sd.exec()) {
-
-        }
+        SituationDialog sd("Добавить ситуацию", m_domainModel);
+        sd.exec();
         return;
     }
 }
@@ -169,18 +172,36 @@ void LGen2Editor::addNodeToTO(QString name)
 
 void LGen2Editor::linkModeOnDO(QString name)
 {
+    ui->doEditor->diagramEditor()->scene()->setMode(DiagramScene::InsertLine);
+    ui->doEditor->diagramEditor()->scene()->setLinkTitle(name);
 }
 
 void LGen2Editor::linkModeOnTO(QString name)
 {
+    ui->toEditor->diagramEditor()->scene()->setMode(DiagramScene::InsertLine);
+    ui->toEditor->diagramEditor()->scene()->setLinkTitle(name);
 }
 
 void LGen2Editor::linkModeOffDO()
 {
+    ui->doEditor->diagramEditor()->scene()->setMode(DiagramScene::MoveItem);
 }
 
 void LGen2Editor::linkModeOffTO()
 {
+    ui->toEditor->diagramEditor()->scene()->setMode(DiagramScene::MoveItem);
+}
+
+void LGen2Editor::addEdgeRequestToDO(quint64 sid, quint64 did, QString title)
+{
+    if (!title.isEmpty())
+        m_domainModel->insertEdge(sid, did, title);
+}
+
+void LGen2Editor::addEdgeRequestToTO(quint64 sid, quint64 did, QString title)
+{
+    if (!title.isEmpty())
+        m_templateModel->insertEdge(sid, did, title);
 }
 
 void LGen2Editor::nodeAddedToDO(LNode *node)

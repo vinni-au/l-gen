@@ -27,7 +27,6 @@
 #include "diagramscene.hpp"
 
 //! Редактор диаграмм
-//TODO: move API from DiagramScene
 class LGen2DiagramEditor : public QGraphicsView
 {
     Q_OBJECT
@@ -93,10 +92,11 @@ signals:
     //! Выделена дуга
     void linkSelected(quint64 sid, quint64 did);
 
+    //! Выделена дуга
     void linkSelected(quint64 id);
 
     //! Запрос на добавление дуги
-    void addArrowRequest(quint64 source, quint64 dest);
+    void addArrowRequest(quint64 source, quint64 dest, QString title);
 
 protected slots:
     //! Обработать изменение выделения
@@ -138,6 +138,9 @@ public slots:
 
     //! Выделить вершину
     void selectNode(quint64 id);
+
+    //! Снять выделение
+    void clearSelection();
 
 };
 

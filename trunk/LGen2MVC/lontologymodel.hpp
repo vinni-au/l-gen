@@ -65,6 +65,9 @@ public:
     QModelIndex indexFromId(quint64 id);
 
     void insertNodeOn(QModelIndex index, QString name);
+    void deleteNode(quint64 id);
+
+    void insertEdge(quint64 sid, quint64 did, QString title);
 
 signals:
     void nodeChecked(LNode* node);

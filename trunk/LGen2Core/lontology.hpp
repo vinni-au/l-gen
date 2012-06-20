@@ -59,6 +59,7 @@ public:
     LNode* nodeFromIri(QString iri)
     {   return m_nodesHash.value(iri, 0);   }
 
+    //! Возвращает указатель на вершину по id
     LNode* nodeFromId(quint64 id)
     {   return m_nodesIdHash.value(id, 0);  }
 
@@ -79,6 +80,8 @@ public:
 
     QDomDocument toXML();
     bool fromXML(const QDomDocument& doc);
+
+    bool hasParent(LNode* node, QString parentIRI);
 
 signals:
     void nodeAdded(LNode* node);

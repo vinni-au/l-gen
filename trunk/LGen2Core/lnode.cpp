@@ -46,3 +46,12 @@ bool LNode::isLeaf() const
             ++count;
     return count == 0;
 }
+
+LEdge* LNode::edgeFromName(QString name)
+{
+    int count = m_edges.count();
+    for (int i = 0; i < count; ++i)
+        if (m_edges.at(i)->name() == name)
+            return m_edges.at(i);
+    return 0;
+}

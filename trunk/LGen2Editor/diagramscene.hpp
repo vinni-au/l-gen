@@ -46,6 +46,9 @@ public:
     void setMode(Mode mode)
     {   m_mode = mode;  }
 
+    void setLinkTitle(QString title)
+    {   m_title = title; }
+
 protected:
     virtual void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent);
     virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent);
@@ -73,8 +76,10 @@ private:
     //! Временная линия, рисуемая при рисовании стрелки
     QGraphicsLineItem* m_line;
 
+    QString m_title;
+
 signals:
-    void addArrowRequest(quint64 source, quint64 dest);
+    void addArrowRequest(quint64 source, quint64 dest, QString title);
 };
 
 #endif // DIAGRAMSCENE_HPP

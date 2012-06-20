@@ -38,8 +38,8 @@ LGen2DiagramEditor::LGen2DiagramEditor(QWidget *parent, QMenu *contextMenu):
 
     QObject::connect(m_scene, SIGNAL(selectionChanged()),
                      SLOT(onSceneSelectionChanged()));
-    QObject::connect(m_scene, SIGNAL(addArrowRequest(quint64,quint64)),
-                     SIGNAL(addArrowRequest(quint64,quint64)));
+    QObject::connect(m_scene, SIGNAL(addArrowRequest(quint64,quint64,QString)),
+                     SIGNAL(addArrowRequest(quint64,quint64,QString)));
 }
 
 void LGen2DiagramEditor::addNode(quint64 id, QString title)
@@ -189,6 +189,11 @@ void LGen2DiagramEditor::selectNode(quint64 id)
                 ditem->imitateMousePress();
     }
     blockSignals(false);
+}
+
+void LGen2DiagramEditor::clearSelection()
+{
+    m_scene->clearSelection();
 }
 
 void LGen2DiagramEditor::deleteSelectedNode()

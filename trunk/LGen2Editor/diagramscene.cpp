@@ -79,7 +79,7 @@ void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
                 qgraphicsitem_cast<DiagramItem *>(startItems.first());
             DiagramItem *endItem =
                 qgraphicsitem_cast<DiagramItem *>(endItems.first());
-            emit addArrowRequest(startItem->id(), endItem->id());
+            emit addArrowRequest(startItem->id(), endItem->id(), m_title);
         }
     }
     m_line = 0;

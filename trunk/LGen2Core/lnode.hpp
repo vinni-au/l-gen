@@ -84,6 +84,8 @@ public:
     quint64 id() const
     {   return m_id;    }
 
+    LEdge* edgeFromName(QString name);
+
 signals:
 
 public slots:
