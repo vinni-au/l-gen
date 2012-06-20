@@ -57,7 +57,9 @@ SOURCES += main.cpp\
     LGen2UI/Wizard/generatorwizard.cpp \
     LGen2UI/Wizard/startpage.cpp \
     LGen2UI/Wizard/templatepage.cpp \
-    LGen2UI/Wizard/finalpage.cpp
+    LGen2UI/Wizard/finalpage.cpp \
+    LGen2UI/Wizard/entitypage.cpp \
+    LGen2UI/Wizard/resultspage.cpp
 
 HEADERS  += mainwindow.hpp \
     LGen2UI/ontologywidget.hpp \
@@ -92,7 +94,9 @@ HEADERS  += mainwindow.hpp \
     LGen2UI/Wizard/generatorwizard.hpp \
     LGen2UI/Wizard/startpage.hpp \
     LGen2UI/Wizard/templatepage.hpp \
-    LGen2UI/Wizard/finalpage.hpp
+    LGen2UI/Wizard/finalpage.hpp \
+    LGen2UI/Wizard/entitypage.hpp \
+    LGen2UI/Wizard/resultspage.hpp
 
 FORMS    += mainwindow.ui \
     LGen2UI/lgen2editor.ui \
@@ -106,7 +110,9 @@ FORMS    += mainwindow.ui \
     LGen2UI/Wizard/generatorwizard.ui \
     LGen2UI/Wizard/startpage.ui \
     LGen2UI/Wizard/templatepage.ui \
-    LGen2UI/Wizard/finalpage.ui
+    LGen2UI/Wizard/finalpage.ui \
+    LGen2UI/Wizard/entitypage.ui \
+    LGen2UI/Wizard/resultspage.ui
 
 RESOURCES += \
     res.qrc
