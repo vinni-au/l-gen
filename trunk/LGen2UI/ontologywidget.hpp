@@ -46,10 +46,12 @@ public:
     void setCategorizer(Categorizer* categorizer);
 
     LGen2DiagramEditor* diagramEditor() const;
+    LGen2ObjectPropertiesEditor* treeView() const;
 
     bool acceptCommand(QString cmd);
 
 private slots:
+    void nodeChanged(LNode* node);
 
 private:
     Ui::OntologyWidget *ui;

@@ -45,10 +45,10 @@ LGen2Editor::LGen2Editor(QWidget *parent) :
             docategorizer->addElementToCategory("is-a", "Стандартные");
             docategorizer->addElementToCategory("APO", "Стандартные");
         docategorizer->addCategoryToSection("Падежные рамки", "Связи");
-            docategorizer->addElementToCategory("Агент", "Падежные рамки");
-            docategorizer->addElementToCategory("Реципиент", "Падежные рамки");
-            docategorizer->addElementToCategory("Объект", "Падежные рамки");
-            docategorizer->addElementToCategory("Действие", "Падежные рамки");
+            docategorizer->addElementToCategory("агент", "Падежные рамки");
+            docategorizer->addElementToCategory("реципиент", "Падежные рамки");
+            docategorizer->addElementToCategory("объект", "Падежные рамки");
+            docategorizer->addElementToCategory("действие", "Падежные рамки");
 
     ui->doEditor->setCategorizer(docategorizer);
 
@@ -59,9 +59,9 @@ LGen2Editor::LGen2Editor(QWidget *parent) :
             tocategorizer->addElementToCategory("-", "Масштаб", false/*, new QIcon(":/pic/minus.png")*/);
             tocategorizer->addElementToCategory("+", "Масштаб", false/*, new QIcon(":/pic/plus.png")*/);
         tocategorizer->addCategoryToSection("Добавить вершину", "Стандартные");
-            tocategorizer->addElementToCategory("шаблон задания", "Добавить вершину", false);
-            tocategorizer->addElementToCategory("шаблон аксиомы", "Добавить вершину", false);
-            tocategorizer->addElementToCategory("шаблон ответа", "Добавить вершину", false);
+            tocategorizer->addElementToCategory("#шаблон задания", "Добавить вершину", false);
+            tocategorizer->addElementToCategory("#шаблон аксиом", "Добавить вершину", false);
+            tocategorizer->addElementToCategory("#шаблон ответа", "Добавить вершину", false);
 
     tocategorizer->addSection("Связи");
         tocategorizer->addCategoryToSection("Стандартные","Связи");
@@ -88,6 +88,11 @@ LGen2Editor::LGen2Editor(QWidget *parent) :
                      SLOT(addEdgeRequestToDO(quint64,quint64,QString)));
     QObject::connect(ui->toEditor->diagramEditor(), SIGNAL(addArrowRequest(quint64,quint64,QString)),
                      SLOT(addEdgeRequestToTO(quint64,quint64,QString)));
+
+    QObject::connect(ui->doEditor->treeView(), SIGNAL(addNodeRequest(QString)),
+                     SLOT(addNodeToDO(QString)));
+    QObject::connect(ui->toEditor->treeView(), SIGNAL(addNodeRequest(QString)),
+                     SLOT(addNodeToTO(QString)));
 }
 
 void LGen2Editor::loadModels(LOntologyModel *templateModel, LOntologyModel *domainModel)
@@ -99,6 +104,11 @@ void LGen2Editor::loadModels(LOntologyModel *templateModel, LOntologyModel *doma
                      SLOT(nodeAddedToDO(LNode*)));
     QObject::connect(domainModel, SIGNAL(edgeAdded(LEdge*)),
                      SLOT(edgeAddedToDO(LEdge*)));
+    QObject::connect(templateModel, SIGNAL(nodeAdded(LNode*)),
+                     SLOT(nodeAddedToTO(LNode*)));
+    QObject::connect(templateModel, SIGNAL(edgeAdded(LEdge*)),
+                     SLOT(edgeAddedToTO(LEdge*)));
+
 }
 
 void LGen2Editor::loadProject(LGen2Project *project, LOntologyModel *templateModel, LOntologyModel *domainModel)
@@ -136,6 +146,15 @@ void LGen2Editor::loadProject(LGen2Project *project, LOntologyModel *templateMod
                 ui->toEditor->diagramEditor()->addNode(node->id(), node->iri());
         }
 
+        QList< LEdge* > edges = ontology->edges();
+        for (int i = 0; i < edges.count(); ++i) {
+            LEdge* edge = edges.at(i);
+            if (edge->name() != "has-subclass" && !edge->name().contains("_reverse"))
+                if (edge->source()->iri() != "Thing" && edge->node()->iri() != "Thing")
+                    ui->toEditor->diagramEditor()->addLink(
+                                edge->id(), edge->source()->id(),
+                                edge->node()->id(), edge->name());
+        }
     }
 
     ui->doEditor->diagramEditor()->fromXML(project->domainDiagram().documentElement());
@@ -148,26 +167,34 @@ void LGen2Editor::unloadProject()
     ui->doEditor->setModel(0);
 }
 
-void LGen2Editor::addNodeToDO(QString name)
+void LGen2Editor::addNodeToDO(QString parent)
 {
-    if (ui->doEditor->acceptCommand(name))
+    if (ui->doEditor->acceptCommand(parent))
         return;
-    if (name == "#сущность" || name == "#действие") {
-        NodeDialog nd("Добавить вершину", m_domainModel, name);
+    LNode* node = m_domainModel->ontology()->nodeFromIri(parent);
+    if (parent == "#сущность" || parent == "#действие" ||
+            m_domainModel->ontology()->hasParent(node, "#сущность") ||
+            m_domainModel->ontology()->hasParent(node, "#действие")) {
+        NodeDialog nd("Добавить вершину", m_domainModel, parent);
         nd.exec();
         return;
     }
-    if (name == "#ситуация") {
-        SituationDialog sd("Добавить ситуацию", m_domainModel);
+    if (parent == "#ситуация" || m_domainModel->ontology()->hasParent(node, "#ситуация")) {
+        SituationDialog sd("Добавить ситуацию", m_domainModel, parent);
         sd.exec();
         return;
     }
 }
 
-void LGen2Editor::addNodeToTO(QString name)
+void LGen2Editor::addNodeToTO(QString parent)
 {
-    if (ui->toEditor->acceptCommand(name))
+    if (ui->toEditor->acceptCommand(parent))
         return;
+    //if (name == "#шаблон задания") {
+        NodeDialog nd("Добавить вершину", m_templateModel, parent);
+        nd.exec();
+        return;
+    //}
 }
 
 void LGen2Editor::linkModeOnDO(QString name)
@@ -212,6 +239,16 @@ void LGen2Editor::nodeAddedToDO(LNode *node)
 void LGen2Editor::edgeAddedToDO(LEdge *edge)
 {
     ui->doEditor->diagramEditor()->addLink(edge->id(), edge->source()->id(), edge->node()->id(), edge->name());
+}
+
+void LGen2Editor::nodeAddedToTO(LNode *node)
+{
+    ui->toEditor->diagramEditor()->addNode(node->id(), node->iri());
+}
+
+void LGen2Editor::edgeAddedToTO(LEdge *edge)
+{
+    ui->toEditor->diagramEditor()->addLink(edge->id(), edge->source()->id(), edge->node()->id(), edge->name());
 }
 
 LGen2DiagramEditor* LGen2Editor::doEditor() const

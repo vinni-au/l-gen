@@ -114,6 +114,7 @@ bool LOntologyModel::setData(const QModelIndex &index, const QVariant& data, int
         } else if (role == Qt::EditRole) {
             if (node->node()->setIri(data.toString())) {
                 emit dataChanged(index, index);
+                emit nodeChanged(node->node());
                 return true;
             } else return false;
         }
@@ -162,7 +163,7 @@ void LOntologyModel::insertNodeOn(QModelIndex index, QString name)
 {
     LOntologyModelTreeNode* treeNode = treenodeFromIndex(index);
     if (treeNode) {
-        LNode* node = new LNode(name);
+        LNode* node = new LNode(name, QList<LEdge*>(), m_ontology);
         LOntologyModelTreeNode* newNode = new LOntologyModelTreeNode(node);
         newNode->setParent(treeNode);
         treeNode->addChild(newNode);
@@ -184,7 +185,7 @@ void LOntologyModel::deleteNode(quint64 id)
 void LOntologyModel::insertEdge(quint64 sid, quint64 did, QString title)
 {
     //TODO: insert edge
-    m_ontology->addEdge(title, m_ontology->nodeFromId(sid), m_ontology->nodeFromId(did));
+    m_ontology->addEdge(title, m_ontology->nodeFromId(sid), m_ontology->nodeFromId(did), false);
 }
 
 void LOntologyModel::setOntology(LOntology *ontology)

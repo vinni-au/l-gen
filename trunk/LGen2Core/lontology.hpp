@@ -76,7 +76,7 @@ public:
     bool addNode(LNode *node, LNode* parent);
 
     LEdge* addEdge(QString name, QString sourceIri, QString destIri);
-    LEdge* addEdge(QString name, LNode* source, LNode* dest);
+    LEdge* addEdge(QString name, LNode* source, LNode* dest, bool isa);
 
     QDomDocument toXML();
     bool fromXML(const QDomDocument& doc);

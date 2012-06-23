@@ -17,6 +17,15 @@
         <node iri="зверь" id="20"/>
         <node iri="помочь" id="21"/>
         <node iri="человек" id="22"/>
+        <node iri="убить" id="38"/>
+        <node iri="пить" id="39"/>
+        <node iri="ситуация пить" id="40"/>
+        <node iri="животные пьют жидкости" id="41"/>
+        <node iri="жидкость" id="42"/>
+        <node iri="жидкость животное" id="43"/>
+        <node iri="напиток" id="44"/>
+        <node iri="сок" id="45"/>
+        <node iri="спасти" id="46"/>
     </nodes>
     <edges>
         <edge sid="0" did="1" id="1" name="has-subclass"/>
@@ -51,5 +60,23 @@
         <edge sid="13" did="21" id="35" name="has-subclass"/>
         <edge sid="22" did="20" id="36" name="is-a"/>
         <edge sid="20" did="22" id="37" name="has-subclass"/>
+        <edge sid="38" did="16" id="64" name="is-a"/>
+        <edge sid="16" did="38" id="65" name="has-subclass"/>
+        <edge sid="39" did="19" id="66" name="is-a"/>
+        <edge sid="19" did="39" id="67" name="has-subclass"/>
+        <edge sid="40" did="2" id="68" name="is-a"/>
+        <edge sid="2" did="40" id="69" name="has-subclass"/>
+        <edge sid="41" did="40" id="70" name="is-a"/>
+        <edge sid="40" did="41" id="71" name="has-subclass"/>
+        <edge sid="42" did="10" id="72" name="is-a"/>
+        <edge sid="10" did="42" id="73" name="has-subclass"/>
+        <edge sid="43" did="42" id="74" name="is-a"/>
+        <edge sid="42" did="43" id="75" name="has-subclass"/>
+        <edge sid="44" did="42" id="76" name="is-a"/>
+        <edge sid="42" did="44" id="77" name="has-subclass"/>
+        <edge sid="45" did="44" id="78" name="is-a"/>
+        <edge sid="44" did="45" id="79" name="has-subclass"/>
+        <edge sid="46" did="13" id="80" name="is-a"/>
+        <edge sid="13" did="46" id="81" name="has-subclass"/>
     </edges>
 </lontology>

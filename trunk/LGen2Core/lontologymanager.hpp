@@ -49,6 +49,8 @@ public:
     static bool saveXML(LOntology* ontology, QString filename);
     static bool saveXML(LOntology *ontology, QFile* file);
 
+    static QString makeReplace(QString iri);
+
 signals:
 
 public slots:

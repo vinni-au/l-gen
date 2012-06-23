@@ -32,8 +32,8 @@ class LNode : public QObject
     Q_OBJECT
 
 public:
-    LNode(QString iri, QList<LEdge*> edges = QList<LEdge*>(), QObject *parent = 0);
-    LNode(quint64 id, QString iri, QList<LEdge*> edges = QList<LEdge*>(), QObject *parent = 0);
+    LNode(QString iri, QList<LEdge*> edges, LOntology *ontology);
+    LNode(quint64 id, QString iri, QList<LEdge*> edges, LOntology *ontology);
 
     //! Добавляет дугу
     void addEgde(LEdge* edge);
@@ -85,6 +85,9 @@ public:
     {   return m_id;    }
 
     LEdge* edgeFromName(QString name);
+    QList<LEdge*> edgesFromName(QString name);
+
+    QList<LNode*> children();
 
 signals:
 

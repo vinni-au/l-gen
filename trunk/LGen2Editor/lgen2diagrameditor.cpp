@@ -69,7 +69,6 @@ void LGen2DiagramEditor::addArrow(Arrow *arrow)
 
 void LGen2DiagramEditor::deleteNode(quint64 id)
 {
-    //setViewportUpdateMode(QGraphicsView::NoViewportUpdate);
     m_scene->blockSignals(true);
     DiagramItem* item = m_items[id];
     if (item) {
@@ -82,8 +81,6 @@ void LGen2DiagramEditor::deleteNode(quint64 id)
         delete item;
     }
     m_scene->blockSignals(false);
-    //setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
-    //update();
 }
 
 void LGen2DiagramEditor::addLink(quint64 id, quint64 sid, quint64 did, QString title)
@@ -98,11 +95,7 @@ void LGen2DiagramEditor::addLink(quint64 id, quint64 sid, quint64 did, QString t
         m_links << a;
         i1->addArrow(a);
         i2->addArrow(a);
-        //m_scene->addItem(a);
-        if (title == "is-a")
-            a->setColor(Qt::darkGreen);
-        else if (title == "APO")
-            a->setColor(Qt::darkYellow);
+        setAppropriateColors(a);
     }
 }
 
@@ -230,6 +223,15 @@ void LGen2DiagramEditor::zoomOut()
     scale(1 / 1.15, 1 / 1.15);
 }
 
+void LGen2DiagramEditor::setAppropriateColors(Arrow *a)
+{
+    if (a->text() == "is-a")
+        a->setColor(Qt::darkGreen);
+    else if (a->text() == "APO")
+        a->setColor(Qt::darkYellow);
+    else a->setColor(Qt::darkCyan);
+}
+
 QDomElement LGen2DiagramEditor::toXML(QDomDocument &doc)
 {
     QDomElement dElem = doc.createElement("diagram");
@@ -322,10 +324,7 @@ void LGen2DiagramEditor::fromXML(QDomElement elem)
                 static QAction* act = menu->addAction("Удалить связь", this, SLOT(deleteSelectedLink()));
                 Arrow* a = new Arrow(id, start, end, text, 0, m_scene);
                 a->setContextMenu(menu);
-                if (text == "is-a")
-                    a->setColor(Qt::darkGreen);
-                else if (text == "APO")
-                    a->setColor(Qt::darkYellow);
+                setAppropriateColors(a);
                 start->addArrow(a);
                 end->addArrow(a);
                 m_links << a;

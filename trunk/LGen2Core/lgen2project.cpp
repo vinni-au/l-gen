@@ -40,12 +40,16 @@ LGen2Project::~LGen2Project()
 bool LGen2Project::setDomainOntologyFromFile(QFile *file)
 {
     m_domainOntologyFile = file;
-    return m_kb->setDomainOntology(LOntologyManager::loadOWLXML(file));
- }
+    if (file->fileName().endsWith(".xml"))
+        return m_kb->setDomainOntology(LOntologyManager::loadXML(file));
+    else return m_kb->setDomainOntology(LOntologyManager::loadOWLXML(file));
+}
 
 bool LGen2Project::setTemplateOntologyFromFile(QFile *file)
 {
     m_templateOntologyFile = file;
+    if (file->fileName().endsWith(".xml"))
+        return m_kb->setTemplateOntology(LOntologyManager::loadXML(file));
     return m_kb->setTemplateOntology(LOntologyManager::loadOWLXML(file));
 }
 
@@ -135,15 +139,29 @@ LGen2Project* LGen2Project::load(QString filename)
 void LGen2Project::createEmptyDomainOntology(QString filename)
 {
     QList< LNode* > nodes;
-    LNode* root = new LNode("Thing");
-    LNode* entity = new LNode("#сущность");
-    LNode* situation = new LNode("#ситуация");
-    LNode* action = new LNode("#действие");
+    LNode* root = new LNode("Thing", QList<LEdge*>(), 0);
+    LNode* entity = new LNode("#сущность", QList<LEdge*>(), 0);
+    LNode* situation = new LNode("#ситуация", QList<LEdge*>(), 0);
+    LNode* action = new LNode("#действие", QList<LEdge*>(), 0);
+    LNode* physicalEntity = new LNode("физическая сущность", QList<LEdge*>(), 0);
+    LNode* abstractEntity = new LNode("абстрактная сущность", QList<LEdge*>(), 0);
 
     LEdge* edge1 = new LEdge("is-a", root, entity);
     LEdge* edge2 = new LEdge("has-subclass", entity, root);
     root->addEgde(edge2);
     entity->addEgde(edge1);
+
+    edge1 = new LEdge("is-a", entity, physicalEntity);
+    edge2 = new LEdge("has-subclass", physicalEntity, entity);
+    entity->addEgde(edge2);
+    physicalEntity->addEgde(edge1);
+
+
+    edge1 = new LEdge("is-a", entity, abstractEntity);
+    edge2 = new LEdge("has-subclass", abstractEntity, entity);
+    entity->addEgde(edge2);
+    abstractEntity->addEgde(edge1);
+
 
     edge1 = new LEdge("is-a", root, situation);
     edge2 = new LEdge("has-subclass", situation, root);
@@ -155,7 +173,7 @@ void LGen2Project::createEmptyDomainOntology(QString filename)
     root->addEgde(edge2);
     action->addEgde(edge1);
 
-    nodes << root << entity << situation << action;
+    nodes << root << entity << situation << action << abstractEntity << physicalEntity;
 
     LOntology* ontology = new LOntology(root, nodes);
     m_kb->setDomainOntology(ontology);
@@ -168,10 +186,10 @@ void LGen2Project::createEmptyDomainOntology(QString filename)
 void LGen2Project::createEmptyTemplateOntology(QString filename)
 {
     QList< LNode* > nodes;
-    LNode* root = new LNode("Thing");
-    LNode* ttemp = new LNode("#шаблон задания");
-    LNode* axiom = new LNode("#шаблон аксиом");
-    LNode* answer = new LNode("#шаблон ответа");
+    LNode* root = new LNode("Thing", QList<LEdge*>(), 0);
+    LNode* ttemp = new LNode("#шаблон задания", QList<LEdge*>(), 0);
+    LNode* axiom = new LNode("#шаблон аксиом", QList<LEdge*>(), 0);
+    LNode* answer = new LNode("#шаблон ответа", QList<LEdge*>(), 0);
 
     LEdge* edge1 = new LEdge("is-a", root, ttemp);
     LEdge* edge2 = new LEdge("has-subclass", ttemp, root);

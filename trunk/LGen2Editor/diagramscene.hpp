@@ -46,6 +46,7 @@ public:
     void setMode(Mode mode)
     {   m_mode = mode;  }
 
+    //! Установить подпись стрелок
     void setLinkTitle(QString title)
     {   m_title = title; }
 

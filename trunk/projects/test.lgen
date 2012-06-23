@@ -4,23 +4,56 @@
     <template>
         <file>D:/l-gen/projects/test_TO.xml</file>
         <diagram>
+            <item x="456" y="273" id="34" text="*сущность* - *isa(сущность)*"/>
+            <item x="-252" y="363" id="35" text="+ *isa(сущность)* не *действие* *объект*"/>
+            <item x="-100" y="314" id="36" text="+ все *isa(сущность)* *действие* *объект*"/>
+            <item x="-569" y="316" id="37" text="+ некоторые *isa(сущность)* *действие* *объект*"/>
             <item x="-20" y="-103" id="5" text="#шаблон задания"/>
             <item x="190" y="-8" id="6" text="#шаблон аксиом"/>
-            <item x="-221" y="1" id="7" text="#шаблон ответа"/>
+            <item x="-7" y="-6" id="23" text="шаблон задания is-a 1"/>
+            <item x="-290" y="-22" id="7" text="#шаблон ответа"/>
+            <item x="244" y="87" id="24" text="шаблон аксиом is-a 1"/>
+            <item x="-315" y="93" id="25" text="шаблон ответа is-a 1"/>
+            <item x="151" y="165" id="26" text="описание действия"/>
+            <item x="412" y="176" id="27" text="утверждение is-a"/>
+            <item x="-335" y="231" id="28" text="отрицательное утверждение"/>
+            <item x="-190" y="184" id="29" text="утверждение о всех"/>
+            <item x="-501" y="174" id="30" text="утверждение о некоторых"/>
+            <item x="153" y="275" id="33" text="*агент(сущность)* *действие* *объект*"/>
+            <link sid="23" did="5" id="38" text="is-a"/>
+            <link sid="24" did="6" id="40" text="is-a"/>
+            <link sid="25" did="7" id="42" text="is-a"/>
+            <link sid="26" did="24" id="44" text="is-a"/>
+            <link sid="27" did="24" id="46" text="is-a"/>
+            <link sid="28" did="25" id="48" text="is-a"/>
+            <link sid="29" did="25" id="50" text="is-a"/>
+            <link sid="30" did="25" id="52" text="is-a"/>
+            <link sid="33" did="26" id="108" text="is-a"/>
+            <link sid="34" did="27" id="110" text="is-a"/>
+            <link sid="35" did="28" id="112" text="is-a"/>
+            <link sid="36" did="29" id="114" text="is-a"/>
+            <link sid="37" did="30" id="116" text="is-a"/>
+            <link sid="25" did="23" id="164" text="APO"/>
+            <link sid="24" did="23" id="165" text="APO"/>
+            <link sid="7" did="5" id="166" text="APO"/>
+            <link sid="6" did="5" id="167" text="APO"/>
         </diagram>
     </template>
     <domain>
         <file>D:/l-gen/projects/test_DO.xml</file>
         <diagram>
-            <item x="117" y="164" id="17" text="земноводное"/>
             <item x="-20" y="-182" id="1" text="#сущность"/>
-            <item x="-31" y="168" id="18" text="млекопитающее"/>
-            <item x="441" y="-164" id="2" text="#ситуация"/>
-            <item x="-164" y="-6" id="19" text="нейтральное действие"/>
+            <item x="-477" y="132" id="38" text="убить"/>
+            <item x="468" y="-163" id="2" text="#ситуация"/>
+            <item x="-119" y="66" id="39" text="пить"/>
             <item x="-343" y="-160" id="3" text="#действие"/>
-            <item x="-76" y="269" id="20" text="зверь"/>
-            <item x="-341" y="143" id="21" text="помочь"/>
-            <item x="-104" y="361" id="22" text="человек"/>
+            <item x="497" y="7" id="40" text="ситуация пить"/>
+            <item x="489" y="136" id="41" text="животные пьют жидкости"/>
+            <item x="101" y="70" id="42" text="жидкость"/>
+            <item x="189" y="224" id="43" text="жидкость животное"/>
+            <item x="270" y="173" id="44" text="напиток"/>
+            <item x="329" y="247" id="45" text="сок"/>
+            <item x="-254" y="145" id="46" text="спасти"/>
             <item x="-33" y="-56" id="10" text="физическая сущность"/>
             <item x="-20" y="70" id="11" text="животное"/>
             <item x="239" y="-54" id="12" text="абстрактная сущность"/>
@@ -28,6 +61,12 @@
             <item x="357" y="71" id="14" text="число"/>
             <item x="-186" y="177" id="15" text="лягушка"/>
             <item x="-491" y="16" id="16" text="злое действие"/>
+            <item x="92" y="167" id="17" text="земноводное"/>
+            <item x="-31" y="168" id="18" text="млекопитающее"/>
+            <item x="-164" y="-6" id="19" text="нейтральное действие"/>
+            <item x="-76" y="269" id="20" text="зверь"/>
+            <item x="-360" y="138" id="21" text="помочь"/>
+            <item x="-104" y="361" id="22" text="человек"/>
             <link sid="10" did="1" id="24" text="is-a"/>
             <link sid="11" did="10" id="26" text="is-a"/>
             <link sid="12" did="1" id="16" text="is-a"/>
@@ -41,6 +80,15 @@
             <link sid="20" did="18" id="32" text="is-a"/>
             <link sid="21" did="13" id="34" text="is-a"/>
             <link sid="22" did="20" id="36" text="is-a"/>
+            <link sid="38" did="16" id="64" text="is-a"/>
+            <link sid="39" did="19" id="66" text="is-a"/>
+            <link sid="40" did="2" id="68" text="is-a"/>
+            <link sid="41" did="40" id="70" text="is-a"/>
+            <link sid="42" did="10" id="72" text="is-a"/>
+            <link sid="43" did="42" id="74" text="is-a"/>
+            <link sid="44" did="42" id="76" text="is-a"/>
+            <link sid="45" did="44" id="78" text="is-a"/>
+            <link sid="46" did="13" id="80" text="is-a"/>
         </diagram>
     </domain>
 </lgen2project>

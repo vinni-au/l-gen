@@ -1,5 +1,3 @@
-/* Begin of file lgen2objectpropertieseditor.hpp */
-
 /*
  * Copyright (C) 2011-2012  Anton Storozhev, antonstorozhev@gmail.com
  *
@@ -22,6 +20,8 @@
 #define LGEN2OBJECTPROPERTIESEDITOR_HPP
 
 #include <QTreeView>
+#include <QMenu>
+#include "LGen2Core/lnode.hpp"
 
 //! Редактор свойств объектов
 class LGen2ObjectPropertiesEditor : public QTreeView
@@ -34,17 +34,32 @@ public:
 
 protected:
     void focusInEvent(QFocusEvent *event);
+    void contextMenuEvent(QContextMenuEvent *);
 
 signals:
     void nodeSelected(quint64 id);
+    void addNodeRequest(QString parentIri);
+    void renameNodeRequest(QString iri);
+    void deleteNodeRequest(QString iri);
+
+private slots:
+    void on_actSibling();
+    void on_actChild();
+    void on_actRename();
+    void on_actDelete();
 
 public slots:
     void onCurrentChanged(QModelIndex current, QModelIndex);
     void selectNode(quint64 id);
     void deleteNode(quint64 id);
 
+private:
+    QMenu* m_contextMenu;
+
+    LNode* m_contextNode;
+
+    QModelIndex m_contextIndex;
+
 };
 
 #endif // LGEN2OBJECTPROPERTIESEDITOR_HPP
-
-/* End of file lgen2objectpropertieseditor.hpp */

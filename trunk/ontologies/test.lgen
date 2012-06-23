@@ -1,0 +1,153 @@
+<lgen2project>
+    <name>test</name>
+    <filename>D:/l-gen/ontologies/test.lgen</filename>
+    <template>
+        <file>D:/l-gen/ontologies/LTemplates.xml</file>
+        <diagram>
+            <item x="319" y="249" id="51" text="+ некоторые (7)*isa(сущность)* (7)*действие* (1)*объект*"/>
+            <item x="-91.3648393194707" y="39.5122873345936" id="52" text="описание действия"/>
+            <item x="99.413988657845" y="41.0245746691871" id="53" text="отрицательное утверждение"/>
+            <item x="-233.217391304348" y="41.5368620037807" id="54" text="утверждение is a"/>
+            <item x="342.364839319471" y="41.0245746691871" id="55" text="утверждение о всех"/>
+            <item x="230.09640831758" y="78.4877126654064" id="56" text="утверждение о некоторых"/>
+            <item x="-163" y="-143" id="57" text="#шаблон аксиом"/>
+            <item x="-151.192816635161" y="-17.3648393194707" id="58" text="шаблон аксиомы is a 1"/>
+            <item x="60" y="-228" id="59" text="#шаблон задания"/>
+            <item x="52.4385633270321" y="-105.17202268431" id="60" text="шаблон задания is a 1"/>
+            <item x="285" y="-37" id="61" text="шаблон ответа is a 1"/>
+            <item x="338" y="-153" id="62" text="#шаблон ответа"/>
+            <item x="-114" y="125" id="47" text="(7)*агент(сущность)* (7)*действие* (1)*объект*"/>
+            <item x="-345" y="209" id="48" text="(7)*сущность* - (7)*isa(сущность)*"/>
+            <item x="155" y="199" id="49" text="+ (7)*isa(сущность)* не (7)*действие* (1)*объект*"/>
+            <item x="556" y="180" id="50" text="+ все (7)*isa(сущность)* (7)*действие* (1)*объект*"/>
+            <link sid="58" did="57" id="133" text="is-a"/>
+            <link sid="58" did="60" id="135" text="a_part_of"/>
+            <link sid="62" did="59" id="143" text="a_part_of"/>
+            <link sid="60" did="59" id="137" text="is-a"/>
+            <link sid="49" did="53" id="115" text="is-a"/>
+            <link sid="51" did="56" id="119" text="is-a"/>
+            <link sid="47" did="52" id="111" text="is-a"/>
+            <link sid="53" did="61" id="123" text="is-a"/>
+            <link sid="61" did="62" id="139" text="is-a"/>
+            <link sid="61" did="60" id="141" text="a_part_of"/>
+            <link sid="50" did="55" id="117" text="is-a"/>
+            <link sid="52" did="58" id="121" text="is-a"/>
+            <link sid="57" did="59" id="131" text="a_part_of"/>
+            <link sid="48" did="54" id="113" text="is-a"/>
+            <link sid="54" did="58" id="125" text="is-a"/>
+            <link sid="55" did="61" id="127" text="is-a"/>
+            <link sid="56" did="61" id="129" text="is-a"/>
+        </diagram>
+    </template>
+    <domain>
+        <file>D:/l-gen/ontologies/LEntities.xml</file>
+        <diagram>
+            <item x="213" y="605" id="67" text="сдавать"/>
+            <item x="139.4" y="452.6" id="1" text="#действие"/>
+            <item x="391.443856332703" y="348.736862003781" id="2" text="#ситуация"/>
+            <item x="180.2" y="15.75" id="3" text="#сущность"/>
+            <item x="278.1" y="412.75" id="4" text="абстрактная сущность"/>
+            <item x="-195.6" y="489.75" id="5" text="бесконечное множество"/>
+            <item x="545.981379962193" y="472.267580340265" id="6" text="бесхвостое земноводное"/>
+            <item x="-347" y="428.6" id="7" text="вещественное число"/>
+            <item x="-342.55" y="473.05" id="8" text="двудольное растение"/>
+            <item x="-440.5" y="197.55" id="9" text="доброе действие"/>
+            <item x="368.2" y="155.75" id="10" text="живая сущность"/>
+            <item x="525.25" y="342.193005671078" id="11" text="животное"/>
+            <item x="681.5" y="264.6" id="12" text="животные пьют жидкости"/>
+            <item x="384.65" y="-47.85" id="13" text="жидкость"/>
+            <item x="479.65" y="-140.65" id="14" text="жидкость животное"/>
+            <item x="425.4" y="469.65" id="15" text="зверь"/>
+            <item x="573.608695652174" y="406.899149338374" id="16" text="земноводное"/>
+            <item x="-302.75" y="198.25" id="17" text="злое действие"/>
+            <item x="-547.75" y="514.85" id="18" text="иррациональное число"/>
+            <item x="-414.45" y="437.55" id="19" text="кактус"/>
+            <item x="-219.9" y="516.25" id="20" text="конечное множество"/>
+            <item x="531.048109640832" y="563.606994328922" id="21" text="лягушка"/>
+            <item x="459.6" y="405.05" id="22" text="млекопитающее"/>
+            <item x="-295.65" y="403.85" id="23" text="множество"/>
+            <item x="-196.25" y="565.95" id="24" text="множество точек окружности"/>
+            <item x="497.1" y="-12.15" id="25" text="молоко"/>
+            <item x="365.45" y="-141.2" id="26" text="напиток"/>
+            <item x="162.911436672968" y="525.519281663516" id="27" text="нейтральное действие"/>
+            <item x="-213.3" y="631.9" id="28" text="отрицательное число"/>
+            <item x="-323.3" y="279.25" id="29" text="пить"/>
+            <item x="-406.4" y="624.5" id="30" text="положительное число"/>
+            <item x="-464" y="340.5" id="31" text="помочь"/>
+            <item x="-255.4" y="599.85" id="32" text="пустое множество"/>
+            <item x="-100.2" y="364.6" id="33" text="растение"/>
+            <item x="-333.85" y="510.25" id="34" text="рациональное число"/>
+            <item x="683.6" y="163.55" id="35" text="ситуация пить"/>
+            <item x="414" y="-45.1" id="36" text="сок"/>
+            <item x="-54" y="700" id="37" text="сосна"/>
+            <item x="-59" y="604" id="38" text="сосновое растение"/>
+            <item x="-365" y="323" id="39" text="убить"/>
+            <item x="349.65" y="67.3" id="40" text="физическая сущность"/>
+            <item x="-73.6" y="467.5" id="41" text="хвойное растение"/>
+            <item x="-185" y="428" id="42" text="цветковое растение"/>
+            <item x="-240" y="504" id="43" text="целое число"/>
+            <item x="426.942155009452" y="539.519281663516" id="44" text="человек"/>
+            <item x="-220" y="354" id="45" text="число"/>
+            <item x="312" y="693" id="63" text="сдавать экзамен"/>
+            <item x="387.340264650284" y="623.438563327032" id="64" text="студент"/>
+            <item x="487.803402646503" y="629.975425330813" id="65" text="преподаватель"/>
+            <item x="290" y="516" id="66" text="экзамен"/>
+            <link sid="14" did="13" id="39" text="is-a"/>
+            <link sid="25" did="14" id="61" text="is-a"/>
+            <link sid="28" did="43" id="67" text="is-a"/>
+            <link sid="42" did="33" id="95" text="is-a"/>
+            <link sid="8" did="42" id="27" text="is-a"/>
+            <link sid="20" did="23" id="51" text="is-a"/>
+            <link sid="4" did="3" id="19" text="is-a"/>
+            <link sid="39" did="17" id="89" text="is-a"/>
+            <link sid="44" did="15" id="99" text="is-a"/>
+            <link sid="29" did="27" id="69" text="is-a"/>
+            <link sid="45" did="4" id="101" text="is-a"/>
+            <link sid="21" did="6" id="53" text="is-a"/>
+            <link sid="19" did="8" id="49" text="is-a"/>
+            <link sid="34" did="7" id="79" text="is-a"/>
+            <link sid="10" did="40" id="31" text="is-a"/>
+            <link sid="36" did="26" id="83" text="is-a"/>
+            <link sid="37" did="38" id="85" text="is-a"/>
+            <link sid="17" did="1" id="45" text="is-a"/>
+            <link sid="16" did="11" id="43" text="is-a"/>
+            <link sid="22" did="11" id="55" text="is-a"/>
+            <link sid="41" did="33" id="93" text="is-a"/>
+            <link sid="13" did="40" id="37" text="is-a"/>
+            <link sid="43" did="45" id="97" text="is-a"/>
+            <link sid="30" did="43" id="71" text="is-a"/>
+            <link sid="33" did="10" id="77" text="is-a"/>
+            <link sid="38" did="41" id="87" text="is-a"/>
+            <link sid="18" did="7" id="47" text="is-a"/>
+            <link sid="5" did="23" id="21" text="is-a"/>
+            <link sid="23" did="4" id="57" text="is-a"/>
+            <link sid="31" did="9" id="73" text="is-a"/>
+            <link sid="27" did="1" id="65" text="is-a"/>
+            <link sid="15" did="22" id="41" text="is-a"/>
+            <link sid="9" did="1" id="29" text="is-a"/>
+            <link sid="7" did="45" id="25" text="is-a"/>
+            <link sid="11" did="10" id="33" text="is-a"/>
+            <link sid="35" did="10" id="13" text="агент"/>
+            <link sid="35" did="29" id="15" text="действие"/>
+            <link sid="35" did="13" id="17" text="объект"/>
+            <link sid="35" did="2" id="81" text="is-a"/>
+            <link sid="32" did="20" id="75" text="is-a"/>
+            <link sid="40" did="3" id="91" text="is-a"/>
+            <link sid="12" did="11" id="9" text="агент"/>
+            <link sid="12" did="14" id="11" text="объект"/>
+            <link sid="12" did="35" id="35" text="is-a"/>
+            <link sid="26" did="13" id="63" text="is-a"/>
+            <link sid="6" did="16" id="23" text="is-a"/>
+            <link sid="24" did="5" id="59" text="is-a"/>
+            <link sid="63" did="2" id="280" text="is-a"/>
+            <link sid="64" did="44" id="282" text="is-a"/>
+            <link sid="65" did="44" id="284" text="is-a"/>
+            <link sid="66" did="4" id="286" text="is-a"/>
+            <link sid="63" did="64" id="290" text="агент"/>
+            <link sid="63" did="64" id="292" text="агент"/>
+            <link sid="63" did="66" id="304" text="объект"/>
+            <link sid="67" did="27" id="306" text="is-a"/>
+            <link sid="63" did="67" id="308" text="действие"/>
+        </diagram>
+    </domain>
+</lgen2project>

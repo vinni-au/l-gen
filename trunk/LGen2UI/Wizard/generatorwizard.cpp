@@ -6,8 +6,11 @@
 #include "resultspage.hpp"
 #include "entitypage.hpp"
 
-GeneratorWizard::GeneratorWizard(QWidget *parent) :
+GeneratorWizard::GeneratorWizard(LOntology *templateOntology,
+                                 LOntology *domainOntology, QWidget *parent) :
     QWizard(parent),
+    m_domainOnlotogy(domainOntology),
+    m_templateOntology(templateOntology),
     ui(new Ui::GeneratorWizard)
 {
     ui->setupUi(this);
@@ -16,9 +19,11 @@ GeneratorWizard::GeneratorWizard(QWidget *parent) :
     removePage(startId());
 
     addPage(new StartPage);
-    addPage(new TemplatePage);
-    addPage(new EntityPage);
-    addPage(new ResultsPage);
+    TemplatePage* tp = new TemplatePage(templateOntology);
+    EntityPage* ep = new EntityPage(domainOntology);
+    addPage(tp);
+    addPage(ep);
+    addPage(new ResultsPage(tp, ep));
     addPage(new FinalPage);
 }
 

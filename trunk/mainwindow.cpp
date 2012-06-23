@@ -239,7 +239,6 @@ void MainWindow::on_act_Lemmatizer_triggered()
 
 void MainWindow::on_act_ShowGenerator_triggered()
 {
-    GeneratorWizard* wiz = new GeneratorWizard;
-    wiz->exec();
-    delete wiz;
+    GeneratorWizard wiz(m_project->kb()->templateOntology(), m_project->kb()->domainOntology());
+    wiz.exec();
 }

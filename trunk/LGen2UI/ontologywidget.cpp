@@ -53,17 +53,34 @@ OntologyWidget::~OntologyWidget()
     delete ui;
 }
 
+#include <QDebug>
+
 void OntologyWidget::setModel(LOntologyModel *model)
 {
     QItemSelectionModel* smodel = ui->treeView->selectionModel();
     ui->treeView->setModel(model);
     delete smodel;
     ui->treeView->update(QModelIndex());
+
+    if (model) {
+        QObject::connect(model, SIGNAL(nodeChanged(LNode*)),
+                         SLOT(nodeChanged(LNode*)));
+    } else qDebug() << "Why is this happening????";
 }
 
 LGen2DiagramEditor* OntologyWidget::diagramEditor() const
 {
     return ui->graphicsView;
+}
+
+LGen2ObjectPropertiesEditor* OntologyWidget::treeView() const
+{
+    return ui->treeView;
+}
+
+void OntologyWidget::nodeChanged(LNode *node)
+{
+    ui->graphicsView->changeNodeText(node->id(), node->iri());
 }
 
 bool OntologyWidget::acceptCommand(QString cmd)

@@ -1,0 +1,63 @@
+<lontology>
+    <nodes>
+        <node iri="шаблон аксиомы is a 1" id="58"/>
+        <node iri="#шаблон ответа" id="62"/>
+        <node iri="шаблон задания is a 1" id="60"/>
+        <node iri="+ (7)*isa(сущность)* не (7)*действие* (1)*объект*" id="49"/>
+        <node iri="+ некоторые (7)*isa(сущность)* (7)*действие* (1)*объект*" id="51"/>
+        <node iri="(7)*агент(сущность)* (7)*действие* (1)*объект*" id="47"/>
+        <node iri="отрицательное утверждение" id="53"/>
+        <node iri="шаблон ответа is a 1" id="61"/>
+        <node iri="+ все (7)*isa(сущность)* (7)*действие* (1)*объект*" id="50"/>
+        <node iri="описание действия" id="52"/>
+        <node iri="#шаблон аксиом" id="57"/>
+        <node iri="#шаблон задания" id="59"/>
+        <node iri="(7)*сущность* - (7)*isa(сущность)*" id="48"/>
+        <node iri="утверждение is a" id="54"/>
+        <node iri="утверждение о всех" id="55"/>
+        <node iri="утверждение о некоторых" id="56"/>
+        <node iri="Thing" id="46"/>
+    </nodes>
+    <edges>
+        <edge sid="58" did="52" id="122" name="has-subclass"/>
+        <edge sid="58" did="54" id="126" name="has-subclass"/>
+        <edge sid="58" did="57" id="133" name="is-a"/>
+        <edge sid="58" did="60" id="135" name="a_part_of"/>
+        <edge sid="62" did="61" id="140" name="has-subclass"/>
+        <edge sid="62" did="59" id="143" name="a_part_of"/>
+        <edge sid="62" did="46" id="145" name="is-a"/>
+        <edge sid="60" did="58" id="136" name="a_part_of_reverse"/>
+        <edge sid="60" did="59" id="137" name="is-a"/>
+        <edge sid="60" did="61" id="142" name="a_part_of_reverse"/>
+        <edge sid="49" did="53" id="115" name="is-a"/>
+        <edge sid="51" did="56" id="119" name="is-a"/>
+        <edge sid="47" did="52" id="111" name="is-a"/>
+        <edge sid="53" did="49" id="116" name="has-subclass"/>
+        <edge sid="53" did="61" id="123" name="is-a"/>
+        <edge sid="61" did="53" id="124" name="has-subclass"/>
+        <edge sid="61" did="55" id="128" name="has-subclass"/>
+        <edge sid="61" did="56" id="130" name="has-subclass"/>
+        <edge sid="61" did="62" id="139" name="is-a"/>
+        <edge sid="61" did="60" id="141" name="a_part_of"/>
+        <edge sid="50" did="55" id="117" name="is-a"/>
+        <edge sid="52" did="47" id="112" name="has-subclass"/>
+        <edge sid="52" did="58" id="121" name="is-a"/>
+        <edge sid="57" did="59" id="131" name="a_part_of"/>
+        <edge sid="57" did="58" id="134" name="has-subclass"/>
+        <edge sid="57" did="46" id="147" name="is-a"/>
+        <edge sid="59" did="57" id="132" name="a_part_of_reverse"/>
+        <edge sid="59" did="60" id="138" name="has-subclass"/>
+        <edge sid="59" did="62" id="144" name="a_part_of_reverse"/>
+        <edge sid="59" did="46" id="149" name="is-a"/>
+        <edge sid="48" did="54" id="113" name="is-a"/>
+        <edge sid="54" did="48" id="114" name="has-subclass"/>
+        <edge sid="54" did="58" id="125" name="is-a"/>
+        <edge sid="55" did="50" id="118" name="has-subclass"/>
+        <edge sid="55" did="61" id="127" name="is-a"/>
+        <edge sid="56" did="51" id="120" name="has-subclass"/>
+        <edge sid="56" did="61" id="129" name="is-a"/>
+        <edge sid="46" did="62" id="146" name="has-subclass"/>
+        <edge sid="46" did="57" id="148" name="has-subclass"/>
+        <edge sid="46" did="59" id="150" name="has-subclass"/>
+    </edges>
+</lontology>

@@ -59,7 +59,8 @@ SOURCES += main.cpp\
     LGen2UI/Wizard/templatepage.cpp \
     LGen2UI/Wizard/finalpage.cpp \
     LGen2UI/Wizard/entitypage.cpp \
-    LGen2UI/Wizard/resultspage.cpp
+    LGen2UI/Wizard/resultspage.cpp \
+    LGen2UI/DataUIDialogs/sentencedialog.cpp
 
 HEADERS  += mainwindow.hpp \
     LGen2UI/ontologywidget.hpp \
@@ -96,7 +97,8 @@ HEADERS  += mainwindow.hpp \
     LGen2UI/Wizard/templatepage.hpp \
     LGen2UI/Wizard/finalpage.hpp \
     LGen2UI/Wizard/entitypage.hpp \
-    LGen2UI/Wizard/resultspage.hpp
+    LGen2UI/Wizard/resultspage.hpp \
+    LGen2UI/DataUIDialogs/sentencedialog.hpp
 
 FORMS    += mainwindow.ui \
     LGen2UI/lgen2editor.ui \
@@ -112,7 +114,8 @@ FORMS    += mainwindow.ui \
     LGen2UI/Wizard/templatepage.ui \
     LGen2UI/Wizard/finalpage.ui \
     LGen2UI/Wizard/entitypage.ui \
-    LGen2UI/Wizard/resultspage.ui
+    LGen2UI/Wizard/resultspage.ui \
+    LGen2UI/DataUIDialogs/sentencedialog.ui
 
 RESOURCES += \
     res.qrc

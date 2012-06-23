@@ -49,7 +49,7 @@ bool LOntology::addNode(QString iri)
     if (m_nodesHash.contains(iri))
         return false;
 
-    LNode* node = new LNode(iri);
+    LNode* node = new LNode(iri, QList<LEdge*>(), this);
     m_nodes << node;
     m_nodesHash.insert(iri, node);
     m_nodesIdHash.insert(node->id(), node);
@@ -76,8 +76,8 @@ bool LOntology::addNode(LNode *node)
 bool LOntology::addNode(LNode *node, LNode *parent)
 {
     if (addNode(node)) {
-        addEdge("is-a", node, parent);
-        addEdge("has-subclass", parent, node);
+        addEdge("is-a", node, parent, true);
+        addEdge("has-subclass", parent, node, true);
         return true;
     } else return false;
 }
@@ -86,14 +86,23 @@ LEdge *LOntology::addEdge(QString name, QString sourceIri, QString destIri)
 {
     LNode* source = m_nodesHash.value(sourceIri, 0);
     LNode* dest = m_nodesHash.value(destIri, 0);
-    return addEdge(name, source, dest);
+    return addEdge(name, source, dest, false);
 }
 
-LEdge *LOntology::addEdge(QString name, LNode *source, LNode *dest)
+LEdge *LOntology::addEdge(QString name, LNode *source, LNode *dest, bool isa = false)
 {
     //TODO: check whether edge can be added
     if (source && dest) {
+        QString reverseName;
         LEdge* edge = new LEdge(name, dest, source);
+        if (name == "is-a")
+            reverseName = "has-subclass";
+        else reverseName = name + "_reverse";
+        if (!isa) {
+            LEdge* egde = new LEdge(reverseName, source, dest);
+            source->addEgde(edge);
+            dest->addEgde(egde);
+        }
         m_edges << edge;
         m_edgesHash.insert(edge->name(), edge);
         m_edgesIdHash.insert(edge->id(), edge);
@@ -167,7 +176,7 @@ bool LOntology::fromXML(const QDomDocument &doc)
                 QDomElement nodeElement = nodesElement.childNodes().at(i).toElement();
                 quint64 id = nodeElement.attribute("id").toULongLong();
                 QString iri = nodeElement.attribute("iri");
-                LNode* node = new LNode(id, iri);
+                LNode* node = new LNode(id, iri, QList<LEdge*>(), this);
                 addNode(node);
                 if (iri == "Thing")
                     m_root = node;
@@ -185,7 +194,7 @@ bool LOntology::fromXML(const QDomDocument &doc)
                 LNode* source = m_nodesIdHash.value(sid, 0);
                 LNode* dest = m_nodesIdHash.value(did, 0);
                 if (source && dest) {
-                    LEdge* edge = addEdge(name, source, dest);
+                    LEdge* edge = addEdge(name, source, dest, true);
                     edge->setId(id);
                     source->addEgde(edge);
                 }
