@@ -45,8 +45,8 @@ public:
     LGen2DiagramEditor* toEditor() const;
 
 private slots:
-    void addNodeToDO(QString name);
-    void addNodeToTO(QString name);
+    void addNodeToDO(QString parent);
+    void addNodeToTO(QString parent);
 
     void linkModeOnDO(QString name);
     void linkModeOnTO(QString name);
@@ -56,6 +56,9 @@ private slots:
 
     void nodeAddedToDO(LNode* node);
     void edgeAddedToDO(LEdge* edge);
+
+    void nodeAddedToTO(LNode* node);
+    void edgeAddedToTO(LEdge* edge);
 
     void addEdgeRequestToDO(quint64 sid, quint64 did, QString title);
     void addEdgeRequestToTO(quint64 sid, quint64 did, QString title);

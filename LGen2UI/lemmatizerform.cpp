@@ -35,7 +35,8 @@ void LemmatizerForm::on_pushButton_clicked()
         Words *ws = mcr->GetLexemByID(wf->ids[i], true, false);
         res += QString::number(i+1) + "." + codec->toUnicode(text) +
                "\t(" + codec->toUnicode(mcr->ConstGrammarChar(ws->inlex[0].cid)) + ", " +
-               codec->toUnicode(mcr->VarGrammarChar(ws->inlex[0].cid, ws->inlex[0].vid)) + ")\n";
+               codec->toUnicode(mcr->VarGrammarChar(ws->inlex[0].cid, ws->inlex[0].vid)) + ") - (" +
+                QString::number(ws->inlex[0].cid) + "," + QString::number(ws->inlex[0].vid) + ")\n";
         delete ws;
     }
     res += "\n";
@@ -44,11 +45,28 @@ void LemmatizerForm::on_pushButton_clicked()
         for (int j = 0; j < ws->count; ++j) {
             res += QString::number(j+1) + ") " + codec->toUnicode(ws->inlex[j].wordForm) +
                    "\t(" + codec->toUnicode(mcr->ConstGrammarChar(ws->inlex[j].cid)) + ", " +
-                   codec->toUnicode(mcr->VarGrammarChar(ws->inlex[j].cid, ws->inlex[j].vid)) + ")\n";
+                   codec->toUnicode(mcr->VarGrammarChar(ws->inlex[j].cid, ws->inlex[j].vid)) + ") - (" +
+                    QString::number(ws->inlex[j].cid) + "," + QString::number(ws->inlex[j].vid) + ")\n";
         }
         res += "\n";
         delete ws;
     }
     ui->textBrowser->setPlainText(res.toAscii());
     delete wf;
+    delete mcr;
+}
+
+void LemmatizerForm::on_pushButton_2_clicked()
+{
+    MCR* mcr = new MCR;
+    mcr->LoadVocabulary("./data/zal.mcr");
+    int vid = ui->sb_vid->value();
+    QString res;
+    QTextCodec* codec = QTextCodec::codecForName("Windows-1251");
+    QByteArray encoded = codec->fromUnicode(ui->lineEdit->text());
+    const char* text = encoded.constData();
+    char* result = mcr->createWordForm(text, vid);
+    res = codec->toUnicode(result);
+    ui->lineEdit_2->setText(res.toAscii());
+    delete mcr;
 }

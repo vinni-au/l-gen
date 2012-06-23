@@ -75,9 +75,9 @@ void NewProjectDialog::on_btn_domain_clicked()
 
 void NewProjectDialog::on_le_name_textEdited(const QString &arg1)
 {
-    ui->le_file->setText(QDir::homePath() + QDir::separator() + arg1 + ".lgen");
-    ui->le_domain->setText(QDir::homePath() + QDir::separator() + arg1 + "_DO.xml");
-    ui->le_template->setText(QDir::homePath() + QDir::separator() + arg1 + "_TO.xml");
+    ui->le_file->setText(QDir::toNativeSeparators(QDir::homePath() + QDir::separator() + arg1 + ".lgen"));
+    ui->le_domain->setText(QDir::toNativeSeparators(QDir::homePath() + QDir::separator() + arg1 + "_DO.xml"));
+    ui->le_template->setText(QDir::toNativeSeparators(QDir::homePath() + QDir::separator() + arg1 + "_TO.xml"));
 }
 
 void NewProjectDialog::on_btn_ok_clicked()

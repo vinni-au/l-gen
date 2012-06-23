@@ -1,5 +1,3 @@
-/* Begin of file diagramscene.cpp */
-
 /*
  * Copyright (C) 2011-2012  Anton Storozhev, antonstorozhev@gmail.com
  *
@@ -85,5 +83,3 @@ void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
     m_line = 0;
     QGraphicsScene::mouseReleaseEvent(mouseEvent);
 }
-
-/* End of file diagramscene.cpp */

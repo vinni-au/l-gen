@@ -4,6 +4,19 @@
         <node iri="#шаблон задания" id="5"/>
         <node iri="#шаблон аксиом" id="6"/>
         <node iri="#шаблон ответа" id="7"/>
+        <node iri="шаблон задания is-a 1" id="23"/>
+        <node iri="шаблон аксиом is-a 1" id="24"/>
+        <node iri="шаблон ответа is-a 1" id="25"/>
+        <node iri="описание действия" id="26"/>
+        <node iri="утверждение is-a" id="27"/>
+        <node iri="отрицательное утверждение" id="28"/>
+        <node iri="утверждение о всех" id="29"/>
+        <node iri="утверждение о некоторых" id="30"/>
+        <node iri="*агент(сущность)* *действие* *объект*" id="33"/>
+        <node iri="*сущность* - *isa(сущность)*" id="34"/>
+        <node iri="+ *isa(сущность)* не *действие* *объект*" id="35"/>
+        <node iri="+ все *isa(сущность)* *действие* *объект*" id="36"/>
+        <node iri="+ некоторые *isa(сущность)* *действие* *объект*" id="37"/>
     </nodes>
     <edges>
         <edge sid="4" did="5" id="7" name="has-subclass"/>
@@ -12,5 +25,35 @@
         <edge sid="5" did="4" id="6" name="is-a"/>
         <edge sid="6" did="4" id="8" name="is-a"/>
         <edge sid="7" did="4" id="10" name="is-a"/>
+        <edge sid="23" did="5" id="38" name="is-a"/>
+        <edge sid="5" did="23" id="39" name="has-subclass"/>
+        <edge sid="24" did="6" id="40" name="is-a"/>
+        <edge sid="6" did="24" id="41" name="has-subclass"/>
+        <edge sid="25" did="7" id="42" name="is-a"/>
+        <edge sid="7" did="25" id="43" name="has-subclass"/>
+        <edge sid="26" did="24" id="44" name="is-a"/>
+        <edge sid="24" did="26" id="45" name="has-subclass"/>
+        <edge sid="27" did="24" id="46" name="is-a"/>
+        <edge sid="24" did="27" id="47" name="has-subclass"/>
+        <edge sid="28" did="25" id="48" name="is-a"/>
+        <edge sid="25" did="28" id="49" name="has-subclass"/>
+        <edge sid="29" did="25" id="50" name="is-a"/>
+        <edge sid="25" did="29" id="51" name="has-subclass"/>
+        <edge sid="30" did="25" id="52" name="is-a"/>
+        <edge sid="25" did="30" id="53" name="has-subclass"/>
+        <edge sid="33" did="26" id="108" name="is-a"/>
+        <edge sid="26" did="33" id="109" name="has-subclass"/>
+        <edge sid="34" did="27" id="110" name="is-a"/>
+        <edge sid="27" did="34" id="111" name="has-subclass"/>
+        <edge sid="35" did="28" id="112" name="is-a"/>
+        <edge sid="28" did="35" id="113" name="has-subclass"/>
+        <edge sid="36" did="29" id="114" name="is-a"/>
+        <edge sid="29" did="36" id="115" name="has-subclass"/>
+        <edge sid="37" did="30" id="116" name="is-a"/>
+        <edge sid="30" did="37" id="117" name="has-subclass"/>
+        <edge sid="25" did="23" id="164" name="APO"/>
+        <edge sid="24" did="23" id="165" name="APO"/>
+        <edge sid="7" did="5" id="166" name="APO"/>
+        <edge sid="6" did="5" id="167" name="APO"/>
     </edges>
 </lontology>

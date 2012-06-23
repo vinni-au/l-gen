@@ -26,19 +26,19 @@ class LInference : public QObject
 {
     Q_OBJECT
 
-    static LNode* isa(LNode* node);
-    static LNode* situation(LNode* node);
-    static LNode* peekDesc(LNode* node, QList<LNode*> forbidden);
 
 public:
     explicit LInference(QObject *parent = 0);
 
     static QString generate(LNode* selectedTemplate, QList<LNode*> selectedEntities);
 
-signals:
-
-public slots:
-
+private:
+    static LNode* isa(LNode* node);
+    static LNode* situation(LNode* node);
+    static LNode* peekDesc(LNode* node, QList<LNode*> forbidden);
+    static LNode* randomSituationFor(LNode* agent);
+    static LNode* randomSituation(LOntology* ontology);
+    static QString lemmatize(QString source);
 };
 
 #endif // LINFERENCE_HPP

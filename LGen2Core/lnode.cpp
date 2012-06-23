@@ -20,14 +20,14 @@
 
 quint64 LNode::m_lastid = 0;
 
-LNode::LNode(QString iri, QList<LEdge *> edges, QObject *parent) :
-    QObject(parent), m_iri(iri), m_edges(edges), m_ontology(0)
+LNode::LNode(QString iri, QList<LEdge *> edges, LOntology *ontology) :
+    m_iri(iri), m_edges(edges), m_ontology(ontology)
 {    
     m_id = m_lastid++;
 }
 
-LNode::LNode(quint64 id, QString iri, QList<LEdge *> edges, QObject *parent) :
-    QObject(parent), m_iri(iri), m_edges(edges), m_ontology(0), m_id(id)
+LNode::LNode(quint64 id, QString iri, QList<LEdge *> edges, LOntology *ontology) :
+    m_iri(iri), m_edges(edges), m_ontology(ontology), m_id(id)
 {
     if (id >= m_lastid)
         m_lastid = id + 1;
@@ -54,4 +54,24 @@ LEdge* LNode::edgeFromName(QString name)
         if (m_edges.at(i)->name() == name)
             return m_edges.at(i);
     return 0;
+}
+
+QList<LEdge*> LNode::edgesFromName(QString name)
+{
+    QList<LEdge*> result;
+    int count = m_edges.count();
+    for (int i = 0; i < count; ++i)
+        if (m_edges.at(i)->name() == name)
+            result << m_edges.at(i);
+    return result;
+}
+
+QList<LNode*> LNode::children()
+{
+    QList<LNode*> result;
+    for (int i = 0; i < edges().count(); ++i) {
+        if (edges().at(i)->name() == "has-subclass")
+            result << edges().at(i)->node();
+    }
+    return result;
 }

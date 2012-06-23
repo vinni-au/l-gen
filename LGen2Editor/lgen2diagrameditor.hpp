@@ -79,6 +79,8 @@ private:
     //! Контекстное меню
     QMenu* m_contextMenu;
 
+    void setAppropriateColors(Arrow* a);
+
 signals:
     //! Выделена вершина
     void nodeSelected(quint64 id);

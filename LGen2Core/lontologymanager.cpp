@@ -36,7 +36,7 @@ LOntology* LOntologyManager::loadOWLXML(QFile *file)
             QHash<QString, LEdge*> edgesHash;
             QHash<QString, LNode*> nodesHasParentHash;
 
-            LNode* thing = new LNode("Thing");
+            LNode* thing = new LNode("Thing", QList<LEdge*>(), 0);
 
             QDomElement root = doc.documentElement();
             if (root.tagName() == "Ontology") {
@@ -48,7 +48,8 @@ LOntology* LOntologyManager::loadOWLXML(QFile *file)
                         QDomElement child = current.firstChildElement();
                         if (child.tagName() == "Class") {
                             QString iri = child.attribute("IRI").remove(0, 1);
-                            LNode* node = new LNode(iri);
+                            iri = LOntologyManager::makeReplace(iri);
+                            LNode* node = new LNode(iri, QList<LEdge*>(), 0);
                             nodesHash[iri] = node;
                         }
                         if (child.tagName() == "ObjectProperty") {
@@ -63,11 +64,11 @@ LOntology* LOntologyManager::loadOWLXML(QFile *file)
                             QDomElement classElem = chil.at(0).toElement();
                             LNode* classNode = 0;
                             if (classElem.tagName() == "Class")
-                                classNode = nodesHash.value(classElem.attribute("IRI").remove(0, 1), 0);
+                                classNode = nodesHash.value(LOntologyManager::makeReplace(classElem.attribute("IRI").remove(0, 1)), 0);
                             QDomElement second = chil.at(1).toElement();
                             if (second.tagName() == "ObjectSomeValuesFrom") {
                                 QString link = second.firstChildElement("ObjectProperty").attribute("IRI").remove(0, 1);
-                                QString to = second.firstChildElement("Class").attribute("IRI").remove(0, 1);
+                                QString to = LOntologyManager::makeReplace(second.firstChildElement("Class").attribute("IRI").remove(0, 1));
                                 LNode* subnode = nodesHash.value(to, 0);
                                 if (classNode && subnode) {
                                     LEdge* edge = new LEdge(link, subnode, classNode);
@@ -82,7 +83,7 @@ LOntology* LOntologyManager::loadOWLXML(QFile *file)
                                     QDomElement cel = list.at(j).toElement();
                                     if (cel.tagName() == "ObjectSomeValuesFrom") {
                                         QString link = cel.firstChildElement("ObjectProperty").attribute("IRI").remove(0, 1);
-                                        QString to = cel.firstChildElement("Class").attribute("IRI").remove(0, 1);
+                                        QString to = LOntologyManager::makeReplace(cel.firstChildElement("Class").attribute("IRI").remove(0, 1));
                                         LNode* subnode = nodesHash.value(to, 0);
                                         if (classNode && subnode) {
                                             LEdge* edge = new LEdge(link, subnode, classNode);
@@ -101,11 +102,11 @@ LOntology* LOntologyManager::loadOWLXML(QFile *file)
                             QDomElement classElem = chil.at(0).toElement();
                             LNode* node = 0;
                             if (classElem.tagName() == "Class")
-                                node = nodesHash.value(classElem.attribute("IRI").remove(0, 1), 0);
+                                node = nodesHash.value(LOntologyManager::makeReplace(classElem.attribute("IRI").remove(0, 1)), 0);
                             QDomElement second = chil.at(1).toElement();
                             if (second.tagName() == "Class") {
                                 nodesHasParentHash.insert(node->iri(), node);
-                                LNode* snode = nodesHash.value(second.attribute("IRI").remove(0, 1));
+                                LNode* snode = nodesHash.value(LOntologyManager::makeReplace(second.attribute("IRI").remove(0, 1)));
                                 if (snode && node) {
                                     LEdge* edge = new LEdge("is-a", snode, node);
                                     LEdge* egde = new LEdge("has-subclass", node, snode);
@@ -115,7 +116,7 @@ LOntology* LOntologyManager::loadOWLXML(QFile *file)
                             }
                             if (second.tagName() == "ObjectSomeValuesFrom") {
                                 QString link = second.firstChildElement("ObjectProperty").attribute("IRI").remove(0, 1);
-                                QString to = second.firstChildElement("Class").attribute("IRI").remove(0, 1);
+                                QString to = LOntologyManager::makeReplace(second.firstChildElement("Class").attribute("IRI").remove(0, 1));
                                 LNode* snode = nodesHash.value(to, 0);
                                 if (node && snode) {
                                     LEdge* edge = new LEdge(link, snode, node);
@@ -142,6 +143,19 @@ LOntology* LOntologyManager::loadOWLXML(QFile *file)
             }
         }
     }
+    return result;
+}
+
+QString LOntologyManager::makeReplace(QString iri)
+{
+    QString result = iri.replace("_", " ");
+    int count = 0;
+    for (int i = 0; i < iri.length(); ++i) {
+        if (iri.at(i) == '*')
+            if (++count == 2)
+                return result;
+    }
+    result = result.replace("*","#");
     return result;
 }
 

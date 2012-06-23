@@ -76,6 +76,11 @@ signals:
     void nodeAdded(LNode* node);
     void edgeAdded(LEdge* edge);
 
+    void nodeDeleted(quint64 id);
+    void edgeDeleted(quint64 id);
+
+    void nodeChanged(LNode* node);
+
 private:
     QHash<QString, QModelIndex> m_indexHash;
     LOntology* m_ontology;
@@ -83,6 +88,7 @@ private:
     bool m_checkOnlyLeaves;
     QList<LNode*> m_checkedNodes;
     bool m_itemsCheckable;
+    QString m_ancestor;
 
     LOntologyModelTreeNode* treenodeFromIndex(const QModelIndex& index) const;
 };

@@ -1,5 +1,3 @@
-/* Begin of file: mcr.cpp */
-
 #include "mcr.hpp"
 #undef UNICODE
 #include <assert.h>
@@ -121,4 +119,17 @@ Word* MCR::FindLemma(const char *word)
     else return &(mcr.GetLexemByID(wfs->ids[0], false, true)->inlex[0]);
 }
 
-/* End of file: mcr.cpp */
+char* MCR::createWordForm(const char *word, int vid)
+{
+    WordForms* wf = FindWordForms(word);
+    for (int i = 0; i < wf->count; ++i) {
+        Words *ws = GetLexemByID(wf->ids[i], false, true);
+        for (int j = 0; j < ws->count; ++j) {
+            if (ws->inlex[j].vid == vid) {
+                return ws->inlex[j].wordForm;
+            }
+        }
+        delete ws;
+    }
+    return 0;
+}

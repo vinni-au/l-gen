@@ -11,6 +11,7 @@ SituationDialog::SituationDialog(QString caption, LOntologyModel *model,
 
     ui->leName->setText(name);
 
+    ui->cbParent->setModel(model);
     ui->cbParent->showPopup();
     if (!parent.isEmpty())
         ui->cbParent->view()->setCurrentIndex(model->indexFromIri(parent));
